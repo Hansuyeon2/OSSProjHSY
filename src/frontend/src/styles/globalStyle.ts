@@ -37,9 +37,9 @@ html {
     -webkit-tap-highlight-color:rgb(0 0 0 / 0%);
     scroll-behavior: smooth; 
 
-	@media (max-width: 360px) {
+	/* @media (max-width: 360px) {
 		font-size:12px;
-	}
+	} */
 
 }
 
@@ -48,7 +48,7 @@ body {
 	max-width: 375px;
 	overflow-x: hidden;
 	background-color: #EDE2DA;
-	color: white;
+	color: black;
 	
 	scrollbar-width: none; 
 	-ms-overflow-style: none;
@@ -66,6 +66,21 @@ body {
   -ms-overflow-style: none; /* 인터넷 익스플로러 */
   scrollbar-width: none; /* 파이어폭스 */
 }
+
+@font-face {
+    font-family: 'nad';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-5@1.0/HakgyoansimNadeuriTTF-B.woff2') format('woff2');
+    /* font-weight: 700; */
+    /* font-style: normal; */
+}
+
+@font-face {
+    font-family: 'suite';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    /* font-weight: 400; */
+    /* font-style: normal; */
+}
+
 
 `;
 
