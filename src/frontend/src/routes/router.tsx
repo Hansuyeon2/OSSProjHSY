@@ -2,7 +2,10 @@ import { createBrowserRouter } from "react-router-dom";
 
 //layouts
 import DefaultLayout from "@layouts/DefaultLayout";
-import LoginLayout from "@layouts/LoginLayout";
+import LoginLayout from "@layouts/GuestLayout";
+
+import LoginPage from "@pages/Login/Login";
+import Signup from "@pages/Login/Signup";
 
 const router = createBrowserRouter([
   {
@@ -12,14 +15,12 @@ const router = createBrowserRouter([
       {
         element: <LoginLayout />,
         children: [
-          // {path: "signup", element: <SignupPage />},
-          // {path: "login", element: <LoginPage />}
+          { path: "signup", element: <Signup /> },
+          { path: "login", element: <LoginPage /> },
         ],
       },
       {
-        children: [
-          //  페이지 추가
-        ],
+        // children: [{ path: "main", element: <Mainpage /> }],
       },
     ],
   },
