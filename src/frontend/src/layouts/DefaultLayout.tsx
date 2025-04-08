@@ -16,4 +16,5 @@ const OutletWrapper = styled.section`
   display: flex;
   flex-direction: column;
   height: auto;
+  width: 100%;
 `;

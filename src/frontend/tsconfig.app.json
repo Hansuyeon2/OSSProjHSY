@@ -28,8 +28,9 @@
       "@routes/*": ["src/routes/*"],
       "@pages/*": ["src/pages/*"],
       "@layouts/*": ["src/layouts/*"],
-      "@components/*": ["src/components/*"],
-      "@styles/*": ["src/styles/*"]
+      "@components/*": ["src/pages/components/*"],
+      "@styles/*": ["src/styles/*"],
+      "@images/*": ["src/assets/images/*"]
     }
   },
   "include": ["src"]

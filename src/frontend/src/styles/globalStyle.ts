@@ -3,11 +3,11 @@ import { createGlobalStyle } from "styled-components";
 const GlobalStyle = createGlobalStyle`
 *{box-sizing:border-box}
 body, button, dd, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, input, legend, li, ol, p, select, table, td, textarea, th, ul {margin:0;padding:0}
-body, button, input, select, table, textarea {font-size:12px;line-height:16px;color:#202020;font-family:-apple-system, BlinkMacSystemFont, "Malgun Gothic", "맑은 고딕", helvetica, "Apple SD Gothic Neo", sans-serif}
+body, button, input, select, table, textarea {font-size:12px;border:none;font-family:-apple-system, BlinkMacSystemFont, "Malgun Gothic", "맑은 고딕", helvetica, "Apple SD Gothic Neo", sans-serif}
 h1, h2, h3, h4, h5, h6 {font-size:inherit;line-height:inherit}
 textarea {-webkit-backface-visibility:hidden;backface-visibility:hidden;background-color:transparent;border:0;word-break:keep-all;word-wrap:break-word;outline:none;}
-button, input {-webkit-border-radius:0;border-radius:0;border:0}
-button {background-color:transparent}
+button, input {-webkit-border-radius:0;border-radius:0;border:none;outline: none;}
+button {background-color:transparent;border:none;outline: none;}
 fieldset, img {border:0}
 img {vertical-align:top}
 ol, ul {list-style:none}
@@ -22,6 +22,7 @@ i {font-style:normal}
 	flex-direction: column;
 
 	min-height: 100vh;
+  width: 100%;
 	
 
 }
@@ -56,6 +57,7 @@ body {
 	::-webkit-scrollbar {
     display: none;
 }
+
 }
 
 *::-webkit-scrollbar {
@@ -67,6 +69,23 @@ body {
   scrollbar-width: none; /* 파이어폭스 */
 }
 
+&:focus {
+    outline: none;
+  }
+
+  button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+button:focus,
+button:active {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
 @font-face {
     font-family: 'nad';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-5@1.0/HakgyoansimNadeuriTTF-B.woff2') format('woff2');
@@ -76,9 +95,7 @@ body {
 
 @font-face {
     font-family: 'suite';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
-    /* font-weight: 400; */
-    /* font-style: normal; */
+    src: url("/src/assets/fonts/SUITE-Variable.woff2") format("woff"),
 }
 
 
