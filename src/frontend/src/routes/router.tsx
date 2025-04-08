@@ -18,9 +18,7 @@ const router = createBrowserRouter([
         ],
       },
       {
-        children: [
-          //  페이지 추가
-        ],
+        // children: [{ path: "main", element: <Mainpage /> }],
       },
     ],
   },
