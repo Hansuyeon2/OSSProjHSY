@@ -30,3 +30,12 @@ export const LoginInfo = styled.div`
     cursor: pointer;
   }
 `;
+
+export const WarningText = styled.span`
+  display: block;
+  height: 0px;
+  color: red;
+  ${fonts.cap_b_12}
+  margin-left: 1rem;
+  margin-top: -10px;
+`;

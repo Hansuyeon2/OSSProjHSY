@@ -17,4 +17,8 @@ const OutletWrapper = styled.section`
   flex-direction: column;
   height: auto;
   width: 100%;
+
+  @media (max-width: 320px) {
+    scale: 0.9;
+  }
 `;

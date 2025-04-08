@@ -28,7 +28,7 @@
       "@routes/*": ["src/routes/*"],
       "@pages/*": ["src/pages/*"],
       "@layouts/*": ["src/layouts/*"],
-      "@components/*": ["src/pages/components/*"],
+      "@components/*": ["src/pages/Login/components/*"],
       "@styles/*": ["src/styles/*"],
       "@images/*": ["src/assets/images/*"]
     }
