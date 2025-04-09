@@ -2,26 +2,32 @@ import * as S from "./Login_styled";
 import { useNavigate, Link } from "react-router-dom";
 import { useFormFields } from "./hooks/useFormFields";
 import AuthForm from "./components/AuthForm";
+import { PostLogin } from "@apis/auth/postLogin";
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const { form, handleChange, isValid } = useFormFields([
-    "nickname",
+    "username",
     "password",
   ]);
 
-  const handleLogin = () => {
-    console.log("로그인 요청:", {
-      id: form.nickname,
+  const handleLogin = async () => {
+    const response = await PostLogin({
+      username: form.username,
       password: form.password,
     });
-    navigate("/main");
+    if (response) {
+      console.log("로그인 성공:", response);
+      navigate("/main");
+    } else {
+      alert("로그인에 실패했습니다. 다시 시도해주세요.");
+    }
   };
 
   return (
     <AuthForm
       fields={[
-        { name: "nickname", title: "닉네임" },
+        { name: "username", title: "닉네임" },
         { name: "password", title: "비밀번호", type: "password" },
       ]}
       form={form}
