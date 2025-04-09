@@ -1,32 +1,39 @@
 import { useNavigate } from "react-router-dom";
 import { useFormFields } from "./hooks/useFormFields";
 import AuthForm from "./components/AuthForm";
+import { postSignup } from "@apis/auth/postSignup";
 
 const Signup = () => {
   const navigate = useNavigate();
   const { form, handleChange, isValid } = useFormFields(
-    ["nickname", "password", "confirmPassword"],
+    ["username", "password", "confirmPassword"],
     {
       validate: (form) =>
-        form.nickname.trim() !== "" &&
+        form.username.trim() !== "" &&
         form.password.trim() !== "" &&
         form.confirmPassword.trim() !== "" &&
         form.password === form.confirmPassword,
     }
   );
 
-  const handleSignup = () => {
-    console.log("회원가입 요청:", {
-      id: form.nickname,
+  const handleSignup = async () => {
+    const response = await postSignup({
+      username: form.username,
       password: form.password,
     });
-    navigate("/main");
+
+    if (response) {
+      console.log("회원가입 성공:", response);
+      navigate("/main");
+    } else {
+      alert("회원가입에 실패했습니다. 다시 시도해주세요.");
+    }
   };
 
   return (
     <AuthForm
       fields={[
-        { name: "nickname", title: "닉네임" },
+        { name: "username", title: "닉네임" },
         { name: "password", title: "비밀번호", type: "password" },
         { name: "confirmPassword", title: "비밀번호 재확인", type: "password" },
       ]}
