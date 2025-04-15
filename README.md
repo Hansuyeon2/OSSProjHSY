@@ -1,4 +1,4 @@
-# 쿼디
+# 일기기반 감정분석 서비스 쿼디
 ![image](https://github.com/user-attachments/assets/9eb6c8dd-ecce-4308-90f2-45dfd75ea4f2)
 
 ## 프로젝트 소개 
@@ -8,3 +8,10 @@
 - **오찬주** : 팀장, Frontend, AI
 - **한수연** : Backend, AI
 - **황민영** : UX/UI Design, AI
+
+## 기술 스택
+- Frontend : React, TypeScript
+- Backend : Django 
+- Server : AWS EC2
+
+
