@@ -6,6 +6,7 @@ import LoginLayout from "@layouts/GuestLayout";
 
 import LoginPage from "@pages/Login/Login";
 import Signup from "@pages/Login/Signup";
+import Mainpage from "@pages/Main/Mainpage";
 
 const router = createBrowserRouter([
   {
@@ -15,12 +16,12 @@ const router = createBrowserRouter([
       {
         element: <LoginLayout />,
         children: [
-          { path: "signup", element: <Signup /> },
+          { path: "/", element: <Signup /> },
           { path: "login", element: <LoginPage /> },
         ],
       },
       {
-        // children: [{ path: "main", element: <Mainpage /> }],
+        children: [{ path: "main", element: <Mainpage /> }],
       },
     ],
   },
