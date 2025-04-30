@@ -1,4 +1,3 @@
-// Calendar_styled.ts
 import { styled } from "styled-components";
 import Calendar from "react-calendar";
 import { fonts } from "@styles/fonts";
@@ -14,7 +13,6 @@ export const StyleCalendar = styled(Calendar)`
   max-width: 360px;
   padding: 1rem;
   background-color: #fffdf9;
-  border: 2px solid #333;
   border-radius: 10px;
 
   .react-calendar__navigation {
@@ -44,9 +42,9 @@ export const StyleCalendar = styled(Calendar)`
     }
   }
 
+  //기본 내장 네비게이션 숨기기
   .react-calendar__navigation__label {
-    display: flex;
-    align-items: center;
+    visibility: hidden;
   }
 
   .react-calendar__month-view__weekdays {
@@ -153,21 +151,109 @@ export const CalendarImg = styled.img`
   height: 1.89688rem;
 `;
 
-export const ModalContainer = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: white;
-  padding: 20px;
-  border: 1px solid black;
-  z-index: 9999; /* 다른 요소들 위에 오도록 설정 */
-  width: 300px;
-  text-align: center;
+export const CalendarWrapper = styled.div`
+  position: relative;
+
+  @media (max-width: 320px) {
+    scale: 0.9;
+  }
 `;
 
-// 달 옆에 있는 이미지 스타일
-export const MonthImage = styled.img`
-  width: 20px;
-  height: 20px;
+//월 표시
+export const CustomHeader = styled.div`
+  position: absolute;
+  top: 25px;
+  left: 18px;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 28.5px;
+  gap: 6px;
+  cursor: pointer;
+  z-index: 10;
+  ${fonts.title_b_30};
+  font-size: 28.5px;
+  img {
+    width: 19px;
+    height: 19px;
+  }
+`;
+
+//모달 커스텀
+
+export const ModalOverlay = styled.div`
+  position: fixed;
+  width: 100vw;
+  max-width: 375px;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 999;
+`;
+
+export const BottomSheet = styled.div`
+  position: fixed;
+  bottom: 0;
+  background: ${({ theme }) => theme.colors.bgbeige01};
+  border-radius: 25px 25px 0px 0px;
+  padding: 30px;
+  z-index: 9999;
+  max-width: 375px;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const ModalHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 35px;
+`;
+
+export const Arrow = styled.button`
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: ${({ theme }) => theme.colors.mainbrown01};
+`;
+
+export const MonthGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+`;
+
+export const MonthButton = styled.button<{ selected?: boolean }>`
+  background: ${({ selected }) =>
+    selected ? "rgba(216, 177, 142, 0.80)" : "rgba(216, 177, 142, 0.30)"};
+  color: ${({ selected, theme }) =>
+    selected ? theme.colors.mainbrown01 : "rgba(172, 117, 68, 0.70)"};
+  border: none;
+  border-radius: 10px;
+  padding: 0.75rem 0;
+  font-size: 1rem;
+  cursor: pointer;
+`;
+
+export const CloseButton = styled.button`
+  margin-top: 28px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  align-items: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  p {
+    width: 98px;
+    padding: 8px 24px;
+    border-radius: 20px;
+    background: rgba(216, 177, 142, 0.8);
+    border: none;
+    ${fonts.body_b_14}
+    color: ${({ theme }) => theme.colors.mainbrown01};
+  }
 `;
