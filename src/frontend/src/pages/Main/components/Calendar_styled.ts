@@ -1,86 +1,3 @@
-// import { styled } from "styled-components";
-// import Calendar from "react-calendar";
-// import "react-calendar/dist/Calendar.css";
-// import { fonts } from "@styles/fonts";
-
-// export const CalendarBox = styled.div`
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   height: 100vh;
-// `;
-
-// export const StyleCalendar = styled(Calendar)`
-//   max-width: 100%;
-//   border: none;
-//   margin-bottom: 15px;
-//   padding: 1.375rem 1rem;
-//   border-radius: 0.59rem;
-//   background-color: ${({ theme }) => theme.colors.bgbeige02};
-//   backdrop-filter: blur(7.125px);
-
-//   .react-calendar__navigation {
-//     display: flex;
-//     height: 24px;
-//     margin-bottom: 1em;
-//   }
-
-//   .react-calendar__navigation button {
-//     min-width: 24px;
-//     background-color: none;
-//   }
-
-//   .react-calendar__navigation button:disabled {
-//     background-color: #e8e8e8;
-//   }
-
-//   .react-calendar__navigation button:enabled:hover,
-//   .react-calendar__navigation button:enabled:focus {
-//     background-color: #e8e8e8;
-//   }
-
-//   //월~일
-//   .react-calendar__month-view__weekdays {
-//     text-align: center;
-//     ${fonts.title_l_24}
-//     font-size: 1em;
-//     border: none;
-//     background: none;
-//   }
-
-//   .react-calendar__year-view .react-calendar__tile,
-//   .react-calendar__decade-view .react-calendar__tile,
-//   .react-calendar__century-view .react-calendar__tile {
-//     padding: 1.2em 0.5em;
-//   }
-
-//   .react-calendar__tile--hasActive {
-//     color: #ffffff;
-//     background-color: #797979;
-//     border-radius: 5px;
-//   }
-
-//   .react-calendar__tile--hasActive:enabled:hover,
-//   .react-calendar__tile--hasActive:enabled:focus {
-//     background-color: #797979;
-//   }
-
-//   .react-calendar__tile--active {
-//     color: #ffffff;
-//     background-color: #6a6a6a;
-//     border-radius: 7px;
-//   }
-
-//   abbr[title] {
-//     text-decoration: none;
-//   }
-
-//   .react-calendar__tile--active:enabled:hover,
-//   .react-calendar__tile--active:enabled:focus {
-//     background-color: #6a6a6a;
-//   }
-// `;
-
 // Calendar_styled.ts
 import { styled } from "styled-components";
 import Calendar from "react-calendar";
@@ -102,12 +19,34 @@ export const StyleCalendar = styled(Calendar)`
 
   .react-calendar__navigation {
     display: flex;
+    pointer-events: none;
     justify-content: center;
-    margin-bottom: 1rem;
+    margin-bottom: 0.4rem;
+    padding: 0.7rem;
+    border-bottom: 1px solid black;
 
     &__label {
-      ${fonts.title_b_30}font-size: 24px;
+      ${fonts.title_b_30};
+      font-size: 28.5px;
+      display: flex;
+      justify-content: flex-start;
     }
+
+    &__label::after {
+      content: "";
+      width: 19px;
+      height: 19px;
+      margin-left: 6px;
+      background-image: url("/images/icons/dropdown.svg");
+      background-size: cover;
+      cursor: pointer;
+      pointer-events: auto;
+    }
+  }
+
+  .react-calendar__navigation__label {
+    display: flex;
+    align-items: center;
   }
 
   .react-calendar__month-view__weekdays {
@@ -116,7 +55,7 @@ export const StyleCalendar = styled(Calendar)`
     font-weight: bold;
     color: #000;
     ${fonts.title_l_24}
-    font-size:15px
+    font-size: 8.55px;
   }
 
   .react-calendar__month-view__weekdays__weekday abbr {
@@ -194,7 +133,9 @@ export const StyleCalendar = styled(Calendar)`
 
   /* <<, >> 버튼 숨김 */
   .react-calendar__navigation__prev2-button,
-  .react-calendar__navigation__next2-button {
+  .react-calendar__navigation__next2-button,
+  .react-calendar__navigation__prev-button,
+  .react-calendar__navigation__next-button {
     display: none;
   }
 `;
@@ -210,4 +151,23 @@ export const MainCalendarContentContainer = styled.section`
 export const CalendarImg = styled.img`
   width: 1.79188rem;
   height: 1.89688rem;
+`;
+
+export const ModalContainer = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border: 1px solid black;
+  z-index: 9999; /* 다른 요소들 위에 오도록 설정 */
+  width: 300px;
+  text-align: center;
+`;
+
+// 달 옆에 있는 이미지 스타일
+export const MonthImage = styled.img`
+  width: 20px;
+  height: 20px;
 `;

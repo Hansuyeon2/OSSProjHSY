@@ -1,4 +1,3 @@
-// MainCalendar.tsx
 import { useState } from "react";
 import * as S from "./Calendar_styled";
 
@@ -17,7 +16,8 @@ const MainCalendar = () => {
         }
         formatDay={(_, date) => String(date.getDate())} // 날짜에서 '일' 제거
         formatMonthYear={
-          (_, date) => date.toLocaleString("en-US", { month: "long" }) // 상단만 영어
+          (_, date) =>
+            date.toLocaleString("en-US", { month: "long" }).toUpperCase() // 상단만 영어
         }
         tileContent={({ view }) => {
           if (view === "month") {
