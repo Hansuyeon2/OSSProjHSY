@@ -184,7 +184,7 @@ export const CustomHeader = styled.div`
 export const ModalOverlay = styled.div`
   position: fixed;
   width: 100vw;
-  max-width: 375px;
+  max-width: 440px;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 999;
@@ -197,7 +197,7 @@ export const BottomSheet = styled.div`
   border-radius: 25px 25px 0px 0px;
   padding: 30px;
   z-index: 9999;
-  max-width: 375px;
+  max-width: 440px;
   width: 100vw;
   display: flex;
   flex-direction: column;
