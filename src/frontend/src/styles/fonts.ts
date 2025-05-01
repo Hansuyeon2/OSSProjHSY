@@ -18,6 +18,7 @@ export const fonts = {
   title_b_24: fontGenerator(600, "24px", "nad"),
   title_l_30: fontGenerator(300, "30px", "nad"),
   title_l_24: fontGenerator(300, "24px", "nad"),
+  title_l_17: fontGenerator(300, "17px", "nad"),
 
   //subtitle
   sub_extra_16: fontGenerator(800, "16px"),

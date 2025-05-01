@@ -14,7 +14,7 @@ const Btn = ({ title, disabled, onClick, borderRadius }: BtnProps) => {
       <LoginButton
         disabled={disabled}
         onClick={onClick}
-        borderRadius={borderRadius}
+        $borderRadius={borderRadius}
       >
         {title}
       </LoginButton>
@@ -27,13 +27,13 @@ const LoginBtnWrapper = styled.div`
   width: 100%;
 `;
 
-const LoginButton = styled.button<{ borderRadius?: string }>`
+const LoginButton = styled.button<{ $borderRadius?: string }>`
   display: flex;
   width: 100%;
   height: 3.25rem;
   justify-content: center;
   align-items: center;
-  border-radius: ${({ borderRadius }) => borderRadius || "3.125rem"};
+  border-radius: ${({ $borderRadius }) => $borderRadius || "3.125rem"};
   background-color: ${({ theme, disabled }) =>
     disabled ? theme.colors.mainbrown03 : theme.colors.mainbrown01};
   ${fonts.sub_bold_16}

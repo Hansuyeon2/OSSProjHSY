@@ -1,12 +1,24 @@
 import { fonts } from "@styles/fonts";
 import styled from "styled-components";
 
-const MainContent = () => {
+const MainContent = ({
+  date,
+  content,
+}: {
+  date: string | null;
+  content: string | null;
+}) => {
+  const today = new Date();
+  const defaultDate = `${String(today.getMonth() + 1).padStart(
+    2,
+    "0"
+  )}.${String(today.getDate()).padStart(2, "0")}`;
+
   return (
     <MainContentWrapper>
-      <MainContentDate>4.17</MainContentDate>
+      <MainContentDate>{date || defaultDate}</MainContentDate>
       <MainContents>
-        아직 작성된 일기가 없어요. 오늘의 하루를 기록해 주세요!
+        {content || "아직 작성된 일기가 없어요. 오늘의 하루를 기록해 주세요!"}
       </MainContents>
     </MainContentWrapper>
   );
@@ -17,12 +29,12 @@ const MainContentWrapper = styled.div`
   gap: 9px;
   margin-top: 17px;
   width: 100%;
-  margin-bottom: 30px;
+  margin-bottom: 9vh;
   align-items: center;
 `;
 
 const MainContentDate = styled.p`
-  ${fonts.body_m_14}
+  ${fonts.title_l_17}
   color: ${({ theme }) => theme.colors.mainbrown03};
 `;
 

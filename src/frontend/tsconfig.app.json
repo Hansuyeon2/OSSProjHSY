@@ -31,7 +31,8 @@
       "@components/*": ["src/pages/Login/components/*"],
       "@styles/*": ["src/styles/*"],
       "@images/*": ["src/assets/images/*"],
-      "@apis/*": ["src/apis/*"]
+      "@apis/*": ["src/apis/*"],
+      "@t/*": ["src/types/*"]
     }
   },
   "include": ["src"]
