@@ -44,4 +44,7 @@ export const fonts = {
 
   //footer
   footer: fontGenerator(400, "10px"),
+
+  //loading
+  loading: fontGenerator(600, "16px", "nad"),
 };

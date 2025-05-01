@@ -42,6 +42,7 @@ const Loading = () => {
           />
         </SpinnerWrapper>
       </LoadingImgContainer>
+      <LoadingDes>쿼디가 열심히 감정을 분석하고 있어요...</LoadingDes>
     </LoadingWrapper>
   );
 };
@@ -60,7 +61,7 @@ const LoadingText = styled.h1`
   ${fonts.title_b_24};
   display: flex;
   align-items: center;
-  margin-top: 40px;
+  margin-top: 50px;
 `;
 
 const NameText = styled.p`
@@ -70,10 +71,9 @@ const NameText = styled.p`
 const LoadingImgContainer = styled.section`
   position: relative;
   width: 100%;
-  height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  margin-top: 30px;
 `;
 
 const SpinnerWrapper = styled.div`
@@ -97,6 +97,14 @@ const LoadingPin = styled.img`
 const LoadingSpinner = styled.img`
   width: 100%;
   height: 100%;
+`;
+
+const LoadingDes = styled.span`
+  margin-top: 10px;
+  width: 100%;
+  text-align: center;
+  color: ${({ theme }) => theme.colors.mainbrown01};
+  ${fonts.loading}
 `;
 
 export default Loading;
