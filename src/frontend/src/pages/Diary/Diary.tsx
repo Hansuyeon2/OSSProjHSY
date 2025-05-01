@@ -1,6 +1,7 @@
 import { postDiary } from "@apis/diary/postDiary";
 import Btn from "@components/Button";
 import DiaryCard from "@components/card/DiaryCard";
+import Loading from "@components/Loading";
 import DiaryLayout from "@layouts/DiaryLayout";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -16,35 +17,46 @@ const placeholderText = `오늘 하루, 잘 버텨낸 당신에게
 
 const Diary = () => {
   const [content, setContent] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const isValid = content.trim().length > 0;
   const navigate = useNavigate();
 
   const handleSave = async () => {
-    const response = await postDiary(content);
-    if (response) {
-      // console.log(response);
-      return response;
+    setIsLoading(true);
+    try {
+      const response = await postDiary(content);
+      if (response) {
+        navigate("/todayReport");
+        //TODO: 추후 api 연동 후 못넘어가도록 수정 필요
+      } else {
+        setTimeout(() => {
+          navigate("/todayReport");
+        }, 3000);
+      }
+    } catch (error) {
+      setTimeout(() => {
+        navigate("/todayReport");
+      }, 3000);
     }
   };
+  if (isLoading) return <Loading />;
 
   return (
-    <>
-      <DiaryLayout headerType="back" onBackClick={() => navigate(-1)}>
-        <DiaryCard
-          date={getFormatToday()}
-          content={content}
-          editable
-          placeholder={placeholderText}
-          onChange={(e) => setContent(e.target.value)}
-        />
-        <Btn
-          title="저장하기"
-          borderRadius="10px"
-          disabled={!isValid}
-          onClick={handleSave}
-        />
-      </DiaryLayout>
-    </>
+    <DiaryLayout headerType="back" onBackClick={() => navigate(-1)}>
+      <DiaryCard
+        date={getFormatToday()}
+        content={content}
+        editable
+        placeholder={placeholderText}
+        onChange={(e) => setContent(e.target.value)}
+      />
+      <Btn
+        title="저장하기"
+        borderRadius="10px"
+        disabled={!isValid}
+        onClick={handleSave}
+      />
+    </DiaryLayout>
   );
 };
 
