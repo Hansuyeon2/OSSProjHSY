@@ -3,6 +3,7 @@ import Btn from "@components/Button";
 import DiaryCard from "@components/card/DiaryCard";
 import DiaryLayout from "@layouts/DiaryLayout";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getFormatToday } from "src/utils/date";
 
 const placeholderText = `오늘 하루, 잘 버텨낸 당신에게
@@ -16,6 +17,7 @@ const placeholderText = `오늘 하루, 잘 버텨낸 당신에게
 const Diary = () => {
   const [content, setContent] = useState("");
   const isValid = content.trim().length > 0;
+  const navigate = useNavigate();
 
   const handleSave = async () => {
     const response = await postDiary(content);
@@ -27,7 +29,7 @@ const Diary = () => {
 
   return (
     <>
-      <DiaryLayout>
+      <DiaryLayout headerType="back" onBackClick={() => navigate(-1)}>
         <DiaryCard
           date={getFormatToday()}
           content={content}

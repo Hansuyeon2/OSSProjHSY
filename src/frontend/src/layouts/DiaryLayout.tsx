@@ -1,102 +1,44 @@
-import styled from "styled-components";
+import { ReactNode } from "react";
+import * as S from "./DiaryLayout_styled";
 
-const DiaryLayout = ({ children }: { children?: React.ReactNode }) => {
-  // const DiaryLayout = () => {
+interface DiaryLayoutProps {
+  children?: ReactNode;
+  headerType?: "back" | "close";
+  onBackClick?: () => void;
+  onCloseClick?: () => void;
+}
+
+const DiaryLayout = ({
+  children,
+  headerType,
+  onBackClick,
+  onCloseClick,
+}: DiaryLayoutProps) => {
   return (
-    <DiaryWrapper>
-      <DiaryHeader>일기장</DiaryHeader>
-      <DiarySpringLeft src="/images/diary/spring.svg" />
-      <DiarySpringRight src="/images/diary/spring.svg" />
-      <DiaryImgIcon src="/images/diary/diaryIcon.png" />
-      <DiaryImgClover src="/images/diary/diaryclover.png" />
-      <DiaryContent>{children}</DiaryContent>
-    </DiaryWrapper>
+    <S.DiaryWrapper>
+      <S.DiaryHeader>
+        {headerType === "back" && (
+          <>
+            <S.BackButton
+              onClick={onBackClick}
+              src="/images/icons/left_arrow.png"
+            />
+            <p>일기장</p>
+          </>
+        )}
+        {headerType === "close" && (
+          <>
+            <S.CloseButton onClick={onCloseClick} src="/images/icons/x.png" />
+          </>
+        )}
+      </S.DiaryHeader>
+      <S.DiarySpringLeft src="/images/diary/spring.svg" />
+      <S.DiarySpringRight src="/images/diary/spring.svg" />
+      <S.DiaryImgIcon src="/images/diary/diaryIcon.png" />
+      <S.DiaryImgClover src="/images/diary/diaryclover.png" />
+      <S.DiaryContent>{children}</S.DiaryContent>
+    </S.DiaryWrapper>
   );
 };
-
-const DiaryWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  min-height: 100vh;
-  position: relative;
-  background-color: ${({ theme }) => theme.colors.bgbeige01};
-  background-image: repeating-linear-gradient(
-      to bottom,
-      #d8b18e80 0px,
-      #d8b18e80 0.8px,
-      transparent 0.8px,
-      transparent 35px
-    ),
-    repeating-linear-gradient(
-      to right,
-      #d8b18e80 0px,
-      #d8b18e80 0.8px,
-      transparent 0.8px,
-      transparent 32px
-    );
-  background-size: 32px 32px;
-  overflow-y: hidden;
-`;
-
-const DiaryHeader = styled.section`
-  width: 100%;
-  background-color: ${({ theme }) => theme.colors.mainbrown02};
-  height: 100px;
-  color: ${({ theme }) => theme.colors.bgbeige02};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  //TODO: 디자인시스템 추가되면 변경
-  font-size: 22px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 17px;
-  letter-spacing: -0.5px;
-`;
-
-const DiaryContent = styled.section`
-  padding: 15px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 10;
-  gap: 10vh;
-`;
-
-const DiarySpringLeft = styled.img`
-  height: 24px;
-  position: absolute;
-  top: 90px;
-  left: 40px;
-`;
-
-const DiarySpringRight = styled.img`
-  height: 24px;
-  position: absolute;
-  top: 90px;
-  right: 40px;
-`;
-
-const DiaryImgIcon = styled.img`
-  width: 86.343px;
-  height: 95.296px;
-  position: absolute;
-  top: 300px;
-  left: -20px;
-`;
-
-const DiaryImgClover = styled.img`
-  width: 36px;
-  height: 38.441px;
-  z-index: 15;
-  position: absolute;
-  top: 480px;
-  right: 30px;
-`;
 
 export default DiaryLayout;
