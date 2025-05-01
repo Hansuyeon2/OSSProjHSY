@@ -6,7 +6,7 @@ export const CalendarBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  /* height: 100vh; */
+  margin-bottom: 32px;
 `;
 
 export const StyleCalendar = styled(Calendar)`
