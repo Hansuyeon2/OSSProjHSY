@@ -1,3 +1,4 @@
+import { postDiary } from "@apis/diary/postDiary";
 import Btn from "@components/Button";
 import DiaryCard from "@components/card/DiaryCard";
 import DiaryLayout from "@layouts/DiaryLayout";
@@ -16,17 +17,30 @@ const Diary = () => {
   const [content, setContent] = useState("");
   const isValid = content.trim().length > 0;
 
+  const handleSave = async () => {
+    const response = await postDiary(content);
+    if (response) {
+      // console.log(response);
+      return response;
+    }
+  };
+
   return (
     <>
       <DiaryLayout>
         <DiaryCard
           date={getFormatToday()}
-          content=""
+          content={content}
           editable
           placeholder={placeholderText}
           onChange={(e) => setContent(e.target.value)}
         />
-        <Btn title="저장하기" borderRadius="10px" disabled={!isValid} />
+        <Btn
+          title="저장하기"
+          borderRadius="10px"
+          disabled={!isValid}
+          onClick={handleSave}
+        />
       </DiaryLayout>
     </>
   );
