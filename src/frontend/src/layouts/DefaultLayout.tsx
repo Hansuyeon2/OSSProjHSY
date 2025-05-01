@@ -1,3 +1,4 @@
+import ScrollToTop from "@components/ScrollToTop";
 import { Outlet, useLocation } from "react-router-dom";
 import Footer from "src/components/footer/Footer";
 import styled from "styled-components";
@@ -10,6 +11,7 @@ const DefaultLayout = () => {
 
   return (
     <OutletWrapper $hasFooter={hasFooter}>
+      <ScrollToTop />
       <Outlet />
       <Footer />
     </OutletWrapper>
