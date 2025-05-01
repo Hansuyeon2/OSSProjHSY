@@ -6,11 +6,10 @@ export const CalendarBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  /* height: 100vh; */
 `;
 
 export const StyleCalendar = styled(Calendar)`
-  max-width: 360px;
   padding: 1rem;
   background-color: #fffdf9;
   border-radius: 10px;
@@ -154,9 +153,9 @@ export const CalendarImg = styled.img`
 export const CalendarWrapper = styled.div`
   position: relative;
 
-  @media (max-width: 320px) {
+  /* @media (max-width: 320px) {
     scale: 0.9;
-  }
+  } */
 `;
 
 //월 표시
