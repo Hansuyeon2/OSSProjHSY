@@ -5,8 +5,10 @@ import Separator from "src/components/separator";
 import Btn from "src/components/Button";
 import MainContent from "./components/MainContent";
 import { useMainCalendar } from "./hooks/useMainCalendar";
+import { useNavigate } from "react-router-dom";
 
 const Mainpage = () => {
+  const navigate = useNavigate();
   const { today, setToday, calendarData, latestDate, latestContent } =
     useMainCalendar();
 
@@ -23,7 +25,11 @@ const Mainpage = () => {
       />
       <Separator />
       <MainContent date={latestDate} content={latestContent} />
-      <Btn title="일기 쓰기" borderRadius="10px" />
+      <Btn
+        title="일기 쓰기"
+        borderRadius="10px"
+        onClick={() => navigate("/diary")}
+      />
     </FlexLayout>
   );
 };
