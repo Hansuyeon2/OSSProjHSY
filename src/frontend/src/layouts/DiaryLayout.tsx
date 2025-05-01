@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-// const DiaryLayout = ({ children }: { children?: React.ReactNode }) => {
-const DiaryLayout = () => {
+const DiaryLayout = ({ children }: { children?: React.ReactNode }) => {
+  // const DiaryLayout = () => {
   return (
     <DiaryWrapper>
       <DiaryHeader>일기장</DiaryHeader>
@@ -9,7 +9,7 @@ const DiaryLayout = () => {
       <DiarySpringRight src="/images/diary/spring.svg" />
       <DiaryImgIcon src="/images/diary/diaryIcon.png" />
       <DiaryImgClover src="/images/diary/diaryclover.png" />
-      <DiaryContent></DiaryContent>
+      <DiaryContent>{children}</DiaryContent>
     </DiaryWrapper>
   );
 };
@@ -17,6 +17,7 @@ const DiaryLayout = () => {
 const DiaryWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100%;
   min-height: 100vh;
   position: relative;
@@ -57,8 +58,14 @@ const DiaryHeader = styled.section`
 `;
 
 const DiaryContent = styled.section`
-  flex: 1;
-  padding: 24px;
+  padding: 15px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  gap: 10vh;
 `;
 
 const DiarySpringLeft = styled.img`
@@ -86,10 +93,10 @@ const DiaryImgIcon = styled.img`
 const DiaryImgClover = styled.img`
   width: 36px;
   height: 38.441px;
-  z-index: 1;
+  z-index: 15;
   position: absolute;
   top: 480px;
-  right: 20px;
+  right: 30px;
 `;
 
 export default DiaryLayout;
