@@ -1,18 +1,21 @@
 import { fonts } from "@styles/fonts";
 import styled from "styled-components";
 
-const LoginBtn = ({
-  title,
-  disabled,
-  onClick,
-}: {
+interface BtnProps {
   title: string;
   disabled?: boolean;
   onClick?: () => void;
-}) => {
+  borderRadius?: string;
+}
+
+const Btn = ({ title, disabled, onClick, borderRadius }: BtnProps) => {
   return (
     <LoginBtnWrapper>
-      <LoginButton disabled={disabled} onClick={onClick}>
+      <LoginButton
+        disabled={disabled}
+        onClick={onClick}
+        borderRadius={borderRadius}
+      >
         {title}
       </LoginButton>
     </LoginBtnWrapper>
@@ -24,13 +27,13 @@ const LoginBtnWrapper = styled.div`
   width: 100%;
 `;
 
-const LoginButton = styled.button`
+const LoginButton = styled.button<{ borderRadius?: string }>`
   display: flex;
   width: 100%;
   height: 3.25rem;
   justify-content: center;
   align-items: center;
-  border-radius: 3.125rem;
+  border-radius: ${({ borderRadius }) => borderRadius || "3.125rem"};
   background-color: ${({ theme, disabled }) =>
     disabled ? theme.colors.mainbrown03 : theme.colors.mainbrown01};
   ${fonts.sub_bold_16}
@@ -39,4 +42,4 @@ const LoginButton = styled.button`
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
 `;
 
-export default LoginBtn;
+export default Btn;

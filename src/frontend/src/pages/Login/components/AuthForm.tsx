@@ -2,7 +2,7 @@ import * as S from "@pages/Login/Login_styled";
 
 import LoginLayout from "./LoginLayout";
 import LoginInput from "./LoginInput";
-import LoginBtn from "./LoginBtn";
+import Btn from "../../../components/Button";
 
 interface AuthFormProps {
   fields: { name: string; title: string; type?: string }[];
@@ -43,7 +43,7 @@ const AuthForm = ({
         <S.WarningText>{warning}</S.WarningText>
       </S.LoginInputContainer>
       {footer}
-      <LoginBtn title={btnLabel} disabled={!isValid} onClick={onSubmit} />
+      <Btn title={btnLabel} disabled={!isValid} onClick={onSubmit} />
     </LoginLayout>
   );
 };
