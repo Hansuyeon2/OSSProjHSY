@@ -50,7 +50,7 @@ body {
 	overflow-x: hidden;
 	background-color: #EDE2DA;
 	color: black;
-	
+
 	scrollbar-width: none; 
 	-ms-overflow-style: none;
 

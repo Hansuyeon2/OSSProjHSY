@@ -1,11 +1,17 @@
-import { Outlet } from "react-router-dom";
+import ScrollToTop from "@components/ScrollToTop";
+import { Outlet, useLocation } from "react-router-dom";
 import Footer from "src/components/footer/Footer";
-
 import styled from "styled-components";
 
 const DefaultLayout = () => {
+  const location = useLocation();
+
+  const activeFooterPaths = ["/analysis", "/main", "/monthReport"];
+  const hasFooter = activeFooterPaths.includes(location.pathname);
+
   return (
-    <OutletWrapper>
+    <OutletWrapper $hasFooter={hasFooter}>
+      <ScrollToTop />
       <Outlet />
       <Footer />
     </OutletWrapper>
@@ -14,10 +20,10 @@ const DefaultLayout = () => {
 
 export default DefaultLayout;
 
-const OutletWrapper = styled.section`
+const OutletWrapper = styled.section<{ $hasFooter: boolean }>`
   display: flex;
   flex-direction: column;
-  height: auto;
   width: 100%;
-  margin-bottom: 80px;
+  height: auto;
+  margin-bottom: ${({ $hasFooter }) => ($hasFooter ? "80px" : "0")};
 `;
