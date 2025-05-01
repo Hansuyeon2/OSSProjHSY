@@ -1,9 +1,17 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import * as S from "./Calendar_styled";
 import CalendarModal from "./CalendarModal";
+import emotionToImg from "src/utils/emotionToImg";
 
-const MainCalendar = () => {
-  const [today, setToday] = useState(new Date());
+const MainCalendar = ({
+  today,
+  setToday,
+  calendarData,
+}: {
+  today: Date;
+  setToday: Dispatch<SetStateAction<Date>>;
+  calendarData: Record<string, any>;
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -26,12 +34,21 @@ const MainCalendar = () => {
             (_, date) =>
               date.toLocaleString("en-US", { month: "long" }).toUpperCase() // 상단만 영어 (대문자로!)
           }
-          tileContent={({ view }) => {
+          tileContent={({ date, view }) => {
             if (view === "month") {
-              // 월뷰일 때만 표시
+              const key = `${date.getFullYear()}-${String(
+                date.getMonth() + 1
+              ).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+              const emotion = calendarData?.[key]?.main_emotion;
+              const iconSrc = emotionToImg[emotion];
+
               return (
                 <S.MainCalendarContentContainer>
-                  <S.CalendarImg src="/images/icons/happy.svg" />
+                  <S.CalendarImg
+                    src={iconSrc || undefined}
+                    style={{ opacity: iconSrc ? 1 : 0 }}
+                    alt={emotion || ""}
+                  />
                 </S.MainCalendarContentContainer>
               );
             }

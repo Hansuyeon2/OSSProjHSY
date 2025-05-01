@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+import Footer from "src/components/footer/Footer";
 
 import styled from "styled-components";
 
@@ -6,6 +7,7 @@ const DefaultLayout = () => {
   return (
     <OutletWrapper>
       <Outlet />
+      <Footer />
     </OutletWrapper>
   );
 };
@@ -17,4 +19,5 @@ const OutletWrapper = styled.section`
   flex-direction: column;
   height: auto;
   width: 100%;
+  margin-bottom: 80px;
 `;

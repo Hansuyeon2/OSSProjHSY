@@ -6,11 +6,10 @@ export const CalendarBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  margin-bottom: 32px;
 `;
 
 export const StyleCalendar = styled(Calendar)`
-  max-width: 360px;
   padding: 1rem;
   background-color: #fffdf9;
   border-radius: 10px;
@@ -28,17 +27,6 @@ export const StyleCalendar = styled(Calendar)`
       font-size: 28.5px;
       display: flex;
       justify-content: flex-start;
-    }
-
-    &__label::after {
-      content: "";
-      width: 19px;
-      height: 19px;
-      margin-left: 6px;
-      background-image: url("/images/icons/dropdown.svg");
-      background-size: cover;
-      cursor: pointer;
-      pointer-events: auto;
     }
   }
 
@@ -96,8 +84,8 @@ export const StyleCalendar = styled(Calendar)`
   .react-calendar__tile--now::before {
     content: "";
     position: absolute;
-    top: 5%;
-    left: 12.5%;
+    top: 3%;
+    left: 5.5%;
     transform: translate(-50%);
     width: 0.5625rem;
     height: 0.58006rem;
@@ -154,9 +142,9 @@ export const CalendarImg = styled.img`
 export const CalendarWrapper = styled.div`
   position: relative;
 
-  @media (max-width: 320px) {
+  /* @media (max-width: 320px) {
     scale: 0.9;
-  }
+  } */
 `;
 
 //월 표시
