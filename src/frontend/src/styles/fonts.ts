@@ -40,4 +40,7 @@ export const fonts = {
   cap_b_10: fontGenerator(700, "10px"),
   cap_s_10: fontGenerator(600, "10px"),
   cap_m_10: fontGenerator(500, "10px"),
+
+  //footer
+  footer: fontGenerator(400, "10px"),
 };

@@ -13,7 +13,7 @@ const FlexLayoutWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0px 22px;
+  padding: 10px 22px;
 `;
 
 export default FlexLayout;

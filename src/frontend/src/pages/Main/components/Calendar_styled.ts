@@ -28,17 +28,6 @@ export const StyleCalendar = styled(Calendar)`
       display: flex;
       justify-content: flex-start;
     }
-
-    &__label::after {
-      content: "";
-      width: 19px;
-      height: 19px;
-      margin-left: 6px;
-      background-image: url("/images/icons/dropdown.svg");
-      background-size: cover;
-      cursor: pointer;
-      pointer-events: auto;
-    }
   }
 
   //기본 내장 네비게이션 숨기기
@@ -95,8 +84,8 @@ export const StyleCalendar = styled(Calendar)`
   .react-calendar__tile--now::before {
     content: "";
     position: absolute;
-    top: 5%;
-    left: 12.5%;
+    top: 3%;
+    left: 5.5%;
     transform: translate(-50%);
     width: 0.5625rem;
     height: 0.58006rem;
