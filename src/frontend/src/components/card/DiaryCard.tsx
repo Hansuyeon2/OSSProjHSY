@@ -8,7 +8,7 @@ interface DiaryCardProps {
   content: string;
   editable?: boolean;
   onChangeContent?: (value: string) => void;
-  placeholder: string;
+  placeholder?: string;
   onChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void;
 }
 

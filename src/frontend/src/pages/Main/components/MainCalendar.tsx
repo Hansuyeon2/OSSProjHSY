@@ -18,7 +18,7 @@ const MainCalendar = ({
     <S.CalendarBox>
       <S.CalendarWrapper>
         <S.CustomHeader onClick={() => setIsModalOpen(true)}>
-          {today.toLocaleString("en-US", { month: "long" }).toUpperCase()}
+          {today.toLocaleString("ko-KR", { month: "long" }).toUpperCase()}
           <img src="/images/icons/dropdown.svg" alt="dropdown" />
         </S.CustomHeader>
         <S.StyleCalendar
@@ -32,7 +32,7 @@ const MainCalendar = ({
           formatDay={(_, date) => String(date.getDate())} // 날짜에서 '일' 제거
           formatMonthYear={
             (_, date) =>
-              date.toLocaleString("en-US", { month: "long" }).toUpperCase() // 상단만 영어 (대문자로!)
+              date.toLocaleString("ko-KR", { month: "long" }).toUpperCase() // 상단만 영어 (대문자로!)
           }
           tileContent={({ date, view }) => {
             if (view === "month") {
