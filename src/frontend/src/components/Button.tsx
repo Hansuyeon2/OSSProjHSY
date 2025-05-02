@@ -6,11 +6,18 @@ interface BtnProps {
   disabled?: boolean;
   onClick?: () => void;
   borderRadius?: string;
+  marginTop?: string;
 }
 
-const Btn = ({ title, disabled, onClick, borderRadius }: BtnProps) => {
+const Btn = ({
+  title,
+  disabled,
+  onClick,
+  borderRadius,
+  marginTop,
+}: BtnProps) => {
   return (
-    <LoginBtnWrapper>
+    <LoginBtnWrapper $marginTop={marginTop}>
       <LoginButton
         disabled={disabled}
         onClick={onClick}
@@ -22,9 +29,10 @@ const Btn = ({ title, disabled, onClick, borderRadius }: BtnProps) => {
   );
 };
 
-const LoginBtnWrapper = styled.div`
+const LoginBtnWrapper = styled.div<{ $marginTop?: string }>`
   display: flex;
   width: 100%;
+  margin-top: ${({ $marginTop }) => $marginTop || ""};
 `;
 
 const LoginButton = styled.button<{ $borderRadius?: string }>`

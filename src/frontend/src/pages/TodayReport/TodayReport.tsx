@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import DiaryLayout from "@layouts/DiaryLayout";
 import { DiaryEntry, getDiaryAnalysis } from "@apis/diary/getDiaryAnalysis";
 import Loading from "@components/Loading";
-import TodayReportContent from "./components/TodayReportContent";
 import { useNavigate } from "react-router-dom";
+import TodayReportCard from "./components/TodayReportCard";
+import TodayReportContent from "@layouts/TodayReportContetLayout";
 
 const TodayReport = () => {
   const [entries, setEntries] = useState<DiaryEntry[]>([]);
@@ -24,7 +25,8 @@ const TodayReport = () => {
 
   return (
     <DiaryLayout headerType="close" onCloseClick={() => navigate("/main")}>
-      <TodayReportContent entries={entries} />
+      <TodayReportCard entries={entries} />
+      <TodayReportContent title="민영 님의 감정에 어울리는 콘텐츠에여" />
     </DiaryLayout>
   );
 };

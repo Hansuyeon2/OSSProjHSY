@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
-import "./TodayReportContent_styled.css";
+import "./TodayReportCard_styled.css";
 import { Pagination, Mousewheel, Keyboard } from "swiper/modules";
 import { DiaryEntry } from "@apis/diary/getDiaryAnalysis";
 import DiaryCard from "@components/card/DiaryCard";
@@ -11,7 +11,7 @@ interface DiaryReportViewProps {
   entries: DiaryEntry[];
 }
 
-const TodayReportContent = ({ entries }: DiaryReportViewProps) => {
+const TodayReportCard = ({ entries }: DiaryReportViewProps) => {
   const swiperRef = useRef<any>(null);
 
   const handleSlideChange = () => {
@@ -66,4 +66,4 @@ const TodayReportContent = ({ entries }: DiaryReportViewProps) => {
   );
 };
 
-export default TodayReportContent;
+export default TodayReportCard;
