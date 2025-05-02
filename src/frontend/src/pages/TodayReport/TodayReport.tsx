@@ -3,10 +3,12 @@ import DiaryLayout from "@layouts/DiaryLayout";
 import { DiaryEntry, getDiaryAnalysis } from "@apis/diary/getDiaryAnalysis";
 import Loading from "@components/Loading";
 import TodayReportContent from "./components/TodayReportContent";
+import { useNavigate } from "react-router-dom";
 
 const TodayReport = () => {
   const [entries, setEntries] = useState<DiaryEntry[]>([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadData = async () => {
@@ -21,7 +23,7 @@ const TodayReport = () => {
   if (loading) return <Loading />;
 
   return (
-    <DiaryLayout headerType="close">
+    <DiaryLayout headerType="close" onCloseClick={() => navigate("/main")}>
       <TodayReportContent entries={entries} />
     </DiaryLayout>
   );
