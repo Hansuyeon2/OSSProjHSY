@@ -10,6 +10,7 @@ export const TodayReportContentWrapper = styled.div`
   border-radius: 9.5px;
   margin-top: 10px;
   width: 85%;
+  margin-bottom: 3rem;
 `;
 
 export const TodayReportContentHeader = styled.section`

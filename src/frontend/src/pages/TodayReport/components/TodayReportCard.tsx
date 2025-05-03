@@ -9,9 +9,10 @@ import { getFormatToday } from "src/utils/date";
 
 interface DiaryReportViewProps {
   entries: DiaryEntry[];
+  onCardChange?: (index: number) => void;
 }
 
-const TodayReportCard = ({ entries }: DiaryReportViewProps) => {
+const TodayReportCard = ({ entries, onCardChange }: DiaryReportViewProps) => {
   const swiperRef = useRef<any>(null);
 
   const handleSlideChange = () => {
@@ -34,6 +35,7 @@ const TodayReportCard = ({ entries }: DiaryReportViewProps) => {
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
           console.log("현재 카드 ID:", entries[swiper.realIndex]?.id);
+          onCardChange?.(swiper.realIndex);
         }}
         style={{
           width: "100%",
