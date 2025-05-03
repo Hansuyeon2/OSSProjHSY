@@ -18,7 +18,7 @@ const TodayReportCard = ({ entries, onCardChange }: DiaryReportViewProps) => {
   const handleSlideChange = () => {
     if (swiperRef.current) {
       const index = swiperRef.current.realIndex;
-      console.log("현재 카드 ID:", entries[index]?.id);
+      onCardChange?.(index);
     }
   };
 
@@ -34,8 +34,6 @@ const TodayReportCard = ({ entries, onCardChange }: DiaryReportViewProps) => {
         onSlideChange={handleSlideChange}
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
-          console.log("현재 카드 ID:", entries[swiper.realIndex]?.id);
-          onCardChange?.(swiper.realIndex);
         }}
         style={{
           width: "100%",

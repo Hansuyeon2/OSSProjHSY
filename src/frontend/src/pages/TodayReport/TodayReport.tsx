@@ -21,16 +21,37 @@ const TodayReport = () => {
       const today = new Date().toISOString().split("T")[0];
       const data = await getDiaryAnalysis(today);
 
-      console.log(data);
       if (data) {
         setEntries(data);
-        setSelectedCategory("영화");
       }
       setLoading(false);
     };
 
     loadData();
   }, []);
+
+  useEffect(() => {
+    if (entries.length === 0) return;
+
+    const currentEntry = entries[currentIndex];
+    const currentSet = currentEntry.analysis.set_1;
+
+    const categoryPriority = ["영화", "책", "음악", "공연"];
+    const categoryMap: Record<string, any[]> = {
+      영화: currentSet.movies,
+      책: currentSet.books,
+      음악: currentSet.music,
+      공연: currentSet.exhibitions,
+    };
+
+    const firstAvailable = categoryPriority.find(
+      (cat) => categoryMap[cat] && categoryMap[cat].length > 0
+    );
+
+    if (firstAvailable) {
+      setSelectedCategory(firstAvailable);
+    }
+  }, [currentIndex, entries]);
 
   if (loading) return <Loading />;
 
@@ -73,7 +94,7 @@ const TodayReport = () => {
           selected={selectedCategory}
         />
         <TodayReportCardContainer>
-          {analysisSets.map((setItem, _) => {
+          {analysisSets.map((setItem) => {
             const categoryData =
               selectedCategory === "영화"
                 ? setItem.set.movies
