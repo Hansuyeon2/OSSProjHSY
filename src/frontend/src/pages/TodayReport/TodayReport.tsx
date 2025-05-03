@@ -26,7 +26,10 @@ const TodayReport = () => {
   return (
     <DiaryLayout headerType="close" onCloseClick={() => navigate("/main")}>
       <TodayReportCard entries={entries} />
-      <TodayReportContent title="민영 님의 감정에 어울리는 콘텐츠에여" />
+      <TodayReportContent
+        title="우울한 감정에 어울리는 콘텐츠에요!"
+        des="콘텐츠를 클릭해서 쿼디의 추천을 확인해보세요!"
+      />
     </DiaryLayout>
   );
 };
