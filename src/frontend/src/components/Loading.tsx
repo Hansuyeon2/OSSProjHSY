@@ -18,8 +18,8 @@ const Loading = () => {
 
       setTimeout(() => {
         setTransitioning(false);
-        setTimeout(rotateOnce, 400);
-      }, 4000);
+        setTimeout(rotateOnce, 300);
+      }, 3000);
     };
 
     rotateOnce();
@@ -32,7 +32,7 @@ const Loading = () => {
       </LoadingText>
       <LoadingImgContainer>
         <SpinnerWrapper>
-          <LoadingPin src="/images/loading/Subtract.svg" />
+          <LoadingPin src="/images/loading/pin.png" />
           <LoadingSpinner
             src="/images/loading/spinner.png"
             style={{
@@ -83,13 +83,11 @@ const SpinnerWrapper = styled.div`
 `;
 
 const LoadingPin = styled.img`
-  width: 21.67px;
-  height: 33.229px;
+  width: 33.363px;
+  height: 39.718px;
   position: absolute;
-  top: 115px;
-  left: 200px;
   z-index: 1;
-  top: 3%;
+  top: -5%;
   left: 50%;
   transform: translate(-50%);
 `;

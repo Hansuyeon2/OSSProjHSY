@@ -55,6 +55,7 @@ const Diary = () => {
         borderRadius="10px"
         disabled={!isValid}
         onClick={handleSave}
+        marginTop="10vh"
       />
     </DiaryLayout>
   );

@@ -51,7 +51,6 @@ export const DiaryContent = styled.section`
   justify-content: center;
   align-items: center;
   z-index: 10;
-  gap: 10vh;
 `;
 
 export const DiarySpringLeft = styled.img`
