@@ -8,6 +8,8 @@ import TodayReportContent from "@layouts/TodayReportContetLayout";
 import ContentCardCategoryList from "./components/ContentCardCategoryList";
 import ContentCardList from "./components/ContentCardList";
 import styled from "styled-components";
+import Btn from "@components/Button";
+import { fonts } from "@styles/fonts";
 
 const TodayReport = () => {
   const [entries, setEntries] = useState<DiaryEntry[]>([]);
@@ -114,12 +116,45 @@ const TodayReport = () => {
           })}
         </TodayReportCardContainer>
       </TodayReportContent>
+      <TodayReportBottom>
+        <TodayReportText>
+          <img src="/images/icons/lock.png" />
+          <p>오늘의 감정 바이오리듬은 00:00시에 공개돼요!</p>
+        </TodayReportText>
+        <Btn
+          title="일기 쓰기"
+          borderRadius="10px"
+          onClick={() => navigate("/diary")}
+        />
+      </TodayReportBottom>
     </DiaryLayout>
   );
 };
 
 const TodayReportCardContainer = styled.section`
   width: 100%;
+`;
+
+const TodayReportText = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  ${fonts.cap_s_12}
+  color: ${({ theme }) => theme.colors.mainbrown01};
+
+  img {
+    width: 20px;
+    height: 20px;
+  }
+`;
+
+const TodayReportBottom = styled.section`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
 `;
 
 export default TodayReport;
