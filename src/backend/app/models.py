@@ -8,3 +8,4 @@ class Diary(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     main_emotion = models.CharField(max_length=20, null=True, blank=True)
     sub_emotion = models.CharField(max_length=50, null=True, blank=True)
+    analysis = models.JSONField(null=True, blank=True)  

@@ -8,7 +8,7 @@ sentiment_pipeline = pipeline(
     tokenizer="hun3359/klue-bert-base-sentiment",
     return_all_scores=True
 )
-
+#긍정감정 하나 추가하면 좋을듯.
 emotion_mapping = {
     "행복": ["기쁨", "감사하는", "신뢰하는", "만족스러운", "흥분", "신이 난", "자신하는" ],
     "평온": ["편안한", "느긋", "안도"],
@@ -35,40 +35,32 @@ def split_sentences(text):
 def sentiment(content, accuracy=0.1):
     sentences = split_sentences(content)
     
-    main_emotions = []  #6개감정
-    sub_emotions = []   #상세감정
-    
+    main_emotions = []  # 6개 감정 (main)
+    sub_emotions = []   # 상세 감정 (sub)
+
     for sentence in sentences:
         result = sentiment_pipeline(sentence)
-        print(result)  
-        #리스트 중에서 score가 가장 높은 항목
         best_result = max(result[0], key=lambda x: x['score'])
-        #감정명
         best_label = best_result['label']
-        #점수
         best_score = best_result['score']
 
-        #6개 감정 선별
         main_emotion = find_main_emotion(best_label)
         if best_score >= accuracy:
             main_emotions.append(main_emotion)
-        #상세감정
+
         sub_emotions.append(best_label)
     
-    #최빈값 찾기
     result_main_emotions = [e for e in main_emotions if e != "기타"]
 
     if result_main_emotions:
         emotion_counter = Counter(result_main_emotions)
         most_common = emotion_counter.most_common()
-
         top_count = most_common[0][1]
         result_emotion = [emotion for emotion, count in most_common if count == top_count]
 
         if len(result_emotion) == 1:
             most_common_emotion = result_emotion[0]
         else:
-            print("Tie")
             best_score = -1
             best_emotion = None
             for sentence in sentences:
@@ -87,10 +79,10 @@ def sentiment(content, accuracy=0.1):
         return {
             'status': 'success',
             'main_emotion': '기타',
-    }
-
+            'sub_emotion': sub_emotions,
+        }
     return {
         'status': 'success',
         'main_emotion': most_common_emotion,
-        'sub_emotion' : sub_emotions
+        'sub_emotion': sub_emotions,
     }
