@@ -1,14 +1,22 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "추후백엔드주소로",
+  baseURL: "http://127.0.0.1:8000",
   timeout: 1000,
   withCredentials: false,
 });
 
 instance.interceptors.request.use((config) => {
   const access_token = localStorage.getItem("access");
-  config.headers["Authorization"] = `Bearer ${access_token}`;
+
+  // 인증이 필요 없는 URL이면 Authorization 헤더 제거
+  const publicPaths = ["/auth/signup/", "/auth/login/"];
+  const isPublicPath = publicPaths.some((path) => config.url?.includes(path));
+
+  if (!isPublicPath && access_token) {
+    config.headers["Authorization"] = `Bearer ${access_token}`;
+  }
+
   return config;
 });
 

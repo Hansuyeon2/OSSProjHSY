@@ -9,6 +9,7 @@ import Signup from "@pages/Login/Signup";
 import Mainpage from "@pages/Main/Mainpage";
 import Diary from "@pages/Diary/Diary";
 import TodayReport from "@pages/TodayReport/TodayReport";
+import MonthListPage from "@pages/MonthReport/MonthListPage";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
           { path: "main", element: <Mainpage /> },
           { path: "diary", element: <Diary /> },
           { path: "todayReport", element: <TodayReport /> },
+          { path: "monthList", element: <MonthListPage /> },
         ],
       },
     ],
