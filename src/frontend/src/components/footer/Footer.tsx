@@ -8,7 +8,7 @@ const Footer = () => {
 
   const isActive = (path: string) => location.pathname === path;
 
-  const activeFooterPaths = ["/analysis", "/main", "/monthReport"];
+  const activeFooterPaths = ["/analysis", "/main", "/monthList"];
   if (!activeFooterPaths.includes(location.pathname)) {
     return null;
   }
@@ -16,12 +16,12 @@ const Footer = () => {
   return (
     <FooterWrapper>
       <FooterIconContainer
-        onClick={() => navigate("/analysis")}
-        $active={isActive("/analysis")}
+        onClick={() => navigate("/monthList")}
+        $active={isActive("/monthList")}
       >
         <FooterIconImg
           src={
-            isActive("/analysis")
+            isActive("/monthList")
               ? "images/footer/icon1_active.svg"
               : "/images/footer/icon1.svg"
           }

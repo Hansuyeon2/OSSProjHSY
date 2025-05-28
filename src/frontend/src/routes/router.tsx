@@ -9,7 +9,7 @@ import Signup from "@pages/Login/Signup";
 import Mainpage from "@pages/Main/Mainpage";
 import Diary from "@pages/Diary/Diary";
 import TodayReport from "@pages/TodayReport/TodayReport";
-import MonthListPage from "@pages/MonthReport/MonthListPage";
+import MonthListPage from "@pages/MonthList/MonthListPage";
 
 const router = createBrowserRouter([
   {

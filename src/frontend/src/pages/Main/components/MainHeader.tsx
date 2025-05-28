@@ -14,6 +14,7 @@ const MainHeader = ({
       <S.MainPageHeaderIcon src="/images/icons/MainHeaderIcon.svg" />
       <S.MainPageHeaderTitle>
         <p>{month}월</p> 은{" "}
+        <img src="/images/icons/dropdown.svg" alt="dropdown" />{" "}
         {monthEmotion
           ? `${monthEmotion}이 가득한 달이었네요!`
           : "민영 님에게 어떤 달일까요?"}

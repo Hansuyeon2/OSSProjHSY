@@ -24,4 +24,11 @@ export const MainPageHeaderTitle = styled.h1`
     ${fonts.title_b_30}
     color: ${({ theme }) => theme.colors.mainbrown01};
   }
+
+  img {
+    margin-right: 5px;
+    cursor: pointer;
+  }
 `;
+
+export const MonthPickerWrapper = styled.section``;
