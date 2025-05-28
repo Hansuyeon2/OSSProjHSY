@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import DiaryLayout from "@layouts/DiaryLayout";
 import { DiaryEntry, getDiaryAnalysis } from "@apis/diary/getDiaryAnalysis";
 import Loading from "@components/Loading";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import TodayReportCard from "./components/TodayReportCard";
 import TodayReportContent from "@layouts/TodayReportContetLayout";
 import ContentCardCategoryList from "./components/ContentCardCategoryList";

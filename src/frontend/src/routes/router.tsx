@@ -27,7 +27,7 @@ const router = createBrowserRouter([
         children: [
           { path: "main", element: <Mainpage /> },
           { path: "diary", element: <Diary /> },
-          { path: "todayReport", element: <TodayReport /> },
+          { path: "todayReport/:id", element: <TodayReport /> },
           { path: "monthList", element: <MonthListPage /> },
         ],
       },

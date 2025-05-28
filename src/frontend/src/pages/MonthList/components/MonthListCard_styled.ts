@@ -16,6 +16,7 @@ export const MonthListCardWrapper = styled.div`
   flex-direction: column;
   gap: 1.06rem;
   border-bottom: 1px solid rgba(216, 177, 142, 0.5);
+  cursor: pointer;
 `;
 
 export const MonthListHeaderSection = styled.section`

@@ -34,6 +34,7 @@ const MonthListContent = () => {
         return (
           <MonthListCard
             key={item.id}
+            id={item.id}
             date={date}
             emotion={item.main_emotion}
             content={item.content}
