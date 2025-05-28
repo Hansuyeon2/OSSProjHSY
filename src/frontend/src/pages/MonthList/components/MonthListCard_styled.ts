@@ -26,9 +26,7 @@ export const MonthListHeaderSection = styled.section`
 `;
 
 export const MonthListHeaderImg = styled.img`
-  width: 2.96856rem;
-  height: 3.64631rem;
-  flex-shrink: 0;
+  width: 3rem;
 `;
 
 export const MonthListHeaderText = styled.div`
