@@ -2,65 +2,64 @@ export const dummyDiaryAnalysisNight = {
   entries: [
     {
       id: 1,
-      content: "오늘은 기분이 좀 울적했다.",
-      username: "username1",
-      created_at: "2025-05-02T09:00:00Z",
+      content: "내용",
+      username: "username",
+      created_at: "2025-04-02T12:00:00Z",
       main_emotion: "우울함",
-      sub_emotion: ["실망한", "비통한", "후회되는"],
-      analysis: {
-        set_1: {
-          title: "두려운 감정을 잠시 내려놓을 수 있는",
-          movies: [
-            { title: "비포 선셋", sub: "리처드 링클레이터", url: "링크" },
-            { title: "비포 선셋", sub: "리처드 링클레이터", url: "링크" },
-          ],
-          books: [
-            {
-              title: "지금 알고 있는 걸 그때도 알았더라면",
-              sub: "강수진",
-              url: "링크",
-            },
-          ],
-          music: [
-            { title: "검정치마 - Love Shine", sub: "검정치마", url: "링크" },
-          ],
-          exhibitions: [
-            { title: "반 고흐 인사이드", sub: "전시감독", url: "링크" },
-          ],
-        },
-        set_2: {
-          title: "두려운 감정을 다독여줄 따듯한",
-          movies: [{ title: "인사이드 아웃", sub: "피트 닥터", url: "링크" }],
-          books: [{ title: "마당을 나온 암탉", sub: "황선미", url: "링크" }],
-          music: [{ title: "아이유 - 너의 의미", sub: "아이유", url: "링크" }],
-          exhibitions: [{ title: "모네의 정원", sub: "전시감독", url: "링크" }],
-        },
-      },
+      sub_emotion: ["어쩌꾸", "저쩌구", "속상함"],
     },
     {
       id: 2,
-      content: "햇빛이 좋아서 기분이 들떴다!",
-      username: "username2",
-      created_at: "2025-05-02T15:30:00Z",
-      main_emotion: "행복",
-      sub_emotion: ["기쁘", "감사한", "신이 난"],
-      analysis: {
-        set_1: {
-          title: "행복함을 더 오래 간직할 수 있는",
-          movies: [
-            {
-              title: "미션 임파서블: 데드 레코닝",
-              sub: "크리스토퍼 맥쿼리",
-              url: "링크",
-            },
-          ],
-          books: [{ title: "달러구트 꿈 백화점", sub: "이미예", url: "링크" }],
-          music: [{ title: "뉴진스 - ETA", sub: "뉴진스", url: "링크" }],
-          exhibitions: [
-            { title: "반 고흐 인사이드", sub: "전시감독", url: "링크" },
-          ],
-        },
-      },
+      content: "내용",
+      username: "username",
+      created_at: "2025-04-02T19:00:00Z",
+      main_emotion: "화남",
+      sub_emotion: ["지침", "피곤함", "후회"],
     },
   ],
+  analysis: {
+    set_1: {
+      title: "행복함을 더 오래 간직할 수 있는",
+      movies: [
+        {
+          title: "미션 임파서블: 데드 레코닝",
+          sub: "크리스토퍼 맥쿼리",
+          url: "링크",
+        },
+      ],
+      books: [
+        {
+          title: "달러구트 꿈 백화점",
+          sub: "이미예",
+          url: "링크",
+        },
+      ],
+      music: [
+        {
+          title: "뉴진스 - ETA",
+          sub: "뉴진스",
+          url: "링크",
+        },
+      ],
+      exhibitions: [
+        {
+          title: "반 고흐 인사이드",
+          sub: "전시감독",
+          url: "링크",
+        },
+      ],
+    },
+  },
+  emotion: {
+    main_emotion: "행복",
+    comment:
+      "어제 민영님이 가장 많이 느낀 감정은 ‘행복'이에요. 행복의 세부 감정으로는 ‘재밌음'을 가장 많이 느꼈고, 다음으로 ‘신남’을 많이 느낀 것으로 나타났어요.",
+    sub_emotion: {
+      기쁨: 4,
+      신남: 3,
+      즐거움: 2,
+      쾌감: 1,
+      보람: 1,
+    },
+  },
 };

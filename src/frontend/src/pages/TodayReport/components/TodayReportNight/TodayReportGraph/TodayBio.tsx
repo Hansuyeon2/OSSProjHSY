@@ -39,7 +39,7 @@ const GraphContainer = styled.div`
   height: 13.375rem;
   border-radius: 0.875rem;
   position: relative;
-  background: white;
+  background: ${({ theme }) => theme.colors.bgbeige02};
   border: 1px solid ${({ theme }) => theme.colors.mainbrown04};
 `;
 
