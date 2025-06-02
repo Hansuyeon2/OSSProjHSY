@@ -13,7 +13,7 @@ const TodayReportTitle = ({ title }: TodayReportTitleProps) => {
   );
 };
 
-const TodayReportTitleSection = styled.section`
+const TodayReportTitleSection = styled.div`
   width: 100%;
   display: flex;
   gap: 0.5rem;
@@ -22,6 +22,7 @@ const TodayReportTitleSection = styled.section`
   img {
     width: 1.25rem;
     height: 1.25rem;
+    object-fit: contain;
   }
 `;
 
