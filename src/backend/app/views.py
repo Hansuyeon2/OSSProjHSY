@@ -1,11 +1,13 @@
 import calendar
+import random
 from datetime import date, datetime
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
-from .models import Diary
-from .serializers import DiarySerializer
+from .models import Diary, NightDiary
+from .serializers import *
+from .contents.book import *
 
 class DiaryViewSet(viewsets.ModelViewSet):
     queryset = Diary.objects.all()
@@ -50,7 +52,6 @@ class DiaryViewSet(viewsets.ModelViewSet):
         year = request.query_params.get('year')
         month = request.query_params.get('month')
 
-
         year = int(year)
         month = int(month)
         start = date(year, month, 1)
@@ -66,18 +67,31 @@ class DiaryViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
     
     #일기 상세보기(detail)
+
     def list(self, request, *args, **kwargs):
         strdate = request.query_params.get('date')
-        if strdate:
-            date = datetime.strptime(strdate, "%Y-%m-%d").date()
+        if not strdate:
+            return super().list(request, *args, **kwargs)
 
-            diaries = Diary.objects.filter(
-                username=request.user,
-                created_at__date=date
-            ).order_by('-created_at')
+        date_obj = datetime.strptime(strdate, "%Y-%m-%d").date()
+        today = datetime.now().date()
 
-            serializer = self.get_serializer(diaries, many=True)
+        if date_obj < today:
+            night_diary = NightDiary.objects.filter(user=request.user, date=date_obj).first()
+
+            if not night_diary:
+                # 자동 생성
+                serializer = NightDiarySerializer(data={"date": date_obj}, context={'request': request})
+                serializer.is_valid(raise_exception=True)
+                night_diary = serializer.save()
+
+            serializer = NightDiarySerializer(night_diary)
             return Response(serializer.data)
-        
-        return super().list(request, *args, **kwargs)
 
+        # 오늘 날짜일 경우
+        diaries = Diary.objects.filter(
+            username=request.user,
+            created_at__date=date_obj
+        ).order_by('-created_at')
+        serializer = DiarySerializer(diaries, many=True)
+        return Response({"entries": serializer.data})
