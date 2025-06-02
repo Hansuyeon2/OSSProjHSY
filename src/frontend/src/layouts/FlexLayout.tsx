@@ -12,7 +12,6 @@ const FlexLayout = ({ children }: FlexLayoutProps) => {
 const FlexLayoutWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   padding: 10px 22px;
 `;
 

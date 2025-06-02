@@ -6,8 +6,10 @@ import styled from "styled-components";
 const DefaultLayout = () => {
   const location = useLocation();
 
-  const activeFooterPaths = ["/analysis", "/main", "/monthReport"];
-  const hasFooter = activeFooterPaths.includes(location.pathname);
+  const activeFooterPaths = ["/main", "/monthList"];
+  const hasFooter = activeFooterPaths.some((path) =>
+    location.pathname.startsWith(path)
+  );
 
   return (
     <OutletWrapper $hasFooter={hasFooter}>

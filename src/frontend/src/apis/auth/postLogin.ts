@@ -4,5 +4,5 @@ import { postResponse } from "@apis/instance";
 export const PostLogin = async (
   data: AuthRequest
 ): Promise<LoginResponse | null> => {
-  return await postResponse<AuthRequest, LoginResponse>("/auth/login", data);
+  return await postResponse<AuthRequest, LoginResponse>("/auth/login/", data);
 };

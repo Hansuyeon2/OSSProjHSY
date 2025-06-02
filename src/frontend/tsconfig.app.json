@@ -32,7 +32,8 @@
       "@styles/*": ["src/styles/*"],
       "@images/*": ["src/assets/images/*"],
       "@apis/*": ["src/apis/*"],
-      "@t/*": ["src/types/*"]
+      "@t/*": ["src/types/*"],
+      "@hooks/*": ["src/hooks/*"]
     }
   },
   "include": ["src"]
