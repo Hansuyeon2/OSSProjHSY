@@ -35,3 +35,12 @@ class Movie(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Exhibition(models.Model):
+    title = models.CharField(max_length=255)
+    location = models.CharField(max_length=255, null=True, blank=True)
+    genre = models.CharField(max_length=20, null=True, blank=True)
+
+    def __str__(self):
+        return self.title
