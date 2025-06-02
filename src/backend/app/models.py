@@ -21,8 +21,7 @@ class Book(models.Model):
     title = models.CharField(max_length=255)
     auth = models.CharField()
     main_emotion = models.CharField(max_length=50)
-    sub_emotions = models.JSONField(default=list, blank=True)
-    created_at = models.DateTimeField(default=timezone.now)
+    sub_emotion = models.JSONField(default=list, blank=True)
 
     def __str__(self):
         return self.title
@@ -32,7 +31,7 @@ class Movie(models.Model):
     director = models.CharField(max_length=255, null=True, blank=True)
     main_emotion = models.CharField(max_length=20, null=True, blank=True)
     sub_emotion = models.JSONField(null=True, blank=True)
-    analysis = models.JSONField(null=True, blank=True)
+
 
     def __str__(self):
         return self.title
