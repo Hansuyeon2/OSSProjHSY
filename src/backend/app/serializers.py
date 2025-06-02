@@ -3,6 +3,7 @@ from rest_framework import serializers
 from .models import Diary, NightDiary
 from app.contents.music import recommend_music
 from app.contents.book  import recommend_books
+from app.contents.exhibition import recommend_exhibitions
 from collections import Counter
 
 
@@ -32,6 +33,7 @@ class DiarySerializer(serializers.ModelSerializer):
 
         maintain_music = recommend_music(matched_sub_emotions, recommend_type="maintain")
         maintain_books = recommend_books(matched_sub_emotions, recommend_type="maintain")
+        maintain_exhibitions = recommend_exhibitions(validated_data['main_emotion'], recommend_type="maintain")
 
         if validated_data['main_emotion'] in ["행복", "평온", "놀람"]:
             validated_data['analysis'] = {
@@ -40,26 +42,27 @@ class DiarySerializer(serializers.ModelSerializer):
                     "movies": [],
                     "books": maintain_books,
                     "music": maintain_music,
-                    "exhibitions": []
+                    "exhibitions": maintain_exhibitions,
                 }
             }
         else:
             overcome_music = recommend_music(matched_sub_emotions, recommend_type="overcome")
             overcome_books = recommend_books(matched_sub_emotions, recommend_type="overcome")
+            overcome_exhibitions = recommend_exhibitions(validated_data['main_emotion'], recommend_type="overcome")
             validated_data['analysis'] = {
                 "set_1": {
                     "title": f"{validated_data['main_emotion']} 감정을 내려놓을 수 있는",
                     "movies": [],
                     "books": maintain_books,
                     "music": maintain_music,
-                    "exhibitions": []
+                    "exhibitions": maintain_exhibitions,
                 },
                 "set_2": {
                     "title": f"{validated_data['main_emotion']} 감정을 다독여줄",
                     "movies": [],
                     "books": overcome_books,
                     "music": overcome_music,
-                    "exhibitions": []
+                    "exhibitions": overcome_exhibitions,
                 }
             }
 
@@ -88,15 +91,15 @@ class NightDiarySerializer(serializers.ModelSerializer):
         diaries = Diary.objects.filter(username=obj.user, created_at__date=obj.date)
         return NightDiaryEntrySerializer(diaries, many=True).data
 
-    def to_representation(self, instance):
-        rep = super().to_representation(instance)
+    def daily(self, instance):
+        day = super().daily(instance)
         return {
-            "entries": rep.pop("entries"),
+            "entries": day.pop("entries"),
             "emotion": {
-                "main_emotion": rep["main_emotion"],
-                "sub_emotion": rep["sub_emotion"]
+                "main_emotion": day["main_emotion"],
+                "sub_emotion": day["sub_emotion"]
             },
-            "analysis": rep["analysis"]
+            "analysis": day["analysis"]
         }
 
     def create(self, validated_data):
@@ -123,6 +126,7 @@ class NightDiarySerializer(serializers.ModelSerializer):
 
         maintain_music = recommend_music(matched_sub_list, recommend_type="maintain")
         maintain_books = recommend_books(matched_sub_list, recommend_type="maintain")
+        maintain_exhibitions = recommend_exhibitions(top_main, recommend_type="overcome")
         if top_main in ["행복", "평온", "놀람"]:
             analysis = {
                 "set_1": {
@@ -130,26 +134,27 @@ class NightDiarySerializer(serializers.ModelSerializer):
                     "music": maintain_music,
                     "books": maintain_books,
                     "movies": [],
-                    "exhibitions": []
+                    "exhibitions": maintain_exhibitions
                 }
             }
         else:
             overcome_music = recommend_music(matched_sub_list, recommend_type="overcome")
             overcome_books = recommend_books(matched_sub_list, recommend_type="overcome")
+            overcome_exhibitions = recommend_exhibitions(top_main, recommend_type="overcome")
             analysis = {
                 "set_1": {
                     "title": f"{top_main} 감정을 내려놓을 수 있는",
                     "music": maintain_music,
                     "books": maintain_books,
                     "movies": [],
-                    "exhibitions": []
+                    "exhibitions": maintain_exhibitions
                 },
                 "set_2": {
                     "title": f"{top_main} 감정을 다독여줄",
                     "music": overcome_music,
                     "books": overcome_books,
                     "movies": [],
-                    "exhibitions": []
+                    "exhibitions": overcome_exhibitions
                 }
             }
 
