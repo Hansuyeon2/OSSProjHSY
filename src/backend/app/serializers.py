@@ -2,6 +2,7 @@ from ai.sentiment_analysis import sentiment, find_main_emotion
 from rest_framework import serializers
 from .models import Diary, NightDiary
 from app.contents.music import recommend_music
+from app.contents.book  import recommend_books
 from collections import Counter
 
 
@@ -30,31 +31,33 @@ class DiarySerializer(serializers.ModelSerializer):
         ]
 
         maintain_music = recommend_music(matched_sub_emotions, recommend_type="maintain")
+        maintain_books = recommend_books(matched_sub_emotions, recommend_type="maintain")
 
         if validated_data['main_emotion'] in ["행복", "평온", "놀람"]:
             validated_data['analysis'] = {
                 "set_1": {
                     "title": f"{validated_data['main_emotion']} 감정을 오래 간직할 수 있는",
                     "movies": [],
-                    "books": [],
+                    "books": maintain_books,
                     "music": maintain_music,
                     "exhibitions": []
                 }
             }
         else:
             overcome_music = recommend_music(matched_sub_emotions, recommend_type="overcome")
+            overcome_books = recommend_books(matched_sub_emotions, recommend_type="overcome")
             validated_data['analysis'] = {
                 "set_1": {
                     "title": f"{validated_data['main_emotion']} 감정을 내려놓을 수 있는",
                     "movies": [],
-                    "books": [],
+                    "books": maintain_books,
                     "music": maintain_music,
                     "exhibitions": []
                 },
                 "set_2": {
                     "title": f"{validated_data['main_emotion']} 감정을 다독여줄",
                     "movies": [],
-                    "books": [],
+                    "books": overcome_books,
                     "music": overcome_music,
                     "exhibitions": []
                 }
@@ -119,31 +122,32 @@ class NightDiarySerializer(serializers.ModelSerializer):
 
 
         maintain_music = recommend_music(matched_sub_list, recommend_type="maintain")
-
+        maintain_books = recommend_books(matched_sub_list, recommend_type="maintain")
         if top_main in ["행복", "평온", "놀람"]:
             analysis = {
                 "set_1": {
                     "title": f"{top_main} 감정을 오래 간직할 수 있는",
                     "music": maintain_music,
-                    "books": [],
+                    "books": maintain_books,
                     "movies": [],
                     "exhibitions": []
                 }
             }
         else:
             overcome_music = recommend_music(matched_sub_list, recommend_type="overcome")
+            overcome_books = recommend_books(matched_sub_list, recommend_type="overcome")
             analysis = {
                 "set_1": {
                     "title": f"{top_main} 감정을 내려놓을 수 있는",
                     "music": maintain_music,
-                    "books": [],
+                    "books": maintain_books,
                     "movies": [],
                     "exhibitions": []
                 },
                 "set_2": {
                     "title": f"{top_main} 감정을 다독여줄",
                     "music": overcome_music,
-                    "books": [],
+                    "books": overcome_books,
                     "movies": [],
                     "exhibitions": []
                 }

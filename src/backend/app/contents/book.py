@@ -1,4 +1,4 @@
-import requests
+import requests, random
 from app.models import Book
 from ai.sentiment_analysis import sentiment
 
@@ -49,21 +49,21 @@ overcome_emotion_map = {
     "남의 시선을 의식하는": ["자신하는", "감사하는", "신뢰하는"]
 }
 
-def recommend_books(sub_emotions: list, recommend_type: str = "maintain"):
+def recommend_books(sub_emotion: list, recommend_type: str = "maintain"):
     matched_books = []
 
     for book in Book.objects.all():
-        if not isinstance(book.sub_emotions, list):
+        if not isinstance(book.sub_emotion, list):
             continue
 
         if recommend_type == "maintain":
-            if any(sub in book.sub_emotions for sub in sub_emotions):
+            if any(sub in book.sub_emotion for sub in sub_emotion):
                 matched_books.append(book)
         elif recommend_type == "overcome":
             alt_emotions = []
-            for sub in sub_emotions:
+            for sub in sub_emotion:
                 alt_emotions.extend(overcome_emotion_map.get(sub, []))
-            if any(emotion in book.sub_emotions for emotion in alt_emotions):
+            if any(emotion in book.sub_emotion for emotion in alt_emotions):
                 matched_books.append(book)
 
     if not matched_books:
@@ -74,9 +74,7 @@ def recommend_books(sub_emotions: list, recommend_type: str = "maintain"):
     return [
         {
             "title": book.title,
-            "auth": book.auth,
-            "main_emotion": book.main_emotion,
-            "sub_emotions": book.sub_emotions
+            "sub": book.auth,
         }
         for book in sampled_books
     ]
