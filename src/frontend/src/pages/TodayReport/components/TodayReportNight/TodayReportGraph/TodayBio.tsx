@@ -1,9 +1,15 @@
 // src/components/EmotionGraph.tsx
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import dayjs from "dayjs";
-import { getDiaryNight } from "@apis/diary/getDiaryNightAnalysis";
 import emotionToImg from "src/utils/emotionToImg";
+
+type EmotionGraphProps = {
+  data: {
+    created_at: string;
+    main_emotion: string;
+  }[];
+};
 
 const emotionOrder = [
   "행복",
@@ -65,30 +71,23 @@ const Tooltip = styled.div<{ top: number; left: number }>`
 
 const Line = styled.svg``;
 
-export default function EmotionGraph() {
-  const [points, setPoints] = useState<EmotionPoint[]>([]);
+export default function EmotionGraph({ data }: EmotionGraphProps) {
   const [hoveredPoint, setHoveredPoint] = useState<{
     x: number;
     y: number;
     label: string;
   } | null>(null);
 
-  useEffect(() => {
-    getDiaryNight().then((entries) => {
-      const sorted = entries.sort(
-        (a, b) =>
-          new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
-      );
+  const sorted = data.sort(
+    (a, b) =>
+      new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+  );
 
-      const mapped = sorted.map((entry) => ({
-        x: dayjs(entry.created_at).format("HH:mm"),
-        y: emotionOrder.indexOf(entry.main_emotion),
-        emotion: entry.main_emotion,
-      }));
-
-      setPoints(mapped);
-    });
-  }, []);
+  const points: EmotionPoint[] = sorted.map((entry) => ({
+    x: dayjs(entry.created_at).format("HH:mm"),
+    y: emotionOrder.indexOf(entry.main_emotion),
+    emotion: entry.main_emotion,
+  }));
 
   const WIDTH_REM = 14.625;
   const HEIGHT_REM = 13.375;
