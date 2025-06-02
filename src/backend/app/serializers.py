@@ -1,9 +1,10 @@
-from ai.sentiment_analysis  import sentiment,find_main_emotion
+from ai.sentiment_analysis import sentiment, find_main_emotion
 from rest_framework import serializers
-from .models import *
-from app.contents.music_tocken import SpotifyTokenManager  # 토큰 자동 관리
-from app.contents.music import sub_emotion_to_genres 
+from .models import Diary, NightDiary
 from app.contents.music import recommend_music
+from collections import Counter
+
+
 class DiarySerializer(serializers.ModelSerializer):
     username = serializers.ReadOnlyField(source='user.username')
 
@@ -21,19 +22,16 @@ class DiarySerializer(serializers.ModelSerializer):
             validated_data['sub_emotion'] = analysis_result['sub_emotion']
         else:
             validated_data['main_emotion'] = None
-            validated_data['sub_emotion'] = None
+            validated_data['sub_emotion'] = []
 
-        matched_sub_emotions = []
-        for sub in validated_data.get('sub_emotion', []):
-            main = find_main_emotion(sub)
-            if main == validated_data['main_emotion']:
-                matched_sub_emotions.append(sub)
+        matched_sub_emotions = [
+            sub for sub in validated_data.get('sub_emotion', [])
+            if find_main_emotion(sub) == validated_data['main_emotion']
+        ]
 
         maintain_music = recommend_music(matched_sub_emotions, recommend_type="maintain")
-    
-    # 감정군에 따라 처리 분기
+
         if validated_data['main_emotion'] in ["행복", "평온", "놀람"]:
-        # 행복/평온/놀람: set_1만 생성
             validated_data['analysis'] = {
                 "set_1": {
                     "title": f"{validated_data['main_emotion']} 감정을 오래 간직할 수 있는",
@@ -44,9 +42,7 @@ class DiarySerializer(serializers.ModelSerializer):
                 }
             }
         else:
-        # 나머지 감정: set_1 + set_2 둘 다 생성
             overcome_music = recommend_music(matched_sub_emotions, recommend_type="overcome")
-
             validated_data['analysis'] = {
                 "set_1": {
                     "title": f"{validated_data['main_emotion']} 감정을 내려놓을 수 있는",
@@ -63,5 +59,99 @@ class DiarySerializer(serializers.ModelSerializer):
                     "exhibitions": []
                 }
             }
+
+        return super().create(validated_data)
+
+
+class NightDiaryEntrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Diary
+        fields = ['id', 'content', 'username', 'created_at', 'main_emotion', 'sub_emotion']
+
+
+class NightDiarySerializer(serializers.ModelSerializer):
+    username = serializers.ReadOnlyField(source='user.username')
+    entries = serializers.SerializerMethodField()
+
+    main_emotion = serializers.CharField(required=False)
+    sub_emotion = serializers.JSONField(required=False)
+    analysis = serializers.JSONField(required=False)
+
+    class Meta:
+        model = NightDiary
+        fields = ['date', 'username', 'entries', 'main_emotion', 'sub_emotion', 'analysis']
+
+    def get_entries(self, obj):
+        diaries = Diary.objects.filter(username=obj.user, created_at__date=obj.date)
+        return NightDiaryEntrySerializer(diaries, many=True).data
+
+    def to_representation(self, instance):
+        rep = super().to_representation(instance)
+        return {
+            "entries": rep.pop("entries"),
+            "emotion": {
+                "main_emotion": rep["main_emotion"],
+                "sub_emotion": rep["sub_emotion"]
+            },
+            "analysis": rep["analysis"]
+        }
+
+    def create(self, validated_data):
+        user = self.context['request'].user
+        date = validated_data['date']
+
+        diaries = Diary.objects.filter(username=user, created_at__date=date)
+        main_list = [d.main_emotion for d in diaries if d.main_emotion]
+
+        if not main_list:
+            raise serializers.ValidationError("해당 날짜에 감정이 분석된 일기가 없습니다.")
+
+        top_main = Counter(main_list).most_common(1)[0][0]
+
+        sub_list = []
+        for d in diaries:
+            if isinstance(d.sub_emotion, list):
+                sub_list += [s for s in d.sub_emotion if find_main_emotion(s) == top_main]
+
+        sub_counter = Counter(sub_list)
+        sorted_subs = dict(sorted(sub_counter.items(), key=lambda x: x[1], reverse=True))
+        matched_sub_list = list(sorted_subs.keys())
+
+
+        maintain_music = recommend_music(matched_sub_list, recommend_type="maintain")
+
+        if top_main in ["행복", "평온", "놀람"]:
+            analysis = {
+                "set_1": {
+                    "title": f"{top_main} 감정을 오래 간직할 수 있는",
+                    "music": maintain_music,
+                    "books": [],
+                    "movies": [],
+                    "exhibitions": []
+                }
+            }
+        else:
+            overcome_music = recommend_music(matched_sub_list, recommend_type="overcome")
+            analysis = {
+                "set_1": {
+                    "title": f"{top_main} 감정을 내려놓을 수 있는",
+                    "music": maintain_music,
+                    "books": [],
+                    "movies": [],
+                    "exhibitions": []
+                },
+                "set_2": {
+                    "title": f"{top_main} 감정을 다독여줄",
+                    "music": overcome_music,
+                    "books": [],
+                    "movies": [],
+                    "exhibitions": []
+                }
+            }
+
+        validated_data["user"] = user
+        validated_data["main_emotion"] = top_main
+        validated_data["sub_emotion"] = sorted_subs
+        validated_data["analysis"] = analysis
 
         return super().create(validated_data)

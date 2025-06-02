@@ -1,68 +1,82 @@
 import requests
-import pandas as pd
-from sentiment_analysis import sentiment
+from app.models import Book
+from ai.sentiment_analysis import sentiment
 
-# 1. 책 요약 + 제목 + 저자 가져오기
-def get_book_info(api_key, isbn):
-    url = "https://www.nl.go.kr/NL/search/openApi/search.do"
-    params = {
-        "key": api_key,
-        "apiType": "json",
-        "srchTarget": "total",
-        "kwd": isbn,
-    }
-    response = requests.get(url, params=params)
-    response.raise_for_status()
-    data = response.json()
+overcome_emotion_map = {
+    "고립된": ["기쁨", "신뢰하는", "만족스러운"],
+    "열등감": ["자신하는", "감사하는", "기쁨"],
+    "부끄러운": ["신뢰하는", "안도", "자신하는"],
+    "가난한 불우한": ["감사하는", "만족스러운", "기쁨"],
+    "슬픔": ["기쁨", "편안한", "감사하는"],
+    "실망한": ["신뢰하는", "기쁨", "만족스러운"],
+    "비통한": ["감사하는", "안도", "기쁨"],
+    "후회되는": ["자신하는", "신뢰하는", "만족스러운"],
+    "우울한": ["기쁨", "만족스러운", "감사하는"],
+    "마비된": ["신이 난", "흥분", "자신하는"],
+    "염세적인": ["기쁨", "신뢰하는", "안도"],
+    "눈물이 나는": ["기쁨", "감사하는", "편안한"],
+    "낙담한": ["자신하는", "신뢰하는", "감사하는"],
+    "환멸을 느끼는": ["신뢰하는", "기쁨", "만족스러운"],
+    "외로운": ["신뢰하는", "감사하는", "기쁨"],
+    "죄책감의": ["감사하는", "편안한", "기쁨"],
+    "상처": ["기쁨", "신뢰하는", "감사하는"],
+    "분노": ["편안한", "감사하는", "만족스러운"],
+    "툴툴대는": ["신뢰하는", "안도", "기쁨"],
+    "좌절한": ["자신하는", "기쁨", "만족스러운"],
+    "짜증내는": ["안도", "편안한", "신이 난"],
+    "방어적인": ["신뢰하는", "감사하는", "안도"],
+    "악의적인": ["감사하는", "기쁨", "신뢰하는"],
+    "안달하는": ["편안한", "만족스러운", "신뢰하는"],
+    "구역질 나는": ["감사하는", "편안한", "기쁨"],
+    "노여워하는": ["안도", "신뢰하는", "만족스러운"],
+    "성가신": ["감사하는", "안도", "기쁨"],
+    "질투하는": ["자신하는", "감사하는", "신뢰하는"],
+    "배신당한": ["신뢰하는", "감사하는", "편안한"],
+    "억울한": ["기쁨", "자신하는", "감사하는"],
+    "괴로워하는": ["신뢰하는", "기쁨", "편안한"],
+    "불안": ["안도", "편안한", "신뢰하는"],
+    "두려운": ["감사하는", "편안한", "신뢰하는"],
+    "스트레스 받는": ["기쁨", "신이 난", "흥분"],
+    "취약한": ["신뢰하는", "감사하는", "기쁨"],
+    "혼란스러운": ["안도", "편안한", "신뢰하는"],
+    "당혹스러운": ["안도", "신뢰하는", "감사하는"],
+    "회의적인": ["신뢰하는", "만족스러운", "감사하는"],
+    "걱정스러운": ["기쁨", "안도", "편안한"],
+    "조심스러운": ["신뢰하는", "감사하는", "기쁨"],
+    "초조한": ["편안한", "신뢰하는", "기쁨"],
+    "희생된": ["감사하는", "신뢰하는", "기쁨"],
+    "버려진": ["신뢰하는", "감사하는", "기쁨"],
+    "남의 시선을 의식하는": ["자신하는", "감사하는", "신뢰하는"]
+}
 
-    try:
-        first_doc = data['response']['docs'][0]
-        title = first_doc.get('titleInfo', '')
-        author = first_doc.get('authorInfo', '')
-        summary = first_doc.get('description', '')
-        return {
-            "title": title,
-            "author": author,
-            "summary": summary
+def recommend_books(sub_emotions: list, recommend_type: str = "maintain"):
+    matched_books = []
+
+    for book in Book.objects.all():
+        if not isinstance(book.sub_emotions, list):
+            continue
+
+        if recommend_type == "maintain":
+            if any(sub in book.sub_emotions for sub in sub_emotions):
+                matched_books.append(book)
+        elif recommend_type == "overcome":
+            alt_emotions = []
+            for sub in sub_emotions:
+                alt_emotions.extend(overcome_emotion_map.get(sub, []))
+            if any(emotion in book.sub_emotions for emotion in alt_emotions):
+                matched_books.append(book)
+
+    if not matched_books:
+        return []
+
+    sampled_books = random.sample(matched_books, min(10, len(matched_books)))
+
+    return [
+        {
+            "title": book.title,
+            "auth": book.auth,
+            "main_emotion": book.main_emotion,
+            "sub_emotions": book.sub_emotions
         }
-    except (KeyError, IndexError):
-        return None
-
-# 2. 여러 ISBN 처리
-def analyze_books(api_key, isbn_list, output_csv='book_emotions_with_title_author.csv'):
-    results = []
-
-    for isbn in isbn_list:
-        print(f"분석 중... ISBN: {isbn}")
-        info = get_book_info(api_key, isbn)
-        
-        if info and info['summary']:
-            analysis = sentiment(info['summary'])
-            results.append({
-                'ISBN': isbn,
-                'Title': info.get('title', 'Unknown'),
-                'Author': info.get('author', 'Unknown'),
-                'Main Emotion': analysis.get('main_emotion', 'Unknown'),
-                'Sub Emotions': ', '.join(analysis.get('sub_emotion', []))
-            })
-        else:
-            results.append({
-                'ISBN': isbn,
-                'Title': info.get('title', 'Unknown') if info else 'Unknown',
-                'Author': info.get('author', 'Unknown') if info else 'Unknown',
-                'Main Emotion': 'No Summary',
-                'Sub Emotions': ''
-            })
-    
-    df = pd.DataFrame(results)
-    df.to_csv(output_csv, index=False, encoding='utf-8-sig')
-    print(f"CSV 저장 완료: {output_csv}")
-
-api_key = "너의_API_KEY"  # 네 오픈API 인증키 입력
-isbn_list = [
-    "9788956055464",  # 예시 ISBN들
-    "9788972756194",
-    "9788936434267",
-]
-
-analyze_books(api_key, isbn_list)
+        for book in sampled_books
+    ]

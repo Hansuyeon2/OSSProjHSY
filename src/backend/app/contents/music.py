@@ -222,7 +222,7 @@ def get_spotify_tracks(seed_genres, sample_size=1):
         params = {
             "q": f"genre:{genre}",
             "type": "track",
-            "limit": 10  # 일단 장르당 10곡 가져온다
+            "limit": 10 
         }
         response = requests.get(SPOTIFY_SEARCH_URL, headers=headers, params=params)
         if response.status_code == 200:
@@ -236,20 +236,28 @@ def get_spotify_tracks(seed_genres, sample_size=1):
         else:
             print(f"Spotify API 호출 실패: {response.status_code} {response.text}")
 
-    # 여기서 랜덤하게 sample_size개 뽑기
     if len(candidates) >= sample_size:
         return random.sample(candidates, sample_size)
     else:
-        return candidates  # 후보가 적으면 있는 것만 반환
+        return candidates 
 
 def recommend_music(matched_sub_emotions, recommend_type="maintain"):
-
-    all_recommendations = []
+    all_candidates = []
 
     for sub_emotion in matched_sub_emotions:
         genre_info = sub_emotion_to_genres.get(sub_emotion, {})
-        seed_genres = genre_info.get(recommend_type, ["pop"])  # 없으면 pop
-        tracks = get_spotify_tracks(seed_genres, sample_size= 10)
-        all_recommendations.extend(tracks)
+        seed_genres = genre_info.get(recommend_type, ["pop"])
 
-    return all_recommendations
+        for genre in seed_genres:
+            tracks = get_spotify_tracks([genre], sample_size=10)
+            all_candidates.extend(tracks)
+
+    unique_candidates = {
+        (track['title'], track['sub']): track for track in all_candidates
+    }
+    final_recommendations = random.sample(
+        list(unique_candidates.values()),
+        min(len(unique_candidates), 10)
+    )
+
+    return final_recommendations
