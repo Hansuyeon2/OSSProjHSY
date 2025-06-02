@@ -1,56 +1,8 @@
-import { fonts } from "@styles/fonts";
+import * as s from "./TodayReportGraph_styled";
+
 import { PieChart, Pie, Cell } from "recharts";
-import styled from "styled-components";
 
 const COLORS = ["#D8B18E", "#EDCCAF", "#FFEAD7", "#DCDCDC"];
-
-const TodayEmotionWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: center;
-`;
-
-const ChartWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 10px;
-  border: 1px solid ${({ theme }) => theme.colors.mainbrown04};
-  background-color: ${({ theme }) => theme.colors.bgbeige02};
-  border-radius: 14px;
-  padding: 20px 13px 20px 19px;
-  width: 234px;
-  gap: 26px;
-`;
-
-const ChartContainer = styled.section`
-  display: flex;
-  gap: 10px;
-`;
-
-const LegendWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 13px;
-  width: 50%;
-`;
-
-const LegendItem = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  ${fonts.cap_m_10};
-`;
-
-const ColorBox = styled.div<{ color: string }>`
-  width: 12px;
-  height: 12px;
-  border-radius: 15px;
-  background-color: ${({ color }) => color};
-`;
-const TodayEmotionComment = styled.p`
-  ${fonts.cap_m_10};
-`;
 
 type DonutChartProps = {
   subEmotionData: Record<string, number>;
@@ -78,9 +30,9 @@ export default function TodayEmotion({
   const mostFrequentEmotion = chartData[0]?.name || "";
 
   return (
-    <TodayEmotionWrapper>
-      <ChartWrapper>
-        <ChartContainer>
+    <s.TodayEmotionWrapper>
+      <s.ChartWrapper>
+        <s.ChartContainer>
           <PieChart width={120} height={120}>
             <Pie
               data={chartData}
@@ -107,18 +59,18 @@ export default function TodayEmotion({
               {mostFrequentEmotion}
             </text>
           </PieChart>
-          <LegendWrapper>
+          <s.LegendWrapper>
             {chartData.map((item, i) => (
-              <LegendItem key={i}>
-                <ColorBox color={item.color} />
+              <s.LegendItem key={i}>
+                <s.ColorBox color={item.color} />
                 <span>{item.name}</span>
                 <span>{item.percent}%</span>
-              </LegendItem>
+              </s.LegendItem>
             ))}
-          </LegendWrapper>
-        </ChartContainer>
-        <TodayEmotionComment>{comment}</TodayEmotionComment>
-      </ChartWrapper>
-    </TodayEmotionWrapper>
+          </s.LegendWrapper>
+        </s.ChartContainer>
+        <s.TodayEmotionComment>{comment}</s.TodayEmotionComment>
+      </s.ChartWrapper>
+    </s.TodayEmotionWrapper>
   );
 }

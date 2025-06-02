@@ -1,6 +1,5 @@
-// src/components/EmotionGraph.tsx
 import { useState } from "react";
-import styled from "styled-components";
+import * as s from "./TodayReportGraph_styled";
 import dayjs from "dayjs";
 import emotionToImg from "src/utils/emotionToImg";
 
@@ -26,50 +25,6 @@ type EmotionPoint = {
   y: number;
   emotion: string;
 };
-
-const GraphWrapper = styled.div`
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-`;
-
-const GraphContainer = styled.div`
-  max-width: 14.625rem;
-  height: 13.375rem;
-  border-radius: 0.875rem;
-  position: relative;
-  background: ${({ theme }) => theme.colors.bgbeige02};
-  border: 1px solid ${({ theme }) => theme.colors.mainbrown04};
-`;
-
-const Point = styled.div<{ top: number; left: number }>`
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: ${({ theme }) => theme.colors.mainbrown03};
-  top: ${({ top }) => top}px;
-  left: ${({ left }) => left}px;
-  transform: translate(-50%, -50%);
-  cursor: pointer;
-`;
-
-const Tooltip = styled.div<{ top: number; left: number }>`
-  position: absolute;
-  background-color: ${({ theme }) => theme.colors.mainbrown01};
-  border: 1px solid ${({ theme }) => theme.colors.mainbrown04};
-  color: white;
-  padding: 4px;
-  border-radius: 4px;
-  font-size: 12px;
-  transform: translate(-50%, -100%);
-  z-index: 10;
-  top: ${({ top }) => top}px;
-  left: ${({ left }) => left}px;
-`;
-
-const Line = styled.svg``;
 
 export default function EmotionGraph({ data }: EmotionGraphProps) {
   const [hoveredPoint, setHoveredPoint] = useState<{
@@ -100,8 +55,8 @@ export default function EmotionGraph({ data }: EmotionGraphProps) {
   const colWidth = (WIDTH_PX - 2 * margin) / (points.length - 1 || 1);
 
   return (
-    <GraphWrapper>
-      <GraphContainer style={{ height: `${HEIGHT_REM}rem` }}>
+    <s.GraphWrapper>
+      <s.GraphContainer style={{ height: `${HEIGHT_REM}rem` }}>
         {/* 배경 감정 아이콘 */}
         {emotionOrder.map((emo, idx) => (
           <div
@@ -129,7 +84,7 @@ export default function EmotionGraph({ data }: EmotionGraphProps) {
         ))}
 
         {/* 선 및 영역 그리기 */}
-        <Line width={WIDTH_PX} height={HEIGHT_PX}>
+        <s.Line width={WIDTH_PX} height={HEIGHT_PX}>
           <defs>
             <linearGradient
               id="emotionGradient"
@@ -173,14 +128,14 @@ export default function EmotionGraph({ data }: EmotionGraphProps) {
               })
               .join(" ")}
           />
-        </Line>
+        </s.Line>
 
         {/* 포인트 찍기 + 툴팁 */}
         {points.map((p, i) => {
           const x = margin + i * colWidth + 10;
           const y = margin + p.y * rowHeight - 8;
           return (
-            <Point
+            <s.Point
               key={i}
               left={x}
               top={y}
@@ -194,11 +149,11 @@ export default function EmotionGraph({ data }: EmotionGraphProps) {
 
         {/* 커스텀 툴팁 */}
         {hoveredPoint && (
-          <Tooltip top={hoveredPoint.y - 16} left={hoveredPoint.x}>
+          <s.Tooltip top={hoveredPoint.y - 16} left={hoveredPoint.x}>
             {hoveredPoint.label}
-          </Tooltip>
+          </s.Tooltip>
         )}
-      </GraphContainer>
-    </GraphWrapper>
+      </s.GraphContainer>
+    </s.GraphWrapper>
   );
 }
