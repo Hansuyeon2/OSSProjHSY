@@ -43,16 +43,35 @@ const Point = styled.div<{ top: number; left: number }>`
   height: 10px;
   border-radius: 50%;
   background: ${({ theme }) => theme.colors.mainbrown03};
-
   top: ${({ top }) => top}px;
   left: ${({ left }) => left}px;
   transform: translate(-50%, -50%);
+  cursor: pointer;
+`;
+
+const Tooltip = styled.div<{ top: number; left: number }>`
+  position: absolute;
+  background-color: ${({ theme }) => theme.colors.mainbrown01};
+  border: 1px solid ${({ theme }) => theme.colors.mainbrown04};
+  color: white;
+  padding: 4px;
+  border-radius: 4px;
+  font-size: 12px;
+  transform: translate(-50%, -100%);
+  z-index: 10;
+  top: ${({ top }) => top}px;
+  left: ${({ left }) => left}px;
 `;
 
 const Line = styled.svg``;
 
 export default function EmotionGraph() {
   const [points, setPoints] = useState<EmotionPoint[]>([]);
+  const [hoveredPoint, setHoveredPoint] = useState<{
+    x: number;
+    y: number;
+    label: string;
+  } | null>(null);
 
   useEffect(() => {
     getDiaryNight().then((entries) => {
@@ -84,7 +103,7 @@ export default function EmotionGraph() {
   return (
     <GraphWrapper>
       <GraphContainer style={{ height: `${HEIGHT_REM}rem` }}>
-        {/* 배경 감정 레이어 */}
+        {/* 배경 감정 아이콘 */}
         {emotionOrder.map((emo, idx) => (
           <div
             key={emo}
@@ -110,7 +129,7 @@ export default function EmotionGraph() {
           </div>
         ))}
 
-        {/* 선 그리기 */}
+        {/* 선 및 영역 그리기 */}
         <Line width={WIDTH_PX} height={HEIGHT_PX}>
           <defs>
             <linearGradient
@@ -126,7 +145,6 @@ export default function EmotionGraph() {
             </linearGradient>
           </defs>
 
-          {/* 영역 채우기 */}
           {points.length > 0 && (
             <polygon
               fill="url(#emotionGradient)"
@@ -143,6 +161,7 @@ export default function EmotionGraph() {
               ].join(" ")}
             />
           )}
+
           <polyline
             fill="none"
             stroke="#d6bfab"
@@ -157,14 +176,29 @@ export default function EmotionGraph() {
           />
         </Line>
 
-        {/* 점 찍기 */}
+        {/* 포인트 찍기 + 툴팁 */}
         {points.map((p, i) => {
           const x = margin + i * colWidth + 10;
           const y = margin + p.y * rowHeight - 8;
           return (
-            <Point key={i} left={x} top={y} title={`${p.emotion} (${p.x})`} />
+            <Point
+              key={i}
+              left={x}
+              top={y}
+              onMouseEnter={() =>
+                setHoveredPoint({ x, y, label: `${p.emotion} (${p.x})` })
+              }
+              onMouseLeave={() => setHoveredPoint(null)}
+            />
           );
         })}
+
+        {/* 커스텀 툴팁 */}
+        {hoveredPoint && (
+          <Tooltip top={hoveredPoint.y - 16} left={hoveredPoint.x}>
+            {hoveredPoint.label}
+          </Tooltip>
+        )}
       </GraphContainer>
     </GraphWrapper>
   );
