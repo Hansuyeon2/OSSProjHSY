@@ -1,13 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { getCalendar } from "@apis/calendar/getCalendar";
-import { CalendarDataType } from "@t/Calendar";
 
 export const useMainCalendar = () => {
   const [today, setToday] = useState(new Date());
-  const [calendarData, setCalendarData] = useState<CalendarDataType>({
-    month_main_emotion: "",
-    data: {},
-  });
+  const [calendarData, setCalendarData] = useState<Record<string, any>>({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,25 +13,21 @@ export const useMainCalendar = () => {
     fetchData();
   }, [today]);
 
-  const { latestDate, latestContent } = useMemo(() => {
-    const keys = Object.keys(calendarData.data || {});
-    if (keys.length === 0) return { latestDate: null, latestContent: null };
+  const todayEntry = useMemo(() => {
+    const todayKey = today.toISOString().split("T")[0];
+    const entry = calendarData[todayKey];
 
-    const latestKey = keys.sort(
-      (a, b) => new Date(b).getTime() - new Date(a).getTime()
-    )[0];
-    const date = new Date(latestKey);
-    const formattedDate = `${date.getMonth() + 1}.${date.getDate()}`;
-    const content = calendarData.data?.[latestKey]?.content || null;
-
-    return { latestDate: formattedDate, latestContent: content };
-  }, [calendarData.data]);
+    const formattedDate = `${today.getMonth() + 1}.${today.getDate()}`;
+    return {
+      date: formattedDate,
+      content: entry?.content || "오늘 작성된 일기가 없어요.",
+    };
+  }, [calendarData, today]);
 
   return {
     today,
     setToday,
     calendarData,
-    latestDate,
-    latestContent,
+    todayEntry,
   };
 };
