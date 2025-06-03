@@ -24,7 +24,9 @@ const MainCalendar = ({
         <S.StyleCalendar
           locale="ko-KR"
           value={today}
-          onChange={(value) => setToday(value as Date)}
+          onChange={(value) => {
+            setToday(value as Date);
+          }}
           calendarType="gregory"
           formatShortWeekday={(_, date) =>
             ["일", "월", "화", "수", "목", "금", "토"][date.getDay()]
