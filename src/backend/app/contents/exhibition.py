@@ -28,7 +28,12 @@ emotion_to_genres = {
 def recommend_exhibitions(main_emotion, recommend_type="maintain", limit=10):
     genres = emotion_to_genres.get(main_emotion, {}).get(recommend_type, [])
     if not genres:
-        return []
+        all_exhibitions = list(Exhibition.objects.all())
+        random.shuffle(all_exhibitions)
+        return [
+            {"title": e.title, "sub": e.location}
+            for e in all_exhibitions[:limit]
+        ]
 
     queryset = Exhibition.objects.filter(genre__in=genres)
     exhibitions = list(queryset)
@@ -42,3 +47,4 @@ def recommend_exhibitions(main_emotion, recommend_type="maintain", limit=10):
         }
         for exhibition in sampled
     ]
+
