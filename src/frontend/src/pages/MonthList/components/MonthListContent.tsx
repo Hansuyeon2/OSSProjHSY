@@ -7,7 +7,7 @@ import { DiaryItem, getMonthListContent } from "@apis/monthReport/getMonthList";
 const MonthListContent = () => {
   const [diaryList, setDiaryList] = useState<DiaryItem[]>([]);
   const year = 2025;
-  const month = 4;
+  const month = 6;
 
   useEffect(() => {
     const loadData = async () => {

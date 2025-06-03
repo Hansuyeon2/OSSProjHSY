@@ -14,7 +14,8 @@ const MonthListCard = ({ id, date, emotion, content }: MonthListProps) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/todayReport/${id}`);
+    const formattedDate = date.replace(/\.\s?/g, "-").slice(0, 10);
+    navigate(`/todayReport/${id}`, { state: { id, formattedDate } });
   };
 
   return (
