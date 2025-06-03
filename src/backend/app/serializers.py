@@ -1,5 +1,6 @@
 from ai.sentiment_analysis import sentiment, find_main_emotion
-#from ai.inference.inference import generate_cause_from_text
+from ai.sentiment_cause.inference.inference import generate_cause_from_text
+from ai.comment import gpt_comment  
 from rest_framework import serializers
 from .models import Diary, NightDiary
 from app.contents.music import recommend_music
@@ -52,9 +53,9 @@ class DiarySerializer(serializers.ModelSerializer):
             validated_data['analysis'] = {
                 "set_1": {
                     "title": "기분 전환을 위한 랜덤 추천",
-                    "movies": recommend_movies([], recommend_type="maintain"),
-                    "books": recommend_books([], recommend_type="maintain"),
-                    "music": recommend_music([], recommend_type="maintain"),
+                    "movies": recommend_movies(matched_sub_emotions, recommend_type="maintain"),
+                    "books": recommend_books(matched_sub_emotions, recommend_type="maintain"),
+                    "music": recommend_music(matched_sub_emotions, recommend_type="maintain"),
                     "exhibitions": recommend_exhibitions("기타", recommend_type="maintain")
                 }
             }
@@ -111,7 +112,8 @@ class NightDiarySerializer(serializers.ModelSerializer):
             "entries": day.pop("entries"),
             "emotion": {
                 "main_emotion": day["main_emotion"],
-                "sub_emotion": day["sub_emotion"]
+                "sub_emotion": day["sub_emotion"],
+                "comment": instance.comment
             },
             "analysis": day.pop("analysis")
         }
@@ -131,7 +133,11 @@ class NightDiarySerializer(serializers.ModelSerializer):
         sub_list = []
         for d in diaries:
             if isinstance(d.sub_emotion, list):
-                sub_list += [s for s in d.sub_emotion if find_main_emotion(s) == top_main]
+                if top_main == "기타":
+                    sub_list += d.sub_emotion
+                else:
+                    sub_list += [s for s in d.sub_emotion if find_main_emotion(s) == top_main]
+
 
         sub_counter = Counter(sub_list)
         sorted_subs = dict(sorted(sub_counter.items(), key=lambda x: x[1], reverse=True))
@@ -155,9 +161,9 @@ class NightDiarySerializer(serializers.ModelSerializer):
             analysis = {
                 "set_1": {
                     "title": "랜덤 추천",
-                    "movies": recommend_movies([],recommend_type="maintain"),
-                    "books": recommend_books([], recommend_type="maintain"),
-                    "music": recommend_music([], recommend_type="maintain"),
+                    "movies": recommend_movies(matched_sub_list,recommend_type="maintain"),
+                    "books": recommend_books(matched_sub_list, recommend_type="maintain"),
+                    "music": recommend_music(matched_sub_list, recommend_type="maintain"),
                     "exhibitions": recommend_exhibitions("기타", recommend_type="maintain")
                 }
             }   
@@ -182,10 +188,17 @@ class NightDiarySerializer(serializers.ModelSerializer):
                     "exhibitions": overcome_exhibitions
                 }
             }
+            
+        all_causes = []
+        for d in diaries:
+            all_causes.extend(generate_cause_from_text(d.content))
+
+        comment = gpt_comment(all_causes, top_main)
 
         validated_data["user"] = user
         validated_data["main_emotion"] = top_main
         validated_data["sub_emotion"] = sorted_subs
         validated_data["analysis"] = analysis
+        validated_data["comment"] = comment
 
         return super().create(validated_data)
