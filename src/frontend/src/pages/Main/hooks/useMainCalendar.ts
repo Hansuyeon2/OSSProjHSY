@@ -7,8 +7,12 @@ export const useMainCalendar = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getCalendar(today.getFullYear(), today.getMonth() + 1);
-      setCalendarData(data);
+      const response = await getCalendar(
+        today.getFullYear(),
+        today.getMonth() + 1
+      );
+      console.log("API 응답", response);
+      setCalendarData(response.data || response);
     };
     fetchData();
   }, [today]);

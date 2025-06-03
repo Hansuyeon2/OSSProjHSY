@@ -4,14 +4,14 @@ import { DiaryEntry, getDiaryAnalysis } from "@apis/diary/getDiaryAnalysis";
 import Loading from "@components/Loading";
 import { useNavigate } from "react-router-dom";
 import TodayReportCard from "./components/TodayReportCard";
-// import TodayReportContainer from "./components/TodayReportContainer";
-import TodayReportNight from "./components/TodayReportNight/TodayReportNight";
+import TodayReportContainer from "./components/TodayReportContainer";
+// import TodayReportNight from "./components/TodayReportNight/TodayReportNight";
 
 const TodayReport = () => {
   const [entries, setEntries] = useState<DiaryEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [_, setSelectedCategory] = useState<string>("영화");
+  const [selectedCategory, setSelectedCategory] = useState<string>("영화");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -53,11 +53,11 @@ const TodayReport = () => {
 
   if (loading) return <Loading />;
 
-  // const currentEntry = entries[currentIndex];
+  const currentEntry = entries[currentIndex];
 
-  // const handleCategoryChange = (category: string) => {
-  //   setSelectedCategory(category);
-  // };
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
+  };
 
   return (
     <DiaryLayout headerType="close" onCloseClick={() => navigate("/main")}>
@@ -69,12 +69,12 @@ const TodayReport = () => {
       {/* 위 content card */}
 
       {/* 밑 분석 report */}
-      {/* <TodayReportContainer
+      <TodayReportContainer
         entry={currentEntry}
         selectedCategory={selectedCategory}
         onCategoryChange={handleCategoryChange}
-      /> */}
-      <TodayReportNight />
+      />
+      {/* <TodayReportNight /> */}
     </DiaryLayout>
   );
 };

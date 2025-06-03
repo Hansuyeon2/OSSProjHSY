@@ -4,7 +4,7 @@ export const dummyMonthListData = [
     content:
       "어제부터 마라탕집 가려고 신났었는데 ... 수업 끝나고 가니까 ... 휴무래 ... 나 진짜 너무 속상해... 왜 나에게 이런일이 ..",
     created_at: "2025-05-20T10:00:00Z",
-    main_emotion: "우울함",
+    main_emotion: "우울",
   },
   {
     id: 2,

@@ -19,7 +19,7 @@ const TodayReportContainer = ({ entry }: TodayReportContainerProps) => {
   return (
     <Container>
       <TodayReportContent
-        title={`${entry.emotion}한 감정에 어울리는 콘텐츠에요!`}
+        title={`${entry.main_emotion} 감정에 어울리는 콘텐츠에요!`}
         des="콘텐츠를 클릭해서 쿼디의 추천을 확인해보세요!"
       >
         {entry.analysis && (
