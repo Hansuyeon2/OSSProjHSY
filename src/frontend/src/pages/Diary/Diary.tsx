@@ -26,17 +26,16 @@ const Diary = () => {
     try {
       const response = await postDiary(content);
       if (response) {
-        navigate("/todayReport");
-        //TODO: 추후 api 연동 후 못넘어가도록 수정 필요
+        navigate(`/todayReport/${response.id}`);
       } else {
         setTimeout(() => {
-          navigate("/todayReport");
+          alert("오류가 발생했어요 :( 다시 시도해주세요!");
         }, 3000);
       }
     } catch (error) {
       setTimeout(() => {
-        navigate("/todayReport");
-      }, 3000);
+        alert("오류가 발생했어요 :( 다시 시도해주세요!");
+      });
     }
   };
   if (isLoading) return <Loading />;

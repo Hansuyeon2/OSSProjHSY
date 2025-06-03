@@ -1,4 +1,6 @@
+import { useAtom } from "jotai";
 import * as S from "./MainHeader.styled";
+import { userAtom } from "src/atoms/authAtoms";
 
 const MainHeader = ({
   today,
@@ -8,6 +10,7 @@ const MainHeader = ({
   monthEmotion: string | null;
 }) => {
   const month = today.getMonth() + 1;
+  const [user] = useAtom(userAtom);
 
   return (
     <S.MainPageHeaderWrapper>
@@ -17,7 +20,7 @@ const MainHeader = ({
         <img src="/images/icons/dropdown.svg" alt="dropdown" />{" "}
         {monthEmotion
           ? `${monthEmotion}이 가득한 달이었네요!`
-          : "민영 님에게 어떤 달일까요?"}
+          : `${user?.username ?? "당신"} 님에게 어떤 달일까요?`}
       </S.MainPageHeaderTitle>
     </S.MainPageHeaderWrapper>
   );
