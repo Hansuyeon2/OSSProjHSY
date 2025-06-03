@@ -24,10 +24,17 @@ type Emotion = {
   sub_emotion: Record<string, number>;
 };
 
-type DiaryNightResponse = {
+export type DiaryNightResponse = {
   entries: Entry[];
   analysis: {
     set_1: {
+      title: string;
+      movies: MediaItem[];
+      books: MediaItem[];
+      music: MediaItem[];
+      exhibitions: MediaItem[];
+    };
+    set_2?: {
       title: string;
       movies: MediaItem[];
       books: MediaItem[];

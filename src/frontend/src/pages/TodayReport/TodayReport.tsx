@@ -5,7 +5,7 @@ import Loading from "@components/Loading";
 import { useNavigate } from "react-router-dom";
 import TodayReportCard from "./components/TodayReportCard";
 import TodayReportContainer from "./components/TodayReportContainer";
-import TodayReportNight from "./components/TodayReportNight/TodayReportNight";
+// import TodayReportNight from "./components/TodayReportNight/TodayReportNight";
 
 const TodayReport = () => {
   const [entries, setEntries] = useState<DiaryEntry[]>([]);
@@ -69,12 +69,12 @@ const TodayReport = () => {
       {/* 위 content card */}
 
       {/* 밑 분석 report */}
-      {/* <TodayReportContainer
+      <TodayReportContainer
         entry={currentEntry}
         selectedCategory={selectedCategory}
         onCategoryChange={handleCategoryChange}
-      /> */}
-      <TodayReportNight />
+      />
+      {/* <TodayReportNight /> */}
     </DiaryLayout>
   );
 };

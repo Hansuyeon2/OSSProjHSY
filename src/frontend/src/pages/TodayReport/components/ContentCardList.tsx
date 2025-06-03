@@ -38,7 +38,7 @@ const ContentCardList = ({
   return (
     <ContentCardListWrapper>
       <ContetnCardHeader>
-        <ContetCardListIcon src="/images/icons/tag.png" />
+        <ContetCardListIcon src="/images/icons/tag.svg" />
         <ContentCardListTitle>
           {analysis.title} {category}
         </ContentCardListTitle>

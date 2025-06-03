@@ -7,7 +7,7 @@ interface TodayReportTitleProps {
 const TodayReportTitle = ({ title }: TodayReportTitleProps) => {
   return (
     <TodayReportTitleSection>
-      <img src="/images/icons/tag.png" />
+      <img src="/images/icons/tag.svg" />
       <p>{title}</p>
     </TodayReportTitleSection>
   );
