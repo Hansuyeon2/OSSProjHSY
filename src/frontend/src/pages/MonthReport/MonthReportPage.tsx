@@ -1,14 +1,13 @@
-import FlexLayout from "@layouts/FlexLayout";
 import * as s from "./MonthReportPage_styled";
 import MonthReportHeader from "./components/MonthReportHeader";
+import MonthReportCard from "./components/MonthReportCard";
 
 const MonthReportPage = () => {
   return (
-    <FlexLayout>
-      <s.MontReportWrapper>
-        <MonthReportHeader />
-      </s.MontReportWrapper>
-    </FlexLayout>
+    <s.MontReportWrapper>
+      <MonthReportHeader />
+      <MonthReportCard />
+    </s.MontReportWrapper>
   );
 };
 

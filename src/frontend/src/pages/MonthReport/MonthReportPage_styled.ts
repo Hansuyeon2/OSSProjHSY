@@ -7,4 +7,5 @@ export const MontReportWrapper = styled.div`
   height: calc(100vh - 90px);
   align-items: center;
   justify-content: center;
+  gap: 4.62rem;
 `;
