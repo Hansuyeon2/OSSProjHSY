@@ -13,8 +13,9 @@ export const MonthReportHeaderWrapper = styled.div`
 //monthReportCard
 
 export const MonthReportCardWrapper = styled.div`
-  width: 13.25rem;
-  height: 17.3125rem;
+  width: 212px;
+  height: 277px;
+  flex-shrink: 0;
   background-color: white;
   border: 1px solid ${({ theme }) => theme.colors.mainbrown04};
   border-radius: 0.3125rem 1.875rem 1.875rem 0.3125rem;

@@ -1,12 +1,12 @@
 import * as s from "./MonthReportPage_styled";
 import MonthReportHeader from "./components/MonthReportHeader";
-import MonthReportCard from "./components/MonthReportCard";
+import MonthReportCardList from "./components/MonthReportCardList";
 
 const MonthReportPage = () => {
   return (
     <s.MontReportWrapper>
       <MonthReportHeader />
-      <MonthReportCard />
+      <MonthReportCardList />
     </s.MontReportWrapper>
   );
 };
