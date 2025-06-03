@@ -5,13 +5,14 @@ import FlexLayout from "@layouts/FlexLayout";
 import MonthListContent from "./components/MonthListContent";
 
 const MonthListPage = () => {
-  const { today, calendarData } = useMainCalendar();
+  const { today, setToday, calendarData } = useMainCalendar();
 
   return (
     <FlexLayout>
       <S.AnalysisListWrapper>
         <MainHeader
           today={today}
+          setToday={setToday}
           monthEmotion={calendarData.month_main_emotion || null}
         />
         <MonthListContent />

@@ -1,5 +1,7 @@
-import { useState } from "react";
+// CalendarModal.tsx
+import { useEffect, useState } from "react";
 import * as S from "./Calendar_styled";
+import { createPortal } from "react-dom";
 
 interface CalendarModalProps {
   today: Date;
@@ -19,7 +21,14 @@ const CalendarModal = ({
     setToday(newDate);
     setIsModalOpen(false);
   };
-  return (
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, []);
+
+  const modalContent = (
     <>
       <S.ModalOverlay onClick={() => setIsModalOpen(false)} />
       <S.BottomSheet>
@@ -33,7 +42,9 @@ const CalendarModal = ({
           {Array.from({ length: 12 }).map((_, i) => (
             <S.MonthButton
               key={i}
-              selected={i === today.getMonth()}
+              selected={
+                modalYear === today.getFullYear() && i === today.getMonth()
+              }
               onClick={() => handleMonthSelect(i)}
             >
               {i + 1}월
@@ -47,6 +58,8 @@ const CalendarModal = ({
       </S.BottomSheet>
     </>
   );
+
+  return createPortal(modalContent, document.body);
 };
 
 export default CalendarModal;

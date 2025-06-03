@@ -19,6 +19,7 @@ const Mainpage = () => {
     <FlexLayout>
       <MainHeader
         today={today}
+        setToday={setToday}
         monthEmotion={calendarData.month_main_emotion || null}
       />
       <MainCalendar
