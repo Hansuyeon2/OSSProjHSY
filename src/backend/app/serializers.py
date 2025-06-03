@@ -1,4 +1,5 @@
 from ai.sentiment_analysis import sentiment, find_main_emotion
+#from ai.inference.inference import generate_cause_from_text
 from rest_framework import serializers
 from .models import Diary, NightDiary
 from app.contents.music import recommend_music

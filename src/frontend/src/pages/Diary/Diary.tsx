@@ -25,19 +25,21 @@ const Diary = () => {
     setIsLoading(true);
     try {
       const response = await postDiary(content);
+      console.log("와라", response);
       if (response) {
-        navigate(`/todayReport/${response.id}`);
-      } else {
-        setTimeout(() => {
-          alert("오류가 발생했어요 :( 다시 시도해주세요!");
+        navigate(`/todayReport/${response.id}`, {
+          state: { formattedDate: new Date().toLocaleDateString("sv-SE") },
         });
+      } else {
+        alert("오류가 발생했어요 :( 다시 시도해주세요!");
       }
     } catch (error) {
-      setTimeout(() => {
-        alert("오류가 발생했어요 :( 다시 시도해주세요!");
-      });
+      alert("오류가 발생했어요 :( 다시 시도해주세요!");
+    } finally {
+      setIsLoading(false);
     }
   };
+
   if (isLoading) return <Loading />;
 
   return (

@@ -4,7 +4,7 @@ import Btn from "@components/Button";
 import { fonts } from "@styles/fonts";
 import { useNavigate } from "react-router-dom";
 import { DiaryEntry } from "@apis/diary/getDiaryAnalysis";
-import TodayReportTitle from "./TodayReportNight/TodayReportTitle";
+// import TodayReportTitle from "./TodayReportNight/TodayReportTitle";
 import TodayContentRecommendation from "./TodayContentRecommendation";
 
 interface TodayReportContainerProps {
@@ -24,7 +24,9 @@ const TodayReportContainer = ({ entry }: TodayReportContainerProps) => {
       >
         {entry.analysis && (
           <>
-            <TodayReportTitle title="어제 감정에 어울리는 콘텐츠" />
+            {/* <TodayReportTitle
+              title={`${entry.main_emotion} 감정에 어울리는 콘텐츠`}
+            /> */}
             <TodayContentRecommendation
               analysisSets={[
                 {

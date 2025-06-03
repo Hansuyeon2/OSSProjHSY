@@ -8,6 +8,7 @@ interface ContentCardProps {
   des?: string;
   category?: string;
   isSelected?: boolean;
+  url?: string;
 }
 
 const ContentCard = ({
@@ -17,9 +18,19 @@ const ContentCard = ({
   des,
   category,
   isSelected,
+  url,
 }: ContentCardProps) => {
+  const handleClick = () => {
+    if (onClick) {
+      onClick();
+    }
+    if (url) {
+      window.open(url, "_blank");
+    }
+  };
+
   return (
-    <ContentCardWrapper onClick={onClick} isSelected={isSelected}>
+    <ContentCardWrapper onClick={handleClick} $isSelected={isSelected}>
       <ContentCardIcon src={src} />
       <ContentCardTitle>{title}</ContentCardTitle>
       <ContenCardMore>{des || "자세히 보기"}</ContenCardMore>
@@ -28,7 +39,7 @@ const ContentCard = ({
   );
 };
 
-const ContentCardWrapper = styled.div<{ isSelected?: boolean }>`
+const ContentCardWrapper = styled.div<{ $isSelected?: boolean }>`
   width: 105px;
   height: 105px;
   display: flex;
@@ -36,8 +47,8 @@ const ContentCardWrapper = styled.div<{ isSelected?: boolean }>`
   padding: 10px 7px 5.742px 10px;
   border-radius: 4.234px;
   border: 0.847px solid ${({ theme }) => theme.colors.mainbrown03};
-  background-color: ${({ theme, isSelected }) =>
-    isSelected ? theme.colors.bgbeige05 : theme.colors.bgbeige02};
+  background-color: ${({ theme, $isSelected }) =>
+    $isSelected ? theme.colors.bgbeige05 : theme.colors.bgbeige02};
   gap: 3px;
   cursor: pointer;
 `;

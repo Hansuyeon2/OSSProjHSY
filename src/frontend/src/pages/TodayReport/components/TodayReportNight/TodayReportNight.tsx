@@ -4,39 +4,29 @@ import Separator from "@components/separator";
 import TodayReportTitle from "./TodayReportTitle";
 import EmotionGraph from "./TodayReportGraph/TodayBio";
 import TodayTip from "./TodayTip";
-import { useEffect, useState } from "react";
-import {
-  DiaryNightResponse,
-  getDiaryNight,
-} from "@apis/diary/getDiaryNightAnalysis";
 import TodayEmotion from "./TodayReportGraph/TodayEmotion";
 import TodayContentRecommendation from "../TodayContentRecommendation";
 import { useAtom } from "jotai";
 import { userAtom } from "src/atoms/authAtoms";
+import { DiaryNightResponse } from "@apis/diary/getDiaryNightAnalysis";
 
-const TodayReportNight = () => {
-  const [entries, setEntries] = useState<
-    { created_at: string; main_emotion: string }[]
-  >([]);
-  const [emotion, setEmotion] = useState<{
-    main_emotion: string;
-    comment: string;
-    sub_emotion: Record<string, number>;
-  }>();
-  const [analysis, setAnalysis] = useState<DiaryNightResponse["analysis"]>();
+interface TodayReportNightProps {
+  entries: DiaryNightResponse["entries"];
+  emotion: DiaryNightResponse["emotion"];
+  analysis: DiaryNightResponse["analysis"];
+}
+
+const TodayReportNight = ({
+  entries,
+  emotion,
+  analysis,
+}: TodayReportNightProps) => {
   const [user] = useAtom(userAtom);
 
-  useEffect(() => {
-    getDiaryNight().then((data) => {
-      const sorted = data.entries.sort(
-        (a, b) =>
-          new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
-      );
-      setEntries(sorted);
-      setEmotion(data.emotion);
-      setAnalysis(data.analysis);
-    });
-  }, []);
+  const sortedEntries = [...entries].sort(
+    (a, b) =>
+      new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+  );
 
   return (
     <TodayReportContent
@@ -48,7 +38,7 @@ const TodayReportNight = () => {
           {/* 하루 바이오리듬 그래프 */}
           <S.TodayReportCardContainer>
             <TodayReportTitle title="어제 하루의 바이오리듬" />
-            <EmotionGraph data={entries} />
+            <EmotionGraph data={sortedEntries} />
           </S.TodayReportCardContainer>
 
           {/* 쿼디의 팁 */}

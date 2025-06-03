@@ -57,13 +57,11 @@ export const ChartWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 10px;
   border: 1px solid ${({ theme }) => theme.colors.mainbrown04};
   background-color: ${({ theme }) => theme.colors.bgbeige02};
   border-radius: 14px;
   padding: 20px 13px 20px 19px;
   width: 234px;
-  gap: 26px;
 `;
 
 export const ChartContainer = styled.section`
