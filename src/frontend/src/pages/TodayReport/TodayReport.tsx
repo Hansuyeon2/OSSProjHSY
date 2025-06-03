@@ -84,7 +84,7 @@ const TodayReport = () => {
   };
 
   return (
-    <DiaryLayout headerType="close" onCloseClick={() => navigate("/main")}>
+    <DiaryLayout headerType="close" onCloseClick={() => navigate(-1)}>
       {formattedDate === today ? (
         <>
           <TodayReportCard
