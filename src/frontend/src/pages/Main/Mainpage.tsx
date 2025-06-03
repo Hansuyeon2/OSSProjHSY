@@ -12,22 +12,28 @@ const Mainpage = () => {
   const { today, setToday, calendarData, todayEntry } = useMainCalendar();
   console.log("1", today);
   console.log("2", setToday);
-  console.log("3", calendarData.data);
+  console.log("3", calendarData);
   console.log("4", todayEntry);
 
   return (
     <FlexLayout>
       <MainHeader
         today={today}
+        setToday={setToday}
         monthEmotion={calendarData.month_main_emotion || null}
       />
       <MainCalendar
         today={today}
         setToday={setToday}
-        calendarData={calendarData.data || {}}
+        calendarData={calendarData}
       />
       <Separator />
-      <MainContent date={todayEntry.date} content={todayEntry.content} />
+      <MainContent
+        date={todayEntry?.date || ""}
+        content={todayEntry?.content || "오늘 작성된 일기가 없어요."}
+        id={todayEntry?.id || ""}
+        created_at={todayEntry?.created_at}
+      />
       <Btn
         title="일기 쓰기"
         borderRadius="10px"

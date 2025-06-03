@@ -3,12 +3,13 @@ import "swiper/swiper-bundle.css";
 import "./TodayReportCard_styled.css";
 import { Pagination, Mousewheel, Keyboard } from "swiper/modules";
 import { DiaryEntry } from "@apis/diary/getDiaryAnalysis";
+import { Entry } from "@apis/diary/getDiaryNightAnalysis";
 import DiaryCard from "@components/card/DiaryCard";
 import { useRef } from "react";
 import { getFormatToday } from "src/utils/date";
 
 interface DiaryReportViewProps {
-  entries: DiaryEntry[];
+  entries: (DiaryEntry | Entry)[];
   onCardChange?: (index: number) => void;
 }
 
@@ -21,6 +22,10 @@ const TodayReportCard = ({ entries, onCardChange }: DiaryReportViewProps) => {
       onCardChange?.(index);
     }
   };
+
+  if (entries.length === 0) {
+    return;
+  }
 
   if (entries.length > 1) {
     return (
