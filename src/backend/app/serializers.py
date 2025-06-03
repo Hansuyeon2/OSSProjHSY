@@ -91,15 +91,15 @@ class NightDiarySerializer(serializers.ModelSerializer):
         diaries = Diary.objects.filter(username=obj.user, created_at__date=obj.date)
         return NightDiaryEntrySerializer(diaries, many=True).data
 
-    def daily(self, instance):
-        day = super().daily(instance)
+    def to_representation(self, instance):
+        day = super().to_representation(instance)
         return {
             "entries": day.pop("entries"),
             "emotion": {
                 "main_emotion": day["main_emotion"],
                 "sub_emotion": day["sub_emotion"]
             },
-            "analysis": day["analysis"]
+            "analysis": day.pop("analysis")
         }
 
     def create(self, validated_data):
