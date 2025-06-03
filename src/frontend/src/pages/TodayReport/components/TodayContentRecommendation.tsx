@@ -5,10 +5,10 @@ import { useState } from "react";
 
 type AnalysisSet = {
   title: string;
-  movies: { title: string; sub: string }[];
-  books: { title: string; sub: string }[];
-  music: { title: string; sub: string }[];
-  exhibitions: { title: string; sub: string }[];
+  movies: { title: string; sub: string; url?: string }[];
+  books: { title: string; sub: string; url?: string }[];
+  music: { title: string; sub: string; url?: string }[];
+  exhibitions: { title: string; sub: string; url?: string }[];
 };
 
 type Props = {

@@ -8,6 +8,7 @@ interface ContentCardProps {
   des?: string;
   category?: string;
   isSelected?: boolean;
+  url?: string;
 }
 
 const ContentCard = ({
@@ -17,9 +18,19 @@ const ContentCard = ({
   des,
   category,
   isSelected,
+  url,
 }: ContentCardProps) => {
+  const handleClick = () => {
+    if (onClick) {
+      onClick();
+    }
+    if (url) {
+      window.open(url, "_blank");
+    }
+  };
+
   return (
-    <ContentCardWrapper onClick={onClick} isSelected={isSelected}>
+    <ContentCardWrapper onClick={handleClick} isSelected={isSelected}>
       <ContentCardIcon src={src} />
       <ContentCardTitle>{title}</ContentCardTitle>
       <ContenCardMore>{des || "자세히 보기"}</ContenCardMore>
