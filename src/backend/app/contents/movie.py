@@ -1,6 +1,6 @@
 import random
 from app.models import Movie
-from app.contents.movie import overcome_emotion_map 
+
 
 overcome_emotion_map = {
     "고립된": ["기쁨", "신뢰하는", "만족스러운"],
@@ -57,14 +57,17 @@ def recommend_movies(sub_emotion: list, recommend_type: str = "maintain"):
             continue
 
         if recommend_type == "maintain":
-            if any(sub in movie.sub_emotion for sub in sub_emotion):
+            if not sub_emotion or any(sub in movie.sub_emotion for sub in sub_emotion):
                 matched_movies.append(movie)
+
+
         elif recommend_type == "overcome":
-            alt_emotions = []
+            alt_emotions = set()
             for sub in sub_emotion:
-                alt_emotions.extend(overcome_emotion_map.get(sub, []))
+                alt_emotions.update(overcome_emotion_map.get(sub, []))
+
             if any(emotion in movie.sub_emotion for emotion in alt_emotions):
-                movie.append(movie)
+                matched_movies.append(movie)  
 
     if not matched_movies:
         return []

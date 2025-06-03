@@ -244,20 +244,29 @@ def get_spotify_tracks(seed_genres, sample_size=1):
 def recommend_music(matched_sub_emotions, recommend_type="maintain"):
     all_candidates = []
 
-    for sub_emotion in matched_sub_emotions:
-        genre_info = sub_emotion_to_genres.get(sub_emotion, {})
-        seed_genres = genre_info.get(recommend_type, ["pop"])
+    if not matched_sub_emotions:
+        all_genres = set()
+        for genre_dict in sub_emotion_to_genres.values():
+            for genre_list in genre_dict.values():
+                all_genres.update(genre_list)
 
-        for genre in seed_genres:
-            tracks = get_spotify_tracks([genre], sample_size=10)
+        for genre in all_genres:
+            tracks = get_spotify_tracks([genre], sample_size=5)
             all_candidates.extend(tracks)
+
+    else:
+        for sub_emotion in matched_sub_emotions:
+            genre_info = sub_emotion_to_genres.get(sub_emotion, {})
+            seed_genres = genre_info.get(recommend_type, ["pop"])
+            for genre in seed_genres:
+                tracks = get_spotify_tracks([genre], sample_size=10)
+                all_candidates.extend(tracks)
 
     unique_candidates = {
         (track['title'], track['sub']): track for track in all_candidates
     }
-    final_recommendations = random.sample(
+
+    return random.sample(
         list(unique_candidates.values()),
         min(len(unique_candidates), 10)
     )
-
-    return final_recommendations

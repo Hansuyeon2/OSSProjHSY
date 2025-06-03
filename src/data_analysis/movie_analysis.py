@@ -11,7 +11,7 @@ sys.path.append(BACKEND_DIR)
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings")
 django.setup()
 
-from app.models import Book 
+from app.models import Movie 
 
 
 df = pd.read_csv("movie_analysis.csv")
@@ -23,7 +23,7 @@ for _, row in df.iterrows():
         if isinstance(sub_emotion, str):
             sub_emotion = ast.literal_eval(sub_emotion)
 
-        Book.objects.create(
+        Movie.objects.create(
             title=row["영화명"],
             director=row.get("감독", "미상"),
             main_emotion=row.get("main_emotion", "기타"),
