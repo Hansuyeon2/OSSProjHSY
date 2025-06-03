@@ -31,6 +31,8 @@ const Mainpage = () => {
       <MainContent
         date={todayEntry?.date || ""}
         content={todayEntry?.content || "오늘 작성된 일기가 없어요."}
+        id={todayEntry?.id || ""}
+        created_at={todayEntry?.created_at}
       />
       <Btn
         title="일기 쓰기"

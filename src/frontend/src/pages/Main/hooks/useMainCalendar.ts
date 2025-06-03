@@ -42,6 +42,8 @@ export const useMainCalendar = () => {
     return {
       date: formattedDate,
       content: entry?.content || "오늘 작성된 일기가 없어요.",
+      id: entry?.id,
+      created_at: entry?.created_at,
     };
   }, [calendarData, today, isLoading]);
 
