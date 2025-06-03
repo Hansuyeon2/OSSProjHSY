@@ -6,7 +6,7 @@ import styled from "styled-components";
 const DefaultLayout = () => {
   const location = useLocation();
 
-  const activeFooterPaths = ["/main", "/monthList"];
+  const activeFooterPaths = ["/main", "/monthList", "/monthReport"];
   const hasFooter = activeFooterPaths.some((path) =>
     location.pathname.startsWith(path)
   );

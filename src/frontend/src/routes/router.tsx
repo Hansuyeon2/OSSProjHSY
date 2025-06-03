@@ -11,6 +11,7 @@ import Diary from "@pages/Diary/Diary";
 import TodayReport from "@pages/TodayReport/TodayReport";
 import MonthListPage from "@pages/MonthList/MonthListPage";
 import PrivateRoute from "@layouts/PrivateLayout";
+import MonthReportPage from "@pages/MonthReport/MonthReportPage";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
           { path: "diary", element: <Diary /> },
           { path: "todayReport/:id", element: <TodayReport /> },
           { path: "monthList", element: <MonthListPage /> },
+          { path: "monthReport", element: <MonthReportPage /> },
         ],
       },
     ],
