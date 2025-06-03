@@ -20,6 +20,7 @@ export const useMainCalendar = () => {
   const todayEntry = useMemo(() => {
     const todayKey = today.toISOString().split("T")[0];
     const entry = calendarData[todayKey];
+    console.log("dd", calendarData);
 
     const formattedDate = `${today.getMonth() + 1}.${today.getDate()}`;
     return {
