@@ -1,8 +1,14 @@
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
-const GuestLayout = () => {
-  //TODO: 로그인 여부 판단 확인 훅 추가 필요
+const LoginLayout = () => {
+  const accessToken = localStorage.getItem("access");
+
+  if (accessToken) {
+    // 이미 로그인 상태면 메인으로 보내주기
+    return <Navigate to="/main" replace />;
+  }
+
   return <Outlet />;
 };
 
-export default GuestLayout;
+export default LoginLayout;
