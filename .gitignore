@@ -205,3 +205,6 @@ venv/
 
 # ai 학습 모델 
 model/
+
+.env
+__pycache__/
