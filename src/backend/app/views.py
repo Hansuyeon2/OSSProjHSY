@@ -1,14 +1,18 @@
+from datetime import date, datetime, time
 import calendar
 import random
-from datetime import date, datetime, time
+
+from django.utils import timezone
 from django.utils.timezone import make_aware
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
+
 from .models import Diary, NightDiary
 from .serializers import *
 from .contents.book import *
+
 
 class DiaryViewSet(viewsets.ModelViewSet):
     queryset = Diary.objects.all()
@@ -18,15 +22,17 @@ class DiaryViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(username=self.request.user)
 
-    # 달력
+    #  달력
     @action(methods=['get'], detail=False, url_path='cal')
     def calendar(self, request):
         year = int(request.query_params.get('year'))
         month = int(request.query_params.get('month'))
 
         last_day = calendar.monthrange(year, month)[1]
-        start = make_aware(datetime.combine(date(year, month, 1), time.min))
-        end = make_aware(datetime.combine(date(year, month, last_day), time.max))
+
+        tz = timezone.get_current_timezone()
+        start = make_aware(datetime.combine(date(year, month, 1), time.min), timezone=tz)
+        end = make_aware(datetime.combine(date(year, month, last_day), time.max), timezone=tz)
 
         diaries = Diary.objects.filter(
             username=request.user,
@@ -35,25 +41,27 @@ class DiaryViewSet(viewsets.ModelViewSet):
 
         callist = {}
         for diary in diaries:
-            newdate = diary.created_at.date().isoformat()
+            newdate = timezone.localtime(diary.created_at).date().isoformat()
             callist.setdefault(newdate, {
                 "id": diary.id,
                 "content": diary.content,
-                "created_at": diary.created_at,
+                "created_at": timezone.localtime(diary.created_at).isoformat(),
                 "main_emotion": diary.main_emotion
             })
 
         return Response(callist)
 
-    # 리스트
+    #  리스트
     @action(methods=['get'], detail=False, url_path='list')
     def diarylist(self, request):
         year = int(request.query_params.get('year'))
         month = int(request.query_params.get('month'))
 
         last_day = calendar.monthrange(year, month)[1]
-        start = make_aware(datetime.combine(date(year, month, 1), time.min))
-        end = make_aware(datetime.combine(date(year, month, last_day), time.max))
+
+        tz = timezone.get_current_timezone()
+        start = make_aware(datetime.combine(date(year, month, 1), time.min), timezone=tz)
+        end = make_aware(datetime.combine(date(year, month, last_day), time.max), timezone=tz)
 
         diaries = Diary.objects.filter(
             username=request.user,
@@ -63,14 +71,14 @@ class DiaryViewSet(viewsets.ModelViewSet):
         return Response([
             {
                 "id": d.id,
-                "created_at": d.created_at,
+                "created_at": timezone.localtime(d.created_at).isoformat(),
                 "content": d.content,
                 "main_emotion": d.main_emotion
             }
             for d in diaries
         ])
 
-    # 일기
+    # detail
     def list(self, request, *args, **kwargs):
         strdate = request.query_params.get('date')
         if not strdate:
