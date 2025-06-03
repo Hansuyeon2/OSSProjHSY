@@ -41,7 +41,8 @@ class DiaryViewSet(viewsets.ModelViewSet):
             callist.setdefault(newdate, {
                         "id": diary.id,
                         "content": diary.content,
-                        "created_at": diary.created_at
+                        "created_at": diary.created_at,
+                        "main_emotion" : diary.main_emotion 
                     }
                 )
 
@@ -63,8 +64,13 @@ class DiaryViewSet(viewsets.ModelViewSet):
             created_at__date__range=(start, end)
         ).order_by('-created_at')
 
-        serializer = DiarySerializer(diaries, many=True)
-        return Response(serializer.data)
+        return Response(
+            {"id": d.id,
+            "created_at" : d.created_at,
+            "content": d.content,
+            "main_emotion": d.main_emotion}
+            for d in diaries
+        )
     
     #일기 상세보기(detail)
 
