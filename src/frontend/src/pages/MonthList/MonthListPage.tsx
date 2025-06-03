@@ -15,7 +15,10 @@ const MonthListPage = () => {
           setToday={setToday}
           monthEmotion={calendarData.month_main_emotion || null}
         />
-        <MonthListContent />
+        <MonthListContent
+          year={today.getFullYear()}
+          month={today.getMonth() + 1}
+        />
       </S.AnalysisListWrapper>
     </FlexLayout>
   );
