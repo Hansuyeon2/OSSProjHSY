@@ -11,4 +11,7 @@ export interface SignupResponse {
 
 export interface LoginResponse {
   message: string;
+  username: string;
+  access: string;
+  refresh: string;
 }

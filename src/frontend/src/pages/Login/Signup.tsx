@@ -24,7 +24,7 @@ const Signup = () => {
 
     if (response) {
       console.log("회원가입 성공:", response);
-      navigate("/main");
+      navigate("/", { replace: true });
     } else {
       alert("회원가입에 실패했습니다. 다시 시도해주세요.");
     }

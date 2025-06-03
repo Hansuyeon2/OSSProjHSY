@@ -3,9 +3,12 @@ import { useNavigate, Link } from "react-router-dom";
 import { useFormFields } from "./hooks/useFormFields";
 import AuthForm from "./components/AuthForm";
 import { PostLogin } from "@apis/auth/postLogin";
+import { useSetAtom } from "jotai";
+import { userAtom } from "src/atoms/authAtoms";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const setUser = useSetAtom(userAtom);
   const { form, handleChange, isValid } = useFormFields([
     "username",
     "password",
@@ -18,7 +21,11 @@ const LoginPage = () => {
     });
     if (response) {
       console.log("로그인 성공:", response);
-      navigate("/main");
+      setUser({ username: response.username });
+
+      localStorage.setItem("access", response.access);
+      localStorage.setItem("refresh", response.refresh);
+      navigate("/main", { replace: true });
     } else {
       alert("로그인에 실패했습니다. 다시 시도해주세요.");
     }

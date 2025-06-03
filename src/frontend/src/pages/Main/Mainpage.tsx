@@ -9,8 +9,11 @@ import { useNavigate } from "react-router-dom";
 
 const Mainpage = () => {
   const navigate = useNavigate();
-  const { today, setToday, calendarData, latestDate, latestContent } =
-    useMainCalendar();
+  const { today, setToday, calendarData, todayEntry } = useMainCalendar();
+  console.log("1", today);
+  console.log("2", setToday);
+  console.log("3", calendarData.data);
+  console.log("4", todayEntry);
 
   return (
     <FlexLayout>
@@ -24,7 +27,7 @@ const Mainpage = () => {
         calendarData={calendarData.data || {}}
       />
       <Separator />
-      <MainContent date={latestDate} content={latestContent} />
+      <MainContent date={todayEntry.date} content={todayEntry.content} />
       <Btn
         title="일기 쓰기"
         borderRadius="10px"

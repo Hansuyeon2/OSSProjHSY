@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { fonts } from "@styles/fonts";
+import { useAtom } from "jotai";
+import { userAtom } from "src/atoms/authAtoms";
 
 const Loading = () => {
   const [rotation, setRotation] = useState(0);
   const [transitioning, setTransitioning] = useState(false);
+  const [user] = useAtom(userAtom);
 
   useEffect(() => {
     let angle = 0;
@@ -28,7 +31,8 @@ const Loading = () => {
   return (
     <LoadingWrapper>
       <LoadingText>
-        지금&nbsp;<NameText>민영</NameText>&nbsp;님은 어떤 감정일까요?
+        지금&nbsp;<NameText>{user.username}</NameText>&nbsp;님은 어떤
+        감정일까요?
       </LoadingText>
       <LoadingImgContainer>
         <SpinnerWrapper>

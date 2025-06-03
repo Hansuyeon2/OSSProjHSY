@@ -10,15 +10,7 @@ type EmotionGraphProps = {
   }[];
 };
 
-const emotionOrder = [
-  "행복",
-  "화남",
-  "놀람",
-  "평온",
-  "우울함",
-  "두려움",
-  "기타",
-];
+const emotionOrder = ["행복", "화남", "놀람", "평온", "우울", "두려움", "기타"];
 
 type EmotionPoint = {
   x: string;

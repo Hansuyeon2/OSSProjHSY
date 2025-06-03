@@ -16,7 +16,7 @@ export type DiaryEntry = {
   content: string;
   username: string;
   created_at: string;
-  emotion: string;
+  main_emotion: string;
   analysis: {
     set_1: ContentSet;
     set_2?: ContentSet;

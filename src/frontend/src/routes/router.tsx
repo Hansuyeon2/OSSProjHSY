@@ -10,6 +10,7 @@ import Mainpage from "@pages/Main/Mainpage";
 import Diary from "@pages/Diary/Diary";
 import TodayReport from "@pages/TodayReport/TodayReport";
 import MonthListPage from "@pages/MonthList/MonthListPage";
+import PrivateRoute from "@layouts/PrivateLayout";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
         ],
       },
       {
+        element: <PrivateRoute />,
         children: [
           { path: "main", element: <Mainpage /> },
           { path: "diary", element: <Diary /> },

@@ -58,6 +58,9 @@ const ContentCardTitle = styled.h1`
 const ContenCardMore = styled.p`
   ${fonts.cap_m_10}
   color: ${({ theme }) => theme.colors.mainbrown02};
+  height: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const ContentCardCategory = styled.p`
