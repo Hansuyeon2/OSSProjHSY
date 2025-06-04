@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Diary,Book
+from .models import Diary,Book,NightDiary
 
 @admin.register(Diary)
 class DiaryAdmin(admin.ModelAdmin):
@@ -9,6 +9,12 @@ class DiaryAdmin(admin.ModelAdmin):
     'analysis')
     search_fields = ('content',)
     list_filter = ('main_emotion', 'created_at')
+
+@admin.register(NightDiary)
+class NightDiaryAdmin(admin.ModelAdmin):
+    list_display = ('date', 'main_emotion', 'sub_emotion', 'comment')
+    fields = ('date', 'main_emotion', 'sub_emotion', 'comment')
+
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
