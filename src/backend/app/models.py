@@ -16,6 +16,8 @@ class NightDiary(models.Model):
     main_emotion = models.CharField(max_length=20)
     sub_emotion = models.JSONField(default=list, blank=True)  
     analysis = models.JSONField()             
+    comment = models.TextField(null=True, blank=True)
+
 
 class Book(models.Model):
     title = models.CharField(max_length=255)
