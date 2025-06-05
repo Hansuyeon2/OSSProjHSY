@@ -116,7 +116,6 @@ class ReportView(APIView):
         user = request.user
         report = Report.objects.filter(user=user, year=year, month=month).first()
 
-        # ❗ 자동 생성 로직 시작
         if not report:
             diaries = Diary.objects.filter(
                 username=user,
