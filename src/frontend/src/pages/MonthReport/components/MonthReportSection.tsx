@@ -48,7 +48,11 @@ const MonthReportSectionSub = styled.p`
 const MonthReportSectionContent = styled.div`
   width: 100%;
   display: flex;
+  padding: 30px 25px;
   justify-content: center;
+  border-radius: 14px;
+  border: 1px solid ${({ theme }) => theme.colors.mainbrown04};
+  background-color: ${({ theme }) => theme.colors.bgbeige02};
 `;
 
 export default MonthReportSection;

@@ -13,6 +13,7 @@ interface Report {
 const MonthReportCardList = () => {
   const [reports, setReports] = useState<Report[]>([]);
   const latestCardRef = useRef<HTMLDivElement | null>(null);
+  const year = 2025;
 
   useEffect(() => {
     const loadData = async () => {
@@ -44,12 +45,20 @@ const MonthReportCardList = () => {
   const maxMonth = Math.max(...reports.map((r) => r.month));
   const navigate = useNavigate();
 
+  const handleCardClick = (month: number) => {
+    navigate("/monthReportDetail", { state: { year, month } });
+  };
+
   return (
-    <CardListWrapper onClick={() => navigate("/monthReportDetail")}>
+    <CardListWrapper>
       <CardListScroll>
         {reports.map(({ month, emotion }) => (
           <div key={month} ref={month === maxMonth ? latestCardRef : null}>
-            <MonthReportCard month={month} emotion={emotion} />
+            <MonthReportCard
+              month={month}
+              emotion={emotion}
+              onClick={() => handleCardClick(month)}
+            />
           </div>
         ))}
       </CardListScroll>
