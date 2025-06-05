@@ -1,5 +1,4 @@
 from ai.sentiment_analysis import sentiment, find_main_emotion
-from ai.sentiment_cause.inference.inference import generate_cause_from_text
 from ai.comment import gpt_comment  
 from rest_framework import serializers
 from .models import Diary, NightDiary
@@ -202,3 +201,7 @@ class NightDiarySerializer(serializers.ModelSerializer):
         validated_data["comment"] = comment
 
         return super().create(validated_data)
+
+class ReportSerializer(serializers.Serializer):
+    year = serializers.IntegerField()
+    month = serializers.IntegerField()

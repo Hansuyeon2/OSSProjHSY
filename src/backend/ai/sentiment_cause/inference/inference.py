@@ -82,7 +82,7 @@ def generate_emotion_and_cause(text):
 
 # 테스트 실행
 if __name__ == "__main__":
-    text = "오늘 찬주랑 싸워서 슬퍼. 근데 엄마가 맛있는 저녁을 사주셔서 행복해."
+    text = "오늘 돈까스를 먹었다."
     results = generate_emotion_and_cause(text)
     all_emotions = [e for _, e, _, _ in results]
     main_emotion = get_main_emotion_with_latest_priority(all_emotions)
