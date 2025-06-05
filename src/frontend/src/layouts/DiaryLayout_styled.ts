@@ -120,6 +120,7 @@ export const MonthReportHeader = styled.div`
   align-items: center;
   ${fonts.title_b_24}
   position: relative;
+  margin-bottom: 40px;
 
   p {
     color: black;
@@ -148,4 +149,10 @@ export const MonthReportCloseButton = styled.img`
   right: 17px;
   top: 17px;
   cursor: pointer;
+`;
+
+export const MonthReportContentLayout = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 0px 20px;
 `;

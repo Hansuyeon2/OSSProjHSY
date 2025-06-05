@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
 import * as s from "./DiaryLayout_styled";
-import FlexLayout from "./FlexLayout";
 import { useNavigate } from "react-router-dom";
 import { userAtom } from "src/atoms/authAtoms";
 import { useAtom } from "jotai";
@@ -29,7 +28,7 @@ const MonthReportLayout = ({ children, month, emotion }: DiaryLayoutProps) => {
 
         <s.MonthReportHeaderImg src="/images/report/grass.png" />
       </s.MonthReportHeader>
-      <FlexLayout>{children}</FlexLayout>
+      <s.MonthReportContentLayout>{children}</s.MonthReportContentLayout>
     </s.MonthReportWrapper>
   );
 };
