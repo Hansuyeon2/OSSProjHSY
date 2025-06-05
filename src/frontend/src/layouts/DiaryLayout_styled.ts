@@ -1,3 +1,4 @@
+import { fonts } from "@styles/fonts";
 import styled from "styled-components";
 
 export const DiaryWrapper = styled.div`
@@ -98,4 +99,61 @@ export const CloseButton = styled.img`
   position: absolute;
   right: 17px;
   cursor: pointer;
+`;
+
+// MonthReportLayout
+
+export const MonthReportWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+
+export const MonthReportHeader = styled.div`
+  width: 100%;
+  height: 160px;
+  background-color: ${({ theme }) => theme.colors.mainbrown04};
+  color: #000000;
+  display: flex;
+  padding: 24px;
+  /* justify-content: center; */
+  align-items: center;
+  ${fonts.title_b_24}
+  position: relative;
+  margin-bottom: 40px;
+
+  p {
+    color: black;
+  }
+
+  span {
+    color: ${({ theme }) => theme.colors.mainbrown01};
+  }
+`;
+
+export const MonthReportHeaderImg = styled.img`
+  position: absolute;
+  width: 100%;
+  height: 41.769px;
+  flex-shrink: 0;
+  bottom: 0;
+  right: 0;
+`;
+
+export const MonthReportContent = styled.div``;
+
+export const MonthReportCloseButton = styled.img`
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  right: 17px;
+  top: 17px;
+  cursor: pointer;
+`;
+
+export const MonthReportContentLayout = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 0px 20px;
+  gap: 55px;
 `;

@@ -45,6 +45,7 @@ const LoginInputContent = styled.input`
   border: 1px solid #e7e8eb;
   background: #fff;
   width: 100%;
+  ${fonts.body_m_14}
 
   ::placeholder {
     ${fonts.body_m_14}
