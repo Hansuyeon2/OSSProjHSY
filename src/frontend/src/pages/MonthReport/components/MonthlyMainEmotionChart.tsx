@@ -1,4 +1,5 @@
-import { PieChart, Pie, Cell } from "recharts";
+import CustomTooltip from "@pages/TodayReport/components/TodayReportNight/TodayReportGraph/CustomToolTip";
+import { PieChart, Pie, Cell, Tooltip } from "recharts";
 import styled from "styled-components";
 
 type EmotionData = {
@@ -51,6 +52,7 @@ const MonthlyMainEmotionChart = ({ data }: MonthlyMainEmotionChartProps) => {
               <Cell key={entry.name} fill={EMOTION_COLORS[index]} />
             ))}
           </Pie>
+          <Tooltip content={<CustomTooltip />} />
         </PieChart>
       </PieWrapper>
       <LegendWrapper>
