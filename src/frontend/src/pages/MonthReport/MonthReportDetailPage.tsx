@@ -58,7 +58,7 @@ const MonthReportDetailPage = () => {
         />
       </MonthReportSection>
       <MonthReportSection
-        title={`${month}의 감정 그래프`}
+        title={`${month}월의 감정 그래프`}
         sub="평균 감정의 변화를 살펴보세요."
         noPadding
         isWeek

@@ -5,6 +5,7 @@ import { userAtom } from "src/atoms/authAtoms";
 import { useState } from "react";
 import CalendarModal from "@pages/Main/components/CalendarModal";
 import LogoutModal from "./LogoutModal";
+import { useLocation } from "react-router-dom";
 
 const MainHeader = ({
   today,
@@ -19,6 +20,8 @@ const MainHeader = ({
   const [user] = useAtom(userAtom);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLogoutModalOpen, setisLogoutModalOpen] = useState(false);
+  const location = useLocation();
+  const isMainPage = location.pathname === "/main";
 
   const logout = () => {
     setisLogoutModalOpen(true);
@@ -29,7 +32,7 @@ const MainHeader = ({
       <S.MainPageHeaderWrapper>
         <S.MainPageHeaderTop>
           <S.MainPageHeaderIcon src="/images/icons/MainHeaderIcon.svg" />
-          <p onClick={logout}>로그아웃</p>
+          {isMainPage && <p onClick={logout}>로그아웃</p>}
         </S.MainPageHeaderTop>
         <S.MainPageHeaderTitle>
           <p>{month}월</p> 은{" "}
