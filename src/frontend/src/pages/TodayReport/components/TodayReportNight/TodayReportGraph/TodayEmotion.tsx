@@ -1,17 +1,22 @@
 import * as s from "./TodayReportGraph_styled";
-
 import { PieChart, Pie, Cell } from "recharts";
 
 const COLORS = ["#D8B18E", "#EDCCAF", "#FFEAD7", "#DCDCDC"];
 
 type DonutChartProps = {
+  username: string;
   subEmotionData: Record<string, number>;
-  comment: string;
+  emotion1: string;
+  emotion2: string;
+  emotion3: string;
 };
 
 export default function TodayEmotion({
+  username,
   subEmotionData,
-  comment,
+  emotion1,
+  emotion2,
+  emotion3,
 }: DonutChartProps) {
   // 감정 빈도 상위 4개 정렬
   const sorted = Object.entries(subEmotionData)
@@ -69,7 +74,24 @@ export default function TodayEmotion({
             ))}
           </s.LegendWrapper>
         </s.ChartContainer>
-        <s.TodayEmotionComment>{comment}</s.TodayEmotionComment>
+        <s.TodayEmotionComment>
+          어제 {username}님이 가장 많이 느낀 감정은 <span>{emotion1}</span>
+          이에요.
+          <br />
+          {emotion3 ? (
+            <>
+              세부 감정으로는 <span>'{emotion2}'</span> 감정을 가장 많이 느꼈고,
+              다음으로 <span>'{emotion3}'</span> 감정을 많이 느낀 것으로
+              나타났어요.
+            </>
+          ) : (
+            <>
+              {" "}
+              세부 감정으로는 <span>'{emotion2}'</span> 감정을 가장 많이
+              느꼈어요.
+            </>
+          )}
+        </s.TodayEmotionComment>
       </s.ChartWrapper>
     </s.TodayEmotionWrapper>
   );

@@ -3,13 +3,14 @@ import * as s from "./styled";
 interface MonthReportCardProps {
   month: number;
   emotion: string;
+  onClick?: () => void;
 }
 
-const MonthReportCard = ({ month, emotion }: MonthReportCardProps) => {
+const MonthReportCard = ({ month, emotion, onClick }: MonthReportCardProps) => {
   const bgIndex = (month % 2) + 1;
 
   return (
-    <s.MonthReportCardWrapper>
+    <s.MonthReportCardWrapper onClick={onClick}>
       <s.MonthReportCardImg src={`/images/report/bg${bgIndex}.png`} />
       <s.MonthReportCardFooter>
         <s.MonthReportCardBookMark src="/images/report/bookmark.png" />
