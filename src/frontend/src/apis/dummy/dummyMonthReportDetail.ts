@@ -6,7 +6,7 @@ export const dummyMonthReportDetail = {
     화남: 2,
     놀람: 0,
     평온: 1,
-    우울함: 0,
+    우울: 0,
     두려움: 1,
     기타: 3,
   },
@@ -23,6 +23,6 @@ export const dummyMonthReportDetail = {
     week2: "화남",
     week3: "놀람",
     week4: "평온",
-    week5: "우울함",
+    week5: "우울",
   },
 };

@@ -12,6 +12,7 @@ import { useLocation } from "react-router-dom";
 import { userAtom } from "src/atoms/authAtoms";
 import { useAtom } from "jotai";
 import MonthReportWordCloud from "./components/MonthReportWordcloud";
+import MonthBio from "./components/MonthBio";
 
 const MonthReportDetailPage = () => {
   const [data, setData] = useState<MonthlyReportResponse | null>(null);
@@ -59,8 +60,10 @@ const MonthReportDetailPage = () => {
       <MonthReportSection
         title={`${month}의 감정 그래프`}
         sub="평균 감정의 변화를 살펴보세요."
+        noPadding
+        isWeek
       >
-        ss
+        <MonthBio weekly_emotion={data.weekly_emotion} />
       </MonthReportSection>
     </MonthReportLayout>
   );

@@ -7,6 +7,7 @@ interface MonthReportSectionProps {
   sub: string;
   children: ReactNode;
   noPadding?: boolean;
+  isWeek?: boolean;
 }
 
 const MonthReportSection = ({
@@ -14,6 +15,7 @@ const MonthReportSection = ({
   sub,
   children,
   noPadding = false,
+  isWeek = false,
 }: MonthReportSectionProps) => {
   return (
     <MonthReportSectionWrapper>
@@ -21,9 +23,13 @@ const MonthReportSection = ({
         <MonthReportSectionTitle>{title}</MonthReportSectionTitle>
         <MonthReportSectionSub>{sub}</MonthReportSectionSub>
       </MonthReportSectionTop>
-      <MonthReportSectionContent $noPadding={noPadding}>
-        {children}
-      </MonthReportSectionContent>
+      {isWeek ? (
+        <>{children}</>
+      ) : (
+        <MonthReportSectionContent $noPadding={noPadding}>
+          {children}
+        </MonthReportSectionContent>
+      )}
     </MonthReportSectionWrapper>
   );
 };
@@ -49,7 +55,9 @@ const MonthReportSectionSub = styled.p`
   color: ${({ theme }) => theme.colors.exgray01}
 `;
 
-const MonthReportSectionContent = styled.div<{ $noPadding?: boolean }>`
+const MonthReportSectionContent = styled.div<{
+  $noPadding?: boolean;
+}>`
   width: 100%;
   display: flex;
   padding: ${({ $noPadding }) => ($noPadding ? "0" : "30px 25px")};
