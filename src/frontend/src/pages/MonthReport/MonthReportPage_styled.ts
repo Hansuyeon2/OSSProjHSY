@@ -9,3 +9,7 @@ export const MontReportWrapper = styled.div`
   justify-content: center;
   gap: 4.62rem;
 `;
+
+//MonthReportDetailPage
+
+export const MonthReportDetailWrapper = styled.div``;

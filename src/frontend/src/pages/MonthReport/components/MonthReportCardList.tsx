@@ -3,6 +3,7 @@ import styled from "styled-components";
 import MonthReportCard from "./MonthReportCard";
 import { getMonthlyReports } from "@apis/monthReport/getMonthlyReports";
 import { dummyMonthReports } from "@apis/dummy/dummyMonthReports";
+import { useNavigate } from "react-router-dom";
 
 interface Report {
   month: number;
@@ -41,9 +42,10 @@ const MonthReportCardList = () => {
   }, [reports]);
 
   const maxMonth = Math.max(...reports.map((r) => r.month));
+  const navigate = useNavigate();
 
   return (
-    <CardListWrapper>
+    <CardListWrapper onClick={() => navigate("/monthReportDetail")}>
       <CardListScroll>
         {reports.map(({ month, emotion }) => (
           <div key={month} ref={month === maxMonth ? latestCardRef : null}>
@@ -61,7 +63,6 @@ const CardListWrapper = styled.div`
   overflow-y: hidden;
   padding: 1rem;
   display: flex;
-  justify-content: center;
 
   &::-webkit-scrollbar {
     height: 6px;

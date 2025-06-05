@@ -73,7 +73,8 @@ export const LegendWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 13px;
-  width: 50%;
+  width: 60%;
+  justify-content: center;
 `;
 
 export const LegendItem = styled.div`
@@ -92,4 +93,9 @@ export const ColorBox = styled.div<{ color: string }>`
 
 export const TodayEmotionComment = styled.p`
   ${fonts.cap_m_10};
+
+  span {
+    ${fonts.cap_b_10}
+    font-weight: 800;
+  }
 `;
