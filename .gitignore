@@ -208,3 +208,4 @@ model/
 
 .env
 __pycache__/
+venv310/
