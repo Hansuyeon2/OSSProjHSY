@@ -2,13 +2,18 @@ import { ReactNode } from "react";
 import * as s from "./DiaryLayout_styled";
 import FlexLayout from "./FlexLayout";
 import { useNavigate } from "react-router-dom";
+import { userAtom } from "src/atoms/authAtoms";
+import { useAtom } from "jotai";
 
 interface DiaryLayoutProps {
   children?: ReactNode;
+  month: number;
+  emotion: string;
 }
 
-const MonthReportLayout = ({ children }: DiaryLayoutProps) => {
+const MonthReportLayout = ({ children, month, emotion }: DiaryLayoutProps) => {
   const navigate = useNavigate();
+  const [user] = useAtom(userAtom);
   return (
     <s.MonthReportWrapper>
       <s.MonthReportHeader>
@@ -18,8 +23,8 @@ const MonthReportLayout = ({ children }: DiaryLayoutProps) => {
         />
         <p>
           {" "}
-          민영님의 <span>5월</span>은 <br />
-          "행복함이 가득했던 달"
+          {user.username}님의 <span>{month}월</span>은 <br />"{emotion}"이
+          가득했던 달"
         </p>
 
         <s.MonthReportHeaderImg src="/images/report/grass.png" />

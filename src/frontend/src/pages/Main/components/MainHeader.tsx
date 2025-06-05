@@ -4,6 +4,7 @@ import * as S from "./MainHeader.styled";
 import { userAtom } from "src/atoms/authAtoms";
 import { useState } from "react";
 import CalendarModal from "@pages/Main/components/CalendarModal";
+import LogoutModal from "./LogoutModal";
 
 const MainHeader = ({
   today,
@@ -17,31 +18,42 @@ const MainHeader = ({
   const month = today.getMonth() + 1;
   const [user] = useAtom(userAtom);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLogoutModalOpen, setisLogoutModalOpen] = useState(false);
+
+  const logout = () => {
+    setisLogoutModalOpen(true);
+  };
 
   return (
-    <S.MainPageHeaderWrapper>
-      <S.MainPageHeaderIcon src="/images/icons/MainHeaderIcon.svg" />
-      <S.MainPageHeaderTitle>
-        <p>{month}월</p> 은{" "}
-        <img
-          src="/images/icons/dropdown.svg"
-          alt="dropdown"
-          onClick={() => setIsModalOpen(true)}
-          style={{ cursor: "pointer" }}
-        />{" "}
-        {monthEmotion
-          ? `${monthEmotion}이 가득한 달이었네요!`
-          : `${user?.username ?? "당신"} 님에게 어떤 달일까요?`}
-      </S.MainPageHeaderTitle>
+    <>
+      <S.MainPageHeaderWrapper>
+        <S.MainPageHeaderTop>
+          <S.MainPageHeaderIcon src="/images/icons/MainHeaderIcon.svg" />
+          <p onClick={logout}>로그아웃</p>
+        </S.MainPageHeaderTop>
+        <S.MainPageHeaderTitle>
+          <p>{month}월</p> 은{" "}
+          <img
+            src="/images/icons/dropdown.svg"
+            alt="dropdown"
+            onClick={() => setIsModalOpen(true)}
+            style={{ cursor: "pointer" }}
+          />{" "}
+          {monthEmotion
+            ? `${monthEmotion}이 가득한 달이었네요!`
+            : `${user?.username} 님에게 어떤 달일까요?`}
+        </S.MainPageHeaderTitle>
 
-      {isModalOpen && (
-        <CalendarModal
-          today={today}
-          setToday={setToday}
-          setIsModalOpen={setIsModalOpen}
-        />
-      )}
-    </S.MainPageHeaderWrapper>
+        {isModalOpen && (
+          <CalendarModal
+            today={today}
+            setToday={setToday}
+            setIsModalOpen={setIsModalOpen}
+          />
+        )}
+      </S.MainPageHeaderWrapper>
+      {isLogoutModalOpen && <LogoutModal />}
+    </>
   );
 };
 
