@@ -35,7 +35,7 @@ const MonthReportWordCloud = ({
         <span>"{sortedEmotions[1]}"</span> 등의 단어를 많이 사용하는 것으로
         나타났어요
       </MonthReportWordCloudText>
-      <MonthReportWordCloudImg />
+      <MonthReportWordCloudImg src="/images/report/monthReportWordCloudImg.png" />
     </MonthReportWordCloudWrapper>
   );
 };
@@ -45,6 +45,8 @@ const MonthReportWordCloudWrapper = styled.div`
   flex-direction: column;
   width: 100%;
   align-items: center;
+  position: relative;
+  margin-bottom: 112px;
 `;
 
 const MonthReportWordCloudTop = styled.section`
@@ -103,6 +105,11 @@ const MonthReportWordCloudText = styled.p`
   }
 `;
 
-const MonthReportWordCloudImg = styled.img``;
+const MonthReportWordCloudImg = styled.img`
+  width: 400px;
+  height: 125px;
+  position: absolute;
+  top: 265px;
+`;
 
 export default MonthReportWordCloud;
