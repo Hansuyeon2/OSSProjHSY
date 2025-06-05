@@ -1,4 +1,5 @@
 from ai.sentiment_analysis import sentiment, find_main_emotion
+from ai.sentiment_cause.inference.inference import generate_cause_from_text
 from ai.comment import gpt_comment  
 from rest_framework import serializers
 from .models import Diary, NightDiary
@@ -156,7 +157,7 @@ class NightDiarySerializer(serializers.ModelSerializer):
                     "exhibitions": maintain_exhibitions
                 }
             }
-        if top_main == "기타":
+        elif top_main == "기타":
             analysis = {
                 "set_1": {
                     "title": "랜덤 추천",
