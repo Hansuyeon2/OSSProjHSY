@@ -82,3 +82,12 @@ def sentiment(content, accuracy=0.1):
         'main_emotion': most_common_emotion,
         'sub_emotion': sub_emotions,
     }
+
+if __name__ == "__main__":
+    test_text = input("일기 내용을 입력하세요:\n> ")
+
+    result = sentiment(test_text)
+
+    print("\n[감정 분석 결과]")
+    print(f"대표 감정 (main_emotion): {result['main_emotion']}")
+    print(f"세부 감정들 (sub_emotion): {', '.join(result['sub_emotion'])}")
