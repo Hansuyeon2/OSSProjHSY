@@ -14,6 +14,9 @@ export const dummyMonthReportDetail = {
     즐거워: 1,
     어쩌구: 2,
     저쩌구: 3,
+    와우: 3,
+    그렇구나: 3,
+    그랬구나: 3,
   },
   weekly_emotion: {
     week1: "행복",

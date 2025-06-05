@@ -48,6 +48,7 @@ const MonthReportDetailPage = () => {
       <MonthReportSection
         title={`${user.username} 님의 ${month}월 키워드`}
         sub="한 달동안 느낀 다양한 감정을 돌아보세요."
+        noPadding
       >
         <MonthReportWordCloud
           user={user.username}

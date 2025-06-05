@@ -6,12 +6,14 @@ interface MonthReportSectionProps {
   title: string;
   sub: string;
   children: ReactNode;
+  noPadding?: boolean;
 }
 
 const MonthReportSection = ({
   title,
   sub,
   children,
+  noPadding = false,
 }: MonthReportSectionProps) => {
   return (
     <MonthReportSectionWrapper>
@@ -19,7 +21,9 @@ const MonthReportSection = ({
         <MonthReportSectionTitle>{title}</MonthReportSectionTitle>
         <MonthReportSectionSub>{sub}</MonthReportSectionSub>
       </MonthReportSectionTop>
-      <MonthReportSectionContent>{children}</MonthReportSectionContent>
+      <MonthReportSectionContent $noPadding={noPadding}>
+        {children}
+      </MonthReportSectionContent>
     </MonthReportSectionWrapper>
   );
 };
@@ -45,10 +49,10 @@ const MonthReportSectionSub = styled.p`
   color: ${({ theme }) => theme.colors.exgray01}
 `;
 
-const MonthReportSectionContent = styled.div`
+const MonthReportSectionContent = styled.div<{ $noPadding?: boolean }>`
   width: 100%;
   display: flex;
-  padding: 30px 25px;
+  padding: ${({ $noPadding }) => ($noPadding ? "0" : "30px 25px")};
   justify-content: center;
   border-radius: 14px;
   border: 1px solid ${({ theme }) => theme.colors.mainbrown04};
