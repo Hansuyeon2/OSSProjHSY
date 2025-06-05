@@ -9,11 +9,15 @@ import {
   MonthlyReportResponse,
 } from "@apis/monthReport/getMonthReportDetail";
 import { useLocation } from "react-router-dom";
+import { userAtom } from "src/atoms/authAtoms";
+import { useAtom } from "jotai";
+import MonthReportWordCloud from "./components/MonthReportWordcloud";
 
 const MonthReportDetailPage = () => {
   const [data, setData] = useState<MonthlyReportResponse | null>(null);
   const location = useLocation();
   const { year, month } = location.state;
+  const [user] = useAtom(userAtom);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,6 +44,22 @@ const MonthReportDetailPage = () => {
         sub={`${month}월의 감정을 확인해 보세요.`}
       >
         <MonthlyMainEmotionChart data={data.main_emotion} />
+      </MonthReportSection>
+      <MonthReportSection
+        title={`${user.username} 님의 ${month}월 키워드`}
+        sub="한 달동안 느낀 다양한 감정을 돌아보세요."
+      >
+        <MonthReportWordCloud
+          user={user.username}
+          month={month}
+          emotion={data.sub_emotion}
+        />
+      </MonthReportSection>
+      <MonthReportSection
+        title={`${month}의 감정 그래프`}
+        sub="평균 감정의 변화를 살펴보세요."
+      >
+        ss
       </MonthReportSection>
     </MonthReportLayout>
   );
