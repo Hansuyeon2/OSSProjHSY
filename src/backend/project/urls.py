@@ -9,8 +9,8 @@ router.register("diary", DiaryViewSet, basename='diary')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("api/", include(router.urls)),
-    path("api/report/", MonthlyReportView.as_view()),  
-    path("api/report/<int:year>/<int:month>/", ReportView.as_view()), 
+    path("", include(router.urls)),
+    path("report/", MonthlyReportView.as_view()),  
+    path("report/<int:year>/<int:month>/", ReportView.as_view()), 
     path('auth/', include('accounts.urls')),
 ]
