@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 
 const instance = axios.create({
-  baseURL: "http://127.0.0.1:8000",
+  baseURL: import.meta.env.VITE_BASE_URL,
   withCredentials: false,
 });
 
@@ -10,7 +10,11 @@ instance.interceptors.request.use((config) => {
   const access_token = localStorage.getItem("access");
 
   // 인증이 필요 없는 URL이면 Authorization 헤더 제거
-  const publicPaths = ["/auth/signup/", "/auth/login/", "/auth/refresh/"];
+  const publicPaths = [
+    "/api/auth/signup/",
+    "/api/auth/login/",
+    "/api/auth/refresh/",
+  ];
   const isPublicPath = publicPaths.some((path) => config.url?.includes(path));
 
   if (!isPublicPath && access_token) {
@@ -45,9 +49,12 @@ instance.interceptors.response.use(
         const refreshToken = localStorage.getItem("refresh");
         if (!refreshToken) throw new Error("No refresh token");
 
-        const res = await axios.post("http://127.0.0.1:8000/auth/refresh/", {
-          refresh: refreshToken,
-        });
+        const res = await axios.post(
+          `${import.meta.env.VITE_BASE_URL}/api/auth/refresh/`,
+          {
+            refresh: refreshToken,
+          }
+        );
 
         const newAccessToken = res.data.access;
         localStorage.setItem("access", newAccessToken);
