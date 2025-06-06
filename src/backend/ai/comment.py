@@ -27,7 +27,7 @@ def gpt_comment(causes, main_emotion=None):
 
     try:
         response = client.chat.completions.create(
-            model="gpt-4",
+            model="gpt-3.5-turbo",
             messages=[{"role": "user", "content": prompt}],
             temperature=0.7,
             max_tokens=256,   # 🔧 너무 큰 응답으로 인한 메모리 초과 방지
