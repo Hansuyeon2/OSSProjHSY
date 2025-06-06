@@ -140,8 +140,17 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
 
-CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
+
+
+CORS_ALLOW_HEADERS = [
+    'authorization',
+    'content-type',
+    'accept',
+    'origin',
+    'x-requested-with',
+]
 
 
 CORS_ALLOWED_ORIGINS = [
