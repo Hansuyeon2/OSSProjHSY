@@ -159,3 +159,8 @@ CORS_ALLOWED_ORIGINS = [
     "https://liong.netlify.app",  
 ]
 
+
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://quddy.shop",
+]
