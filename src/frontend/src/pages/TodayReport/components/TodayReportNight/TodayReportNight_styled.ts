@@ -57,6 +57,7 @@ export const TodayTipContainer = styled.section`
   position: relative;
   overflow: hidden;
   ${fonts.cap_m_12}
+  white-space: pre-line;
 
   &::after {
     content: "";

@@ -8,7 +8,12 @@ const Footer = () => {
 
   const isActive = (path: string) => location.pathname === path;
 
-  const activeFooterPaths = ["/analysis", "/main", "/monthList"];
+  const activeFooterPaths = [
+    "/analysis",
+    "/main",
+    "/monthList",
+    "/monthReport",
+  ];
   if (!activeFooterPaths.includes(location.pathname)) {
     return null;
   }

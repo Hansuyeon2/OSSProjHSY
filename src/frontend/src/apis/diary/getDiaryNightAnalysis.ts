@@ -3,7 +3,7 @@ import { getResponse } from "@apis/instance";
 import { dummyDiaryAnalysisNight } from "@apis/dummy/dummyDiaryAnalysisNight";
 
 // ✅ 타입 정의 함께 포함
-type Entry = {
+export type Entry = {
   id: number;
   content: string;
   username: string;
@@ -45,7 +45,7 @@ export type DiaryNightResponse = {
   emotion: Emotion;
 };
 
-export async function getDiaryNight(): Promise<DiaryNightResponse> {
-  const res = await getResponse<DiaryNightResponse>("/api/diary/?date=${date}");
+export async function getDiaryNight(date: string): Promise<DiaryNightResponse> {
+  const res = await getResponse<DiaryNightResponse>(`/api/diary/?date=${date}`);
   return res ?? dummyDiaryAnalysisNight;
 }

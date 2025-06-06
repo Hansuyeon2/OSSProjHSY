@@ -1,28 +1,28 @@
+# sentiment_cause.py (in src/backend/ai/sentiment_cause/train/)
+
 import os
-import torch
 import pandas as pd
 from datasets import Dataset
 from transformers import (
-    T5Tokenizer,
-    T5ForConditionalGeneration,
-    Seq2SeqTrainingArguments,
-    Seq2SeqTrainer,
+    T5Tokenizer, T5ForConditionalGeneration,
+    Seq2SeqTrainingArguments, Seq2SeqTrainer,
     DataCollatorForSeq2Seq
 )
 
-# CUDA 설정 
-device = torch.device("cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu")
-print(f"Using device: {device}")
+# 1. 경로 설정 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA_PATH = os.path.join(BASE_DIR, "data", "sentiment_cause.csv")
+MODEL_DIR = os.path.join(BASE_DIR, "model", "t5-emotion-cause-model-joint")
+LOG_DIR = os.path.join(BASE_DIR, "logs", "joint")
 
-# 1. 데이터셋 로드
-data_path = "./train/Updated_Emotion_Cause.csv"
-df = pd.read_csv(data_path)
+# 2. 데이터 로드
+df = pd.read_csv(DATA_PATH)
 dataset = Dataset.from_pandas(df)
 
-# 2. Tokenizer 로드
+# 3. Tokenizer 로드
 tokenizer = T5Tokenizer.from_pretrained("KETI-AIR/ke-t5-base", use_fast=False)
 
-# 3. 전처리 함수 정의
+# 4. 전처리 함수
 def preprocess(example):
     input_enc = tokenizer(
         example["input_text"],
@@ -33,23 +33,24 @@ def preprocess(example):
     with tokenizer.as_target_tokenizer():
         label_enc = tokenizer(
             example["target_text"],
-            max_length=32,
+            max_length=64,
             truncation=True,
             padding="max_length"
         )
-    labels = label_enc["input_ids"]
-    labels = [token if token != tokenizer.pad_token_id else -100 for token in labels]
+    labels = [
+        token if token != tokenizer.pad_token_id else -100
+        for token in label_enc["input_ids"]
+    ]
     input_enc["labels"] = labels
     return input_enc
 
-# 4. 전처리 적용
+# 5. 전처리 적용
 tokenized_dataset = dataset.map(preprocess, remove_columns=["input_text", "target_text"])
-print("✅ tokenized_dataset 샘플:", tokenized_dataset[0])
 
-# 5. 모델 로딩
-model = T5ForConditionalGeneration.from_pretrained("KETI-AIR/ke-t5-base").to(device)
+# 6. 모델 로드
+model = T5ForConditionalGeneration.from_pretrained("KETI-AIR/ke-t5-base")
 
-# 6. DataCollator 정의
+# 7. Collator 정의
 data_collator = DataCollatorForSeq2Seq(
     tokenizer=tokenizer,
     model=model,
@@ -57,20 +58,23 @@ data_collator = DataCollatorForSeq2Seq(
     pad_to_multiple_of=8
 )
 
-# 7. 학습 인자 설정
+# 8. 학습 인자 정의
 training_args = Seq2SeqTrainingArguments(
-    output_dir="./train/t5-emotion-cause-model",
-    per_device_train_batch_size=4,
-    num_train_epochs=5,
-    save_total_limit=1,
+    output_dir=MODEL_DIR,
+    per_device_train_batch_size=8,
+    learning_rate=3e-4,
+    weight_decay=0.01,
+    warmup_steps=500,
+    num_train_epochs=10,
+    save_total_limit=2,
     predict_with_generate=True,
-    fp16=torch.cuda.is_available(),
+    fp16=False,
     logging_steps=100,
-    logging_dir="./train/logs",
+    logging_dir=LOG_DIR,
     report_to="none"
 )
 
-# 8. Trainer 정의
+# 9. Trainer 정의
 trainer = Seq2SeqTrainer(
     model=model,
     args=training_args,
@@ -79,11 +83,11 @@ trainer = Seq2SeqTrainer(
     data_collator=data_collator
 )
 
-# 9. 학습
+# 10. 학습
 trainer.train()
 
-# 10. 모델 저장
-trainer.save_model("./train/t5-emotion-cause-model")
-tokenizer.save_pretrained("./train/t5-emotion-cause-model")
+# 11. 모델 저장
+trainer.save_model(MODEL_DIR)
+tokenizer.save_pretrained(MODEL_DIR)
 
-print("학습 완료 및 모델 저장 완료")
+print("모델 학습 및 저장 완료:", MODEL_DIR)

@@ -12,7 +12,7 @@ const FlexLayout = ({ children }: FlexLayoutProps) => {
 const FlexLayoutWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 10px 22px;
+  padding: 10px 17px;
 `;
 
 export default FlexLayout;

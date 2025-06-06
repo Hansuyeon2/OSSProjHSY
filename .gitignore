@@ -202,3 +202,10 @@ sketch
 
 # End of https://www.toptal.com/developers/gitignore/api/yarn,react,node,macosvenv/
 venv/
+
+# ai 학습 모델 
+model/
+
+.env
+__pycache__/
+venv310/

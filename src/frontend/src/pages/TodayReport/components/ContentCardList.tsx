@@ -5,10 +5,10 @@ import { fonts } from "@styles/fonts";
 interface ContentCardListProps {
   analysis: {
     title: string;
-    movies: { title: string; sub: string }[];
-    books: { title: string; sub: string }[];
-    music: { title: string; sub: string }[];
-    exhibitions: { title: string; sub: string }[];
+    movies: { title: string; sub: string; url?: string }[];
+    books: { title: string; sub: string; url?: string }[];
+    music: { title: string; sub: string; url?: string }[];
+    exhibitions: { title: string; sub: string; url?: string }[];
   };
   category: string;
 }
@@ -35,6 +35,11 @@ const ContentCardList = ({
       ? analysis.music
       : analysis.exhibitions;
 
+  const getSearchUrl = (category: string, title: string) =>
+    `https://search.naver.com/search.naver?query=${encodeURIComponent(
+      `${category} ${title}`
+    )}`;
+
   return (
     <ContentCardListWrapper>
       <ContetnCardHeader>
@@ -45,16 +50,21 @@ const ContentCardList = ({
       </ContetnCardHeader>
       <ContentCardListSwiperContainer>
         <ContentCardRow>
-          {contentList.map((item, idx) => (
-            <div key={`${item.title}-${idx}`} className="card-wrapper">
-              <ContentCard
-                title={item.title}
-                src={iconSrcMap[category]}
-                des={item.sub}
-                category={category}
-              />
-            </div>
-          ))}
+          {contentList.map((item, idx) => {
+            const Url = item.url || getSearchUrl(category, item.title);
+
+            return (
+              <div key={`${item.title}-${idx}`} className="card-wrapper">
+                <ContentCard
+                  title={item.title}
+                  src={iconSrcMap[category]}
+                  des={item.sub}
+                  category={category}
+                  url={Url}
+                />
+              </div>
+            );
+          })}
         </ContentCardRow>
       </ContentCardListSwiperContainer>
     </ContentCardListWrapper>

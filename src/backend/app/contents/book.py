@@ -57,8 +57,9 @@ def recommend_books(sub_emotion: list, recommend_type: str = "maintain"):
             continue
 
         if recommend_type == "maintain":
-            if any(sub in book.sub_emotion for sub in sub_emotion):
+            if not sub_emotion or any(sub in book.sub_emotion for sub in sub_emotion):
                 matched_books.append(book)
+
         elif recommend_type == "overcome":
             alt_emotions = []
             for sub in sub_emotion:

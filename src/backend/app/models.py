@@ -16,6 +16,8 @@ class NightDiary(models.Model):
     main_emotion = models.CharField(max_length=20)
     sub_emotion = models.JSONField(default=list, blank=True)  
     analysis = models.JSONField()             
+    comment = models.TextField(null=True, blank=True)
+
 
 class Book(models.Model):
     title = models.CharField(max_length=255)
@@ -44,3 +46,15 @@ class Exhibition(models.Model):
 
     def __str__(self):
         return self.title
+
+class Report(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    year = models.IntegerField()
+    month = models.IntegerField()
+    main_emotion = models.JSONField(default=dict)     
+    sub_emotion = models.JSONField(default=dict)     
+    weekly_emotion = models.JSONField(default=dict)  
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'year', 'month')

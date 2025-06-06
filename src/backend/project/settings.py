@@ -140,17 +140,22 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
 
-CORS_ORIGIN_ALLOW_ALL = False
+
 CORS_ALLOW_CREDENTIALS = True
 
 
-CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1:3000",
-    "http://localhost:3000",
-    "http://127.0.0.1:5173",
-    "http://localhost:5173",
-    "http://15.164.130.47",
-    "http://15.164.130.47:3000",
-    "http://15.164.130.47:5173",
-
+CORS_ALLOW_HEADERS = [
+    'authorization',
+    'content-type',
+    'accept',
+    'origin',
+    'x-requested-with',
 ]
+
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    "https://quddy.shop",
+    "https://liong.netlify.app",  
+]
+

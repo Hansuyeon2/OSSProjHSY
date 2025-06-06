@@ -4,39 +4,28 @@ import Separator from "@components/separator";
 import TodayReportTitle from "./TodayReportTitle";
 import EmotionGraph from "./TodayReportGraph/TodayBio";
 import TodayTip from "./TodayTip";
-import { useEffect, useState } from "react";
-import {
-  DiaryNightResponse,
-  getDiaryNight,
-} from "@apis/diary/getDiaryNightAnalysis";
 import TodayEmotion from "./TodayReportGraph/TodayEmotion";
 import TodayContentRecommendation from "../TodayContentRecommendation";
 import { useAtom } from "jotai";
 import { userAtom } from "src/atoms/authAtoms";
+import { DiaryNightResponse } from "@apis/diary/getDiaryNightAnalysis";
 
-const TodayReportNight = () => {
-  const [entries, setEntries] = useState<
-    { created_at: string; main_emotion: string }[]
-  >([]);
-  const [emotion, setEmotion] = useState<{
-    main_emotion: string;
-    comment: string;
-    sub_emotion: Record<string, number>;
-  }>();
-  const [analysis, setAnalysis] = useState<DiaryNightResponse["analysis"]>();
+interface TodayReportNightProps {
+  entries: DiaryNightResponse["entries"];
+  emotion: DiaryNightResponse["emotion"];
+  analysis: DiaryNightResponse["analysis"];
+}
+
+const TodayReportNight = ({
+  entries,
+  emotion,
+  analysis,
+}: TodayReportNightProps) => {
+  const sortedEntries = [...entries].sort(
+    (a, b) =>
+      new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+  );
   const [user] = useAtom(userAtom);
-
-  useEffect(() => {
-    getDiaryNight().then((data) => {
-      const sorted = data.entries.sort(
-        (a, b) =>
-          new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
-      );
-      setEntries(sorted);
-      setEmotion(data.emotion);
-      setAnalysis(data.analysis);
-    });
-  }, []);
 
   return (
     <TodayReportContent
@@ -48,7 +37,7 @@ const TodayReportNight = () => {
           {/* 하루 바이오리듬 그래프 */}
           <S.TodayReportCardContainer>
             <TodayReportTitle title="어제 하루의 바이오리듬" />
-            <EmotionGraph data={entries} />
+            <EmotionGraph data={sortedEntries} />
           </S.TodayReportCardContainer>
 
           {/* 쿼디의 팁 */}
@@ -56,11 +45,7 @@ const TodayReportNight = () => {
             <TodayReportTitle
               title={`${user?.username} 님을 위한 쿼디의 Tip!`}
             />
-            <TodayTip
-              text="오늘 민영 님은 00이를 만났을 때 기분이 안 좋으셨군요... 00이랑 잘 안 맞으신가봐요..
-이럴 때는 좋은 카페에 가서 맛있는 디저트 먹으면서 힐링하는 게 제일 좋지 않을까요?
-쿼디가 추천해요!!!!!!!"
-            />
+            <TodayTip text={emotion.comment} />
           </S.TodayReportCardContainer>
 
           {/* 도넛 차트 */}
@@ -70,8 +55,19 @@ const TodayReportNight = () => {
                 title={`어제 ${user?.username} 님의 감정은...`}
               />
               <TodayEmotion
+                username={user?.username}
                 subEmotionData={emotion.sub_emotion}
-                comment={emotion.comment}
+                emotion1={emotion.main_emotion}
+                emotion2={
+                  Object.entries(emotion.sub_emotion).sort(
+                    (a, b) => b[1] - a[1]
+                  )[0]?.[0] || ""
+                }
+                emotion3={
+                  Object.entries(emotion.sub_emotion).sort(
+                    (a, b) => b[1] - a[1]
+                  )[1]?.[0] || ""
+                }
               />
             </S.TodayReportCardContainer>
           )}
