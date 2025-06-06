@@ -35,6 +35,11 @@ const ContentCardList = ({
       ? analysis.music
       : analysis.exhibitions;
 
+  const getSearchUrl = (category: string, title: string) =>
+    `https://search.naver.com/search.naver?query=${encodeURIComponent(
+      `${category} ${title}`
+    )}`;
+
   return (
     <ContentCardListWrapper>
       <ContetnCardHeader>
@@ -45,17 +50,21 @@ const ContentCardList = ({
       </ContetnCardHeader>
       <ContentCardListSwiperContainer>
         <ContentCardRow>
-          {contentList.map((item, idx) => (
-            <div key={`${item.title}-${idx}`} className="card-wrapper">
-              <ContentCard
-                title={item.title}
-                src={iconSrcMap[category]}
-                des={item.sub}
-                category={category}
-                url={item.url}
-              />
-            </div>
-          ))}
+          {contentList.map((item, idx) => {
+            const Url = item.url || getSearchUrl(category, item.title);
+
+            return (
+              <div key={`${item.title}-${idx}`} className="card-wrapper">
+                <ContentCard
+                  title={item.title}
+                  src={iconSrcMap[category]}
+                  des={item.sub}
+                  category={category}
+                  url={Url}
+                />
+              </div>
+            );
+          })}
         </ContentCardRow>
       </ContentCardListSwiperContainer>
     </ContentCardListWrapper>
