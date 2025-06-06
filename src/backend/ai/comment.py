@@ -1,10 +1,11 @@
 from openai import OpenAI
 import os
+import traceback
 from dotenv import load_dotenv
 
 load_dotenv()
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))  
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def gpt_comment(causes, main_emotion=None):
     if not causes:
@@ -24,11 +25,16 @@ def gpt_comment(causes, main_emotion=None):
         "세 문단이 자연스럽게 연결되도록 해주세요.\n"
     )
 
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4",
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.7,
+            timeout=10  # Optional: 너무 오래 대기하지 않도록 설정
+        )
+        return response.choices[0].message.content.strip()
 
-    response = client.chat.completions.create(
-        model="gpt-4",
-        messages=[{"role": "user", "content": prompt}],
-        temperature=0.7
-    )
-
-    return response.choices[0].message.content.strip()
+    except Exception as e:
+        print("🔥 GPT API 호출 중 예외 발생:", e)
+        traceback.print_exc()
+        return "AI 응답을 가져오는 중 문제가 발생했어요. 잠시 후 다시 시도해주세요."
