@@ -7,7 +7,7 @@ export const dummyDiaryData: DiaryAPIResponse = {
       content: "오늘은 기분이 좀 울적했다.",
       username: "username1",
       created_at: "2025-05-02T09:00:00Z",
-      main_emotion: "우울",
+      main_emotion: "우울함",
       analysis: {
         set_1: {
           title: "두려운 감정을 잠시 내려놓을 수 있는",

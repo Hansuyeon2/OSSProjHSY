@@ -6,7 +6,7 @@ export const dummyMonthReportDetail = {
     화남: 2,
     놀람: 0,
     평온: 1,
-    우울: 0,
+    우울함: 0,
     두려움: 1,
     기타: 3,
   },
@@ -20,7 +20,7 @@ export const dummyMonthReportDetail = {
   },
   weekly_emotion: {
     week1: "행복",
-    week2: "우울",
+    week2: "우울함",
     week3: "평온",
     week4: "두려움",
     week5: "행복",
