@@ -15,7 +15,7 @@ export async function getMonthlyReport(
 ): Promise<MonthlyReportResponse> {
   try {
     const res = await getResponse<MonthlyReportResponse>(
-      `/api/report/${year}/${month}`
+      `/api/report/${year}/${month}/`
     );
 
     if (res) {
