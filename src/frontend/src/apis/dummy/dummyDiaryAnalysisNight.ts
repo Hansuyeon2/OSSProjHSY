@@ -5,7 +5,7 @@ export const dummyDiaryAnalysisNight = {
       content: "내용",
       username: "username",
       created_at: "2025-04-02T12:00:00Z",
-      main_emotion: "우울",
+      main_emotion: "우울함",
       sub_emotion: ["어쩌꾸", "저쩌구", "속상함"],
     },
     {
