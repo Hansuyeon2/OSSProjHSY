@@ -19,10 +19,10 @@ def gpt_comment(causes, main_emotion=None):
         prompt += f"\n사용자의 오늘 주요 감정은 \"{main_emotion}\"입니다.\n"
 
     prompt += (
-        "\n이러한 감정 원인과 주요 감정을 바탕으로 사용자에게 따뜻한 조언을 세 문단으로, 500자 이내로 작성해주세요. "
+        "\n이러한 감정 원인과 주요 감정을 바탕으로 사용자에게 따뜻한 조언을 두 문단으로, 300자 이내로 작성해주세요. "
         "감정의 원인을 반드시 언급해야 하며, 감정 상태에 공감하는 따뜻한 말투로 작성해주세요. "
         "사용자가 앞으로 어떻게 하면 좋을지 조언도 해주세요. "
-        "세 문단이 자연스럽게 연결되도록 해주세요.\n"
+        "두 문단이 자연스럽게 연결되도록 해주세요.\n"
     )
 
     try:
@@ -30,12 +30,12 @@ def gpt_comment(causes, main_emotion=None):
             model="gpt-3.5-turbo",
             messages=[{"role": "user", "content": prompt}],
             temperature=0.7,
-            max_tokens=256,   # 🔧 너무 큰 응답으로 인한 메모리 초과 방지
-            timeout=10        # 🔧 무한 대기 방지
+            max_tokens=256,   
+            timeout=10       
         )
         return response.choices[0].message.content.strip()
 
     except Exception as e:
-        print("🔥 GPT API 호출 중 예외 발생:", e)
+        print("GPT API 호출 중 예외 발생:", e)
         traceback.print_exc()
         return "AI 응답을 가져오는 중 문제가 발생했어요. 잠시 후 다시 시도해주세요."
