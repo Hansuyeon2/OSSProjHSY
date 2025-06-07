@@ -40,11 +40,11 @@ export default function MonthBio({ weekly_emotion }: MonthBioProps) {
     }
   }, [graphRef.current]);
 
-  const weeks = ["week1", "week2", "week3", "week4", "week5"];
+  const weeks = Object.keys(weekly_emotion);
   const points: EmotionPoint[] = weeks
     .map((week, i) => {
       const emotion = weekly_emotion[week];
-      if (!emotion) return null;
+      if (!emotion || !emotionOrder.includes(emotion)) return null;
       return {
         x: i,
         y: emotionOrder.indexOf(emotion),
@@ -166,8 +166,8 @@ export default function MonthBio({ weekly_emotion }: MonthBioProps) {
             marginTop: "4px",
           }}
         >
-          {weeks.map((_, i) => (
-            <s.XAxisLabel key={i}>{i + 1}주</s.XAxisLabel>
+          {weeks.map((w, i) => (
+            <s.XAxisLabel key={i}>{w.replace("week", "")}주</s.XAxisLabel>
           ))}
         </div>
 
