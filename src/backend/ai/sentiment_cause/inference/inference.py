@@ -21,9 +21,11 @@ def preprocess_user_input(text):
     sentences = re.split(r'(?<=[.!?])\s+', text)      # 문장 단위로 분리
     return [s for s in sentences if len(s) > 5]       # 너무 짧은 문장 제외
 
-# 출력 후처리 함수
+# 출력 후처리 함수 (감정 제거 → 원인만 반환)
 def clean_output(text):
     text = re.sub(r"[\"\'\[\]\(\)]", "", text).strip()
+    if "||" in text:
+        text = text.split("||", 1)[1]  # 감정 제거
     if len(text) < 2 or text.lower() in ["none", "nan", "감정"]:
         return ""
     return text
