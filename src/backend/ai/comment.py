@@ -11,6 +11,10 @@ def gpt_comment(causes, main_emotion=None):
     if not causes:
         return "오늘 하루 특별한 감정 원인을 찾지 못했어요. 내일은 조금 더 마음을 들여다보는 하루가 되길 바랍니다."
 
+    print("\n[🔥 감정 원인 디버그 출력]")
+    for i, (sentence, cause) in enumerate(causes, 1):
+        print(f"{i}. \"{sentence}\" → 원인: {cause}")
+
     prompt = "다음은 사용자의 일기에서 추출한 감정 원인입니다:\n"
     for i, (sentence, cause) in enumerate(causes, 1):
         prompt += f"{i}. \"{sentence}\" → 원인: {cause}\n"
