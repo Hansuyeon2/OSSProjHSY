@@ -21,6 +21,7 @@ const MainContent = ({
   )}.${String(today.getDate()).padStart(2, "0")}`;
 
   const handleClick = () => {
+    if (!content) return;
     const formattedDate = created_at?.slice(0, 10);
     navigate(`/todayReport/${id}`, { state: { id, formattedDate } });
   };

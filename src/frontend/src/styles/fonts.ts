@@ -9,7 +9,7 @@ const fontGenerator = (
   font-weight: ${weight};
   font-size: ${size};
 
-  font-family: ${fontFamily ? `${fontFamily}` : "suite"};
+  font-family: ${fontFamily ? `${fontFamily}` : ""};
 `;
 
 export const fonts = {

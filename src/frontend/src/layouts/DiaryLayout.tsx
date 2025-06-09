@@ -34,7 +34,7 @@ const DiaryLayout = ({
       </S.DiaryHeader>
       <S.DiarySpringLeft src="/images/diary/spring.svg" />
       <S.DiarySpringRight src="/images/diary/spring.svg" />
-      <S.DiaryImgIcon src="/images/diary/diaryIcon.png" />
+      {/* <S.DiaryImgIcon src="/images/diary/diaryIcon.png" /> */}
       <S.DiaryImgClover src="/images/diary/diaryclover.png" />
       <S.DiaryContent>{children}</S.DiaryContent>
     </S.DiaryWrapper>
