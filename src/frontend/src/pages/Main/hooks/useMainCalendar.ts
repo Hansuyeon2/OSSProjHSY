@@ -41,7 +41,7 @@ export const useMainCalendar = () => {
     const formattedDate = `${today.getMonth() + 1}.${today.getDate()}`;
     return {
       date: formattedDate,
-      content: entry?.content || "오늘 작성된 일기가 없어요.",
+      content: entry?.content,
       id: entry?.id,
       created_at: entry?.created_at,
     };
