@@ -30,7 +30,7 @@
 
 ## 📹 시연 영상
 
-[🔗 전체 서비스 시연 영상](시연 영상 링크 추가 예정)
+[🔗 전체 서비스 시연 영상](https://github.com/CSID-DGU/2025-1-OSSProj-liong-01/blob/main/doc/3_5_OSSProj_01_%EB%9D%BC%EC%9D%B4%EC%98%B9_%EC%8B%9C%EC%97%B0%EB%8F%99%EC%98%81%EC%83%81.mpeg)
 
 <br>
 
@@ -140,6 +140,7 @@
 로그는 일정 간격(logging_steps=100)마다 기록되며, 불필요한 외부 로깅은 비활성화(report_to="none")된다.
 
 <img width="369" alt="스크린샷 2025-06-10 오후 3 22 47" src="https://github.com/user-attachments/assets/813a7ed2-f2d2-468a-a56e-6456d59481c8" />
+<br>
 최종 학습 loss는 0.15로 매우 높은 정확도 및 신뢰도를 보이고 있다.
 
 (5) 모델 저장 및 학습 완료
@@ -408,16 +409,15 @@ AI Hub의 한국어 감성대화 말뭉치를 기반으로 감정일기 형식�
 - 회의록
   - [회의록](https://github.com/CSID-DGU/2025-1-OSSProj-liong-01/blob/main/doc/3_3_OSSProj_01_liong_%ED%9A%8C%EC%9D%98%EB%A1%9D.pdf)
 - 이슈관리
-  - [이슈 관리]
-  <img width="650" alt="스크린샷 2025-06-10 오후 3 25 03" src="https://github.com/user-attachments/assets/000cbd58-a85a-4f6e-b946-1130262dc92e" />
-  <img width="650" alt="스크린샷 2025-06-10 오후 3 25 20" src="https://github.com/user-attachments/assets/c4e5350b-d76e-4ad3-ab82-48e75e99ed0e" />
+  <img width="400" alt="스크린샷 2025-06-10 오후 3 25 03" src="https://github.com/user-attachments/assets/000cbd58-a85a-4f6e-b946-1130262dc92e" />
+  <img width="400" alt="스크린샷 2025-06-10 오후 3 25 20" src="https://github.com/user-attachments/assets/c4e5350b-d76e-4ad3-ab82-48e75e99ed0e" />
 - API 명세서
   - [API 명세서](https://mignonieee.notion.site/API-1b4ef1aece7f805fa047fec17dd98f71?source=copy_link)
 - 보고서
-  - [수행계획서](링크 추가 예정)
-  - [중간보고서](링크 추가 예정)
-  - [최종보고서](링크 추가 예정)
+  - [수행계획서](https://github.com/CSID-DGU/2025-1-OSSProj-liong-01/blob/main/doc/1_1_OSSProj_01_%EB%9D%BC%EC%9D%B4%EC%98%B9_%EC%88%98%ED%96%89%EA%B3%84%ED%9A%8D%EC%84%9C.pdf)
+  - [중간보고서](https://github.com/CSID-DGU/2025-1-OSSProj-liong-01/blob/main/doc/2_1_OSSProj_01_%EB%9D%BC%EC%9D%B4%EC%98%B9_%EC%A4%91%EA%B0%84%EB%B3%B4%EA%B3%A0%EC%84%9C.pdf)
+  - [최종보고서](https://github.com/CSID-DGU/2025-1-OSSProj-liong-01/blob/main/doc/3_1_OSSProj_01_%EB%9D%BC%EC%9D%B4%EC%98%B9_%EC%B5%9C%EC%A2%85%EB%B3%B4%EA%B3%A0%EC%84%9C.pdf)
 - 발표자료
-  - [수행 계획서 발표](링크 추가 예정)
-  - [중간 발표](링크 추가 예정)
-  - [최종 발표](링크 추가 예정)
+  - [수행 계획서 발표](https://github.com/CSID-DGU/2025-1-OSSProj-liong-01/blob/main/doc/1_2_OSSProj_01_%EB%9D%BC%EC%9D%B4%EC%98%B9_%EC%A0%9C%EC%95%88%EB%B0%9C%ED%91%9C%EC%9E%90%EB%A3%8C.pdf)
+  - [중간 발표](https://github.com/CSID-DGU/2025-1-OSSProj-liong-01/blob/main/doc/2_2_OSSProj_01_%EB%9D%BC%EC%9D%B4%EC%98%B9_%EC%A4%91%EA%B0%84%EB%B0%9C%ED%91%9C%EC%9E%90%EB%A3%8C.pdf)
+  - [최종 발표](https://github.com/CSID-DGU/2025-1-OSSProj-liong-01/blob/main/doc/3_2_OSSProj_01_%EB%9D%BC%EC%9D%B4%EC%98%B9_%EC%B5%9C%EC%A2%85%EB%B0%9C%ED%91%9C%EC%9E%90%EB%A3%8C.pdf)
