@@ -6,11 +6,23 @@
 
 ## 🦁 팀원 소개
 
-| **이름** | **역할**                                     | **학과**       |
-|----------|----------------------------------------------|----------------|
-| 오찬주   | 팀장<br>프론트엔드, AI 감정 데이터셋 전처리     | 정치외교학전공 |
-| 한수연   | 백엔드, AI 감정 분석 기능 구현                | 역사교육과     |
-| 황민영   | UIUX 디자인, AI 감정 원인 추출 기능 구현       | 경영정보학과   |
+<table>
+  <tr>
+    <td align="center"><img src="https://github.com/user-attachments/assets/d1d20f2d-4a3d-4269-9831-1dfc0c956b33" width="150" /></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/d18e1869-e432-4193-a5bf-247538cdd76a" width="150" /></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/3fb2d1e4-b2c0-4338-aecd-cd47fd6efddd" width="150" /></td>
+  </tr>
+  <tr>
+    <td align="center">오찬주</td>
+    <td align="center">한수연</td>
+    <td align="center">황민영</td>
+  </tr>
+  <tr>
+    <td align="center">팀장, 프론트엔드, AI 감정 데이터셋 전처리</td>
+    <td align="center">백엔드, AI 감정 분석 기능 구현</td>
+    <td align="center">UIUX 디자인, AI 감정 원인 추출 기능 구현</td>
+  </tr>
+</table>
 
 <br>
 
@@ -24,13 +36,25 @@
  
 ## 💻 프로젝트 소개
 본 서비스는 사용자가 하루에 짧게 여러 번 기록할 수 있는 메모형 일기 작성, 그리고 감정 분석을 통한 바이오리듬 시각화 및 개인 맞춤형 조언 제공을 통해, 감정을 자연스럽게 돌아보고 더 나은 일상으로 이끌 수 있도록 돕는다.
+<br>
+<br>
+[<img src="https://github.com/user-attachments/assets/f38d898b-027a-4f05-93c0-ff946a5a4947" alt="아이콘" width="20" /> 쿼디 서비스 바로가기](https://liong.netlify.app/)
 
 <br>
 
 
-## 📹 시연 영상
+## 💼 프로젝트 관리 문서
 
-[🔗 전체 서비스 시연 영상](https://github.com/CSID-DGU/2025-1-OSSProj-liong-01/blob/main/doc/3_5_OSSProj_01_%EB%9D%BC%EC%9D%B4%EC%98%B9_%EC%8B%9C%EC%97%B0%EB%8F%99%EC%98%81%EC%83%81.mpeg)
+### 회의록
+
+[📑 회의록 링크](https://github.com/CSID-DGU/2025-1-OSSProj-liong-01/blob/main/doc/3_3_OSSProj_01_%EB%9D%BC%EC%9D%B4%EC%98%B9_%ED%9A%8C%EC%9D%98%EB%A1%9D.pdf)
+
+### 시연 영상
+
+[🔗 전체 서비스 시연 영상](https://youtu.be/7Z1hxcDPluE)
+
+### 제품의 구성, 배포 및 운영 관련 문서 자료
+[📋 제품의 구성, 배포 및 운영 관련 문서 자료] (링크 추가예정)
 
 <br>
 
@@ -140,7 +164,7 @@
 로그는 일정 간격(logging_steps=100)마다 기록되며, 불필요한 외부 로깅은 비활성화(report_to="none")된다.
 
 <img width="369" alt="스크린샷 2025-06-10 오후 3 22 47" src="https://github.com/user-attachments/assets/813a7ed2-f2d2-468a-a56e-6456d59481c8" />
-<br>
+
 최종 학습 loss는 0.15로 매우 높은 정확도 및 신뢰도를 보이고 있다.
 
 (5) 모델 저장 및 학습 완료
@@ -199,66 +223,38 @@ AI Hub의 한국어 감성대화 말뭉치를 기반으로 감정일기 형식�
 
 ## 🔧 기술 스택
 
-### Design
-- **Figma**
-
-### Frontend
-- **React**, **TypeScript**  
-- **Styled-Components**, **Jotai**  
-- **Axios**
-- **Netlify** 
-
-### Backend
-- **DjangoRestFramework(DRF)**  
-- **SQLite**
-
-### Data Analysis
-- **Python**
-
-### Server
-- **AWS EC2**
-- **Nginx** 
-- **Gunicorn**
+| 분야            | 사용 기술                                                                  |
+|-----------------|-----------------------------------------------------------------------------|
+| **Design**      | Figma                                                                       |
+| **Frontend**    | React, TypeScript, Styled-Components, Jotai, Axios, Netlify                |
+| **Backend**     | DjangoRestFramework (DRF), SQLite                                           |
+| **Data Analysis** | Python                                                                    |
+| **Server**      | AWS EC2, Nginx, Gunicorn                                                    |
 
 
 <br>
 
-## 💼 감정 분석 및 맞춤형 콘텐츠 조언 제공 시스템 구성도
-<img width="400" alt="스크린샷 2025-06-10 오후 3 13 01" src="https://github.com/user-attachments/assets/b7df1f21-3c17-426e-95ba-dd7cddb74bc9" />
-<br>
+## 💼 시스템 구성도 및 다이어그램
 
-## 💼 유스케이스 다이어그램
-<img width="400" alt="스크린샷 2025-06-10 오후 3 15 38" src="https://github.com/user-attachments/assets/40b46bcc-b542-4789-8b61-39e5ab0b8df3" />
-<br>
+| 감정 분석 및 맞춤형 콘텐츠 조언 제공 시스템 구성도 | 유스케이스 다이어그램 |
+|------------------------------------------------------|------------------------|
+| <img width="400" src="https://github.com/user-attachments/assets/b7df1f21-3c17-426e-95ba-dd7cddb74bc9" /> | <img width="400" src="https://github.com/user-attachments/assets/40b46bcc-b542-4789-8b61-39e5ab0b8df3" /> |
 
-## 💼 전체 시스템 블록 다이어그램
-<img width="400" alt="스크린샷 2025-06-10 오후 3 15 05" src="https://github.com/user-attachments/assets/f33fec20-bd28-4605-9b95-6de6e754e4cf" />
-<br>
+| 전체 시스템 블록 다이어그램 | 메인페이지 시퀀스 다이어그램 |
+|----------------------------|------------------------------|
+| <img width="400" src="https://github.com/user-attachments/assets/f33fec20-bd28-4605-9b95-6de6e754e4cf" /> | <img width="400" src="https://github.com/user-attachments/assets/47b7c172-8572-4cae-a703-8df793336925" /> |
 
-## 💼 메인페이지 시퀀스 다이어그램
-<img width="400" alt="스크린샷 2025-06-10 오후 3 16 55" src="https://github.com/user-attachments/assets/47b7c172-8572-4cae-a703-8df793336925" />
-<br>
+| 일일 감정분석 페이지 시퀀스 다이어그램 | 플로우 차트 |
+|---------------------------------------|-------------|
+| <img width="400" src="https://github.com/user-attachments/assets/026a4229-300c-45fe-9c3a-7ec9ecec263d" /> | <img width="400" src="https://github.com/user-attachments/assets/33542695-8154-417b-8087-5e1c633066d8" /> |
 
-## 💼 일일 감정분석 페이지 시퀀스 다이어그램
-<img width="400" alt="스크린샷 2025-06-10 오후 3 17 04" src="https://github.com/user-attachments/assets/026a4229-300c-45fe-9c3a-7ec9ecec263d" />
-<br>
+| 데이터베이스 모듈 | ERD |
+|------------------|-----|
+| <img width="400" src="https://github.com/user-attachments/assets/34e6a4cd-398c-4e78-b2bd-21d61b8fea42" /> | <img width="400" src="https://github.com/user-attachments/assets/7ccb5c69-adc0-4f4a-ba1f-9f9649f82f39" /> |
 
-## 🛳️ 플로우 차트
-<img width="400" alt="스크린샷 2025-06-10 오후 3 18 21" src="https://github.com/user-attachments/assets/33542695-8154-417b-8087-5e1c633066d8" />
-<br>
-
-## 💾 데이터베이스 모듈
-<img width="400" alt="스크린샷 2025-06-10 오후 3 18 10" src="https://github.com/user-attachments/assets/34e6a4cd-398c-4e78-b2bd-21d61b8fea42" />
-
-<br>
-<br>
-
-## 💾 ERD
-<img width="400" alt="스크린샷 2025-06-10 오후 3 18 17" src="https://github.com/user-attachments/assets/7ccb5c69-adc0-4f4a-ba1f-9f9649f82f39" />
-<br>
-
-## 🔗 시스템 아키텍처
-<img width="400" alt="스크린샷 2025-06-10 오후 3 22 57" src="https://github.com/user-attachments/assets/3c2ca280-7faa-4eee-b022-4e8cdc9b4ad9" />
+| 시스템 아키텍처 |
+|----------------|
+| <img width="400" src="https://github.com/user-attachments/assets/3c2ca280-7faa-4eee-b022-4e8cdc9b4ad9" /> |
 <br>
 
 ## 🗂️ 디렉터리 구성
@@ -408,10 +404,13 @@ AI Hub의 한국어 감성대화 말뭉치를 기반으로 감정일기 형식�
 ## 📋 자료
 - 회의록
   - [회의록](https://github.com/CSID-DGU/2025-1-OSSProj-liong-01/blob/main/doc/3_3_OSSProj_01_liong_%ED%9A%8C%EC%9D%98%EB%A1%9D.pdf)
-    <br>
 - 이슈관리
-  <img width="400" alt="스크린샷 2025-06-10 오후 3 25 03" src="https://github.com/user-attachments/assets/000cbd58-a85a-4f6e-b946-1130262dc92e" />
-  <img width="400" alt="스크린샷 2025-06-10 오후 3 25 20" src="https://github.com/user-attachments/assets/c4e5350b-d76e-4ad3-ab82-48e75e99ed0e" />
+  - [이슈 관리](https://github.com/CSID-DGU/2025-1-OSSProj-liong-01/issues?q=is%3Aissue%20state%3Aclosed)
+  
+| 라벨링 종류 | 이슈 OPEN VER. | 이슈 CLOSE VER. |
+|-------------|------------------|------------------|
+| <img width="300" src="https://github.com/user-attachments/assets/a89808fb-ef1d-494d-952b-db5ce0b33ca0" /> | <img width="300" src="https://github.com/user-attachments/assets/000cbd58-a85a-4f6e-b946-1130262dc92e" /> | <img width="300" src="https://github.com/user-attachments/assets/c4e5350b-d76e-4ad3-ab82-48e75e99ed0e" /> |
+
 - API 명세서
   - [API 명세서](https://mignonieee.notion.site/API-1b4ef1aece7f805fa047fec17dd98f71?source=copy_link)
 - 보고서
@@ -419,6 +418,6 @@ AI Hub의 한국어 감성대화 말뭉치를 기반으로 감정일기 형식�
   - [중간보고서](https://github.com/CSID-DGU/2025-1-OSSProj-liong-01/blob/main/doc/2_1_OSSProj_01_%EB%9D%BC%EC%9D%B4%EC%98%B9_%EC%A4%91%EA%B0%84%EB%B3%B4%EA%B3%A0%EC%84%9C.pdf)
   - [최종보고서](https://github.com/CSID-DGU/2025-1-OSSProj-liong-01/blob/main/doc/3_1_OSSProj_01_%EB%9D%BC%EC%9D%B4%EC%98%B9_%EC%B5%9C%EC%A2%85%EB%B3%B4%EA%B3%A0%EC%84%9C.pdf)
 - 발표자료
-  - [수행 계획서 발표](https://github.com/CSID-DGU/2025-1-OSSProj-liong-01/blob/main/doc/1_2_OSSProj_01_%EB%9D%BC%EC%9D%B4%EC%98%B9_%EC%A0%9C%EC%95%88%EB%B0%9C%ED%91%9C%EC%9E%90%EB%A3%8C.pdf)
+  - [제안 발표](https://github.com/CSID-DGU/2025-1-OSSProj-liong-01/blob/main/doc/1_2_OSSProj_01_%EB%9D%BC%EC%9D%B4%EC%98%B9_%EC%A0%9C%EC%95%88%EB%B0%9C%ED%91%9C%EC%9E%90%EB%A3%8C.pdf)
   - [중간 발표](https://github.com/CSID-DGU/2025-1-OSSProj-liong-01/blob/main/doc/2_2_OSSProj_01_%EB%9D%BC%EC%9D%B4%EC%98%B9_%EC%A4%91%EA%B0%84%EB%B0%9C%ED%91%9C%EC%9E%90%EB%A3%8C.pdf)
   - [최종 발표](https://github.com/CSID-DGU/2025-1-OSSProj-liong-01/blob/main/doc/3_2_OSSProj_01_%EB%9D%BC%EC%9D%B4%EC%98%B9_%EC%B5%9C%EC%A2%85%EB%B0%9C%ED%91%9C%EC%9E%90%EB%A3%8C.pdf)
