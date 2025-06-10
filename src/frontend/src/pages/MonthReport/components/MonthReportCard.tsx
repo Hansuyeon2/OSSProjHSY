@@ -7,11 +7,9 @@ interface MonthReportCardProps {
 }
 
 const MonthReportCard = ({ month, emotion, onClick }: MonthReportCardProps) => {
-  const bgIndex = (month % 2) + 1;
-
   return (
     <s.MonthReportCardWrapper onClick={onClick}>
-      <s.MonthReportCardImg src={`/images/report/bg${bgIndex}.png`} />
+      <s.MonthReportCardImg src={`/images/report/reportBg.png`} />
       <s.MonthReportCardFooter>
         <s.MonthReportCardBookMark src="/images/report/bookmark.png" />
         <s.MonthReportCardFooterTitle>

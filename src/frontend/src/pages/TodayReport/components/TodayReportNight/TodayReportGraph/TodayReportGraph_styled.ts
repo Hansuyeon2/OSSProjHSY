@@ -69,7 +69,7 @@ export const Tooltip = styled.div<{ top: number; left: number }>`
   border: 1px solid ${({ theme }) => theme.colors.mainbrown04};
   color: white;
   padding: 4px;
-  width: 60px;
+  width: 75px;
   border-radius: 4px;
   justify-content: center;
   display: flex;
