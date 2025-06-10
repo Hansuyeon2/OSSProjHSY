@@ -408,6 +408,7 @@ AI Hub의 한국어 감성대화 말뭉치를 기반으로 감정일기 형식�
 ## 📋 자료
 - 회의록
   - [회의록](https://github.com/CSID-DGU/2025-1-OSSProj-liong-01/blob/main/doc/3_3_OSSProj_01_liong_%ED%9A%8C%EC%9D%98%EB%A1%9D.pdf)
+    <br>
 - 이슈관리
   <img width="400" alt="스크린샷 2025-06-10 오후 3 25 03" src="https://github.com/user-attachments/assets/000cbd58-a85a-4f6e-b946-1130262dc92e" />
   <img width="400" alt="스크린샷 2025-06-10 오후 3 25 20" src="https://github.com/user-attachments/assets/c4e5350b-d76e-4ad3-ab82-48e75e99ed0e" />
