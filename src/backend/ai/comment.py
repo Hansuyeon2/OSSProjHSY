@@ -1,7 +1,7 @@
 from openai import OpenAI
 import os
 from dotenv import load_dotenv
-from .inference.inference import generate_emotion_and_cause, get_main_emotion_with_latest_priority
+from .sentiment_cause.inference.inference import generate_emotion_and_cause, get_main_emotion_with_latest_priority
 
 load_dotenv()
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))

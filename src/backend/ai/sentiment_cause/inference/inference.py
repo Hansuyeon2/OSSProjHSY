@@ -93,3 +93,5 @@ if __name__ == "__main__":
         print(f"대표감정 : {emotion}")
         print(f"세부감정 : {', '.join(sub_emotions) if sub_emotions else '없음'}")
         print(f"원인 : {cause}\n")
+
+generate_cause_from_text = generate_emotion_and_cause
