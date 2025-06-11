@@ -55,7 +55,9 @@ const MainHeader = ({
           />
         )}
       </S.MainPageHeaderWrapper>
-      {isLogoutModalOpen && <LogoutModal />}
+      {isLogoutModalOpen && (
+        <LogoutModal setIsLogoutModalOpen={setisLogoutModalOpen} />
+      )}
     </>
   );
 };
