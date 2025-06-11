@@ -1,6 +1,7 @@
 from transformers import pipeline
 import re
-from collections import Counter
+from collections import Counter, defaultdict
+
 
 sentiment_pipeline = pipeline(
     "text-classification",
@@ -28,11 +29,11 @@ def split_sentences(text):
     sentences = re.split(r'(?<=[.!?])+', text)
     return [s.strip() for s in sentences if s.strip()]
 
-def sentiment(content, accuracy=0.1):
+def sentiment(content, accuracy=0.2):
     sentences = split_sentences(content)
     
-    main_emotions = []  # 6개 감정 (main)
-    sub_emotions = []   # 상세 감정 (sub)
+    main_emotions = []  # 6개 감정
+    sub_emotions = []   # 상세 감정
 
     for sentence in sentences:
         result = sentiment_pipeline(sentence)
@@ -40,45 +41,54 @@ def sentiment(content, accuracy=0.1):
         best_label = best_result['label']
         best_score = best_result['score']
 
-        main_emotion = find_main_emotion(best_label)
-        if best_score >= accuracy:
-            main_emotions.append(main_emotion)
-
         sub_emotions.append(best_label)
-    
-    result_main_emotions = [e for e in main_emotions if e != "기타"]
 
-    if result_main_emotions:
-        emotion_counter = Counter(result_main_emotions)
-        most_common = emotion_counter.most_common()
-        top_count = most_common[0][1]
-        result_emotion = [emotion for emotion, count in most_common if count == top_count]
+        if best_score >= accuracy:
+            main_emotion = find_main_emotion(best_label)
+            if main_emotion != "기타":
+                main_emotions.append(main_emotion)
 
-        if len(result_emotion) == 1:
-            most_common_emotion = result_emotion[0]
-        else:
-            best_score = -1
-            best_emotion = None
-            for sentence in sentences:
-                result = sentiment_pipeline(sentence)
-                best_result = max(result[0], key=lambda x: x['score'])
-                best_label = best_result['label']
-                best_score_candidate = best_result['score']
-                main_emotion_candidate = find_main_emotion(best_label)
-
-                if main_emotion_candidate in result_emotion and best_score_candidate > best_score:
-                    best_score = best_score_candidate
-                    best_emotion = main_emotion_candidate
-
-            most_common_emotion = best_emotion                                
-    else:
+    if not main_emotions:
         return {
             'status': 'success',
             'main_emotion': '기타',
             'sub_emotion': sub_emotions,
         }
+
+    emotion_count = defaultdict(int)
+    emotion_last_index = {}
+
+    for idx, emo in enumerate(main_emotions):
+        emotion_count[emo] += 1
+        emotion_last_index[emo] = idx  
+
+    sorted_emotions = sorted(
+        emotion_count.items(),
+        key=lambda x: (-x[1], -emotion_last_index[x[0]])  
+    )
+
+    most_common_emotion = sorted_emotions[0][0]
+
     return {
         'status': 'success',
         'main_emotion': most_common_emotion,
         'sub_emotion': sub_emotions,
     }
+
+
+if __name__ == "__main__":
+    print("감정 분석을 시작합니다. 종료하려면 'exit'을 입력하세요.\n")
+
+    while True:
+        test_text = input("일기 내용을 입력하세요:\n> ")
+
+        if test_text.lower() == "exit":
+            print("감정 분석을 종료합니다.")
+            break
+
+        result = sentiment(test_text)
+
+        print("\n[감정 분석 결과]")
+        print(f"대표 감정 (main_emotion): {result['main_emotion']}")
+        print(f"세부 감정들 (sub_emotion): {', '.join(result['sub_emotion'])}")
+        print("\n---\n")

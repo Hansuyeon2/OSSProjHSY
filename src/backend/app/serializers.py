@@ -157,7 +157,7 @@ class NightDiarySerializer(serializers.ModelSerializer):
                     "exhibitions": maintain_exhibitions
                 }
             }
-        if top_main == "기타":
+        elif top_main == "기타":
             analysis = {
                 "set_1": {
                     "title": "랜덤 추천",
@@ -202,3 +202,7 @@ class NightDiarySerializer(serializers.ModelSerializer):
         validated_data["comment"] = comment
 
         return super().create(validated_data)
+
+class ReportSerializer(serializers.Serializer):
+    year = serializers.IntegerField()
+    month = serializers.IntegerField()
