@@ -61,6 +61,17 @@ export const Point = styled.div<{ top: number; left: number }>`
   left: ${({ left }) => left}px;
   transform: translate(-50%, -50%);
   cursor: pointer;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
 `;
 
 export const Tooltip = styled.div<{ top: number; left: number }>`
@@ -72,6 +83,8 @@ export const Tooltip = styled.div<{ top: number; left: number }>`
   width: 75px;
   border-radius: 4px;
   justify-content: center;
+  align-items: center;
+  text-align: center;
   display: flex;
   font-size: 12px;
   transform: translate(-50%, -100%);
